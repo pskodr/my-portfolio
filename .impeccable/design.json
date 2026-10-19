@@ -1,0 +1,979 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T20:45:36.700Z",
+  "title": "Design System: Phasakorn Chivatxaranukul · Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "oklch(16.4% 0.005 264.4)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c8c9cc",
+          "#edeef2"
+        ]
+      },
+      "panel-charcoal": {
+        "role": "neutral",
+        "displayName": "Panel Charcoal",
+        "canonical": "oklch(18.7% 0.006 271.1)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#414245",
+          "#606165",
+          "#818286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef3"
+        ]
+      },
+      "raised-charcoal": {
+        "role": "neutral",
+        "displayName": "Raised Charcoal",
+        "canonical": "oklch(22.6% 0.008 264.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404247",
+          "#5f6166",
+          "#808287",
+          "#a2a5aa",
+          "#c6c9cf",
+          "#eceef4"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(93.9% 0.007 97.4)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#262521",
+          "#43423e",
+          "#62615d",
+          "#83827e",
+          "#a6a5a0",
+          "#cac9c4",
+          "#f0eee9"
+        ],
+        "note": "Bone (#ecebe6) at partial alpha; ramp shows the base hue."
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "oklch(93.9% 0.007 97.4)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#262521",
+          "#43423e",
+          "#62615d",
+          "#83827e",
+          "#a6a5a0",
+          "#cac9c4",
+          "#f0eee9"
+        ],
+        "note": "Bone (#ecebe6) at partial alpha; ramp shows the base hue."
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "canonical": "oklch(93.9% 0.007 97.4)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#262521",
+          "#43423e",
+          "#62615d",
+          "#83827e",
+          "#a6a5a0",
+          "#cac9c4",
+          "#f0eee9"
+        ]
+      },
+      "bone-dim": {
+        "role": "neutral",
+        "displayName": "Bone Dim",
+        "canonical": "oklch(77.0% 0.010 93.6)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#272520",
+          "#44423c",
+          "#63615b",
+          "#84827c",
+          "#a7a59e",
+          "#cbc9c2",
+          "#f1eee7"
+        ]
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "oklch(63.2% 0.009 99.0)",
+        "tonalRamp": [
+          "#0c0b07",
+          "#262520",
+          "#43423d",
+          "#62615c",
+          "#83827d",
+          "#a6a59f",
+          "#cac9c3",
+          "#f0efe8"
+        ]
+      },
+      "monitor-cool": {
+        "role": "primary",
+        "displayName": "Monitor Cool",
+        "canonical": "oklch(82.7% 0.086 262.7)",
+        "tonalRamp": [
+          "#00042e",
+          "#0d224e",
+          "#29406f",
+          "#476092",
+          "#6782b6",
+          "#88a5db",
+          "#accaff",
+          "#d0efff"
+        ]
+      },
+      "monitor-cool-hover": {
+        "role": "primary",
+        "displayName": "Monitor Cool Hover",
+        "canonical": "oklch(87.7% 0.060 263.3)",
+        "tonalRamp": [
+          "#010824",
+          "#152442",
+          "#314262",
+          "#4f6184",
+          "#7083a7",
+          "#92a5cc",
+          "#b5caf1",
+          "#daefff"
+        ]
+      },
+      "pika-yellow": {
+        "role": "secondary",
+        "displayName": "Pika Yellow",
+        "canonical": "oklch(85.0% 0.146 90.5)",
+        "tonalRamp": [
+          "#210000",
+          "#3f1a00",
+          "#5f3a00",
+          "#815a00",
+          "#a47c00",
+          "#c8a007",
+          "#edc447",
+          "#ffea70"
+        ]
+      },
+      "barca-blue-lifted": {
+        "role": "secondary",
+        "displayName": "Barça Blue, Lifted",
+        "canonical": "oklch(69.5% 0.109 256.2)",
+        "tonalRamp": [
+          "#000137",
+          "#002158",
+          "#13417a",
+          "#34629e",
+          "#5584c3",
+          "#77a7e9",
+          "#9accff",
+          "#bef2ff"
+        ]
+      },
+      "room-plaster": {
+        "role": "room-material",
+        "displayName": "Plaster (back wall)",
+        "canonical": "oklch(45.8% 0.008 277.0)",
+        "tonalRamp": [
+          "#0a0b0f",
+          "#242529",
+          "#414246",
+          "#606166",
+          "#818287",
+          "#a3a5aa",
+          "#c8c9cf",
+          "#edeef4"
+        ]
+      },
+      "room-plaster-side": {
+        "role": "room-material",
+        "displayName": "Plaster (left wall)",
+        "canonical": "oklch(47.2% 0.008 277.0)",
+        "tonalRamp": [
+          "#0a0b0f",
+          "#242529",
+          "#414246",
+          "#606166",
+          "#818287",
+          "#a3a5aa",
+          "#c8c9ce",
+          "#edeef4"
+        ]
+      },
+      "room-oak": {
+        "role": "room-material",
+        "displayName": "Smoked Oak",
+        "canonical": "oklch(34.4% 0.024 56.5)",
+        "tonalRamp": [
+          "#130803",
+          "#2e221a",
+          "#4c3f36",
+          "#6c5e54",
+          "#8e7f75",
+          "#b1a297",
+          "#d6c6ba",
+          "#fcebdf"
+        ],
+        "note": "Midpoint of the procedural plank range hsl(24 16-24% 19-25%)."
+      },
+      "room-walnut": {
+        "role": "room-material",
+        "displayName": "Walnut",
+        "canonical": "oklch(27.1% 0.012 44.6)",
+        "tonalRamp": [
+          "#100a07",
+          "#2a2320",
+          "#48403d",
+          "#675f5c",
+          "#89807d",
+          "#aca39f",
+          "#d0c7c3",
+          "#f6ece8"
+        ]
+      },
+      "room-desk-oak": {
+        "role": "room-material",
+        "displayName": "Desk Oak",
+        "canonical": "oklch(36.3% 0.029 56.1)",
+        "tonalRamp": [
+          "#140802",
+          "#302117",
+          "#4e3e33",
+          "#6f5d51",
+          "#917e72",
+          "#b4a194",
+          "#d9c5b7",
+          "#ffeadc"
+        ]
+      },
+      "room-rug-wool": {
+        "role": "room-material",
+        "displayName": "Wool Rug",
+        "canonical": "oklch(35.4% 0.004 67.7)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262523",
+          "#44423f",
+          "#63615f",
+          "#84827f",
+          "#a7a4a2",
+          "#cbc9c6",
+          "#f0eeeb"
+        ]
+      },
+      "room-duvet": {
+        "role": "room-material",
+        "displayName": "Duvet Slate",
+        "canonical": "oklch(38.0% 0.025 257.5)",
+        "tonalRamp": [
+          "#050b16",
+          "#1d2631",
+          "#3a4350",
+          "#586270",
+          "#798392",
+          "#9ba6b5",
+          "#bfcada",
+          "#e4efff"
+        ]
+      },
+      "room-linen": {
+        "role": "room-material",
+        "displayName": "Linen",
+        "canonical": "oklch(62.1% 0.011 81.8)",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28251f",
+          "#45413b",
+          "#64615a",
+          "#86827b",
+          "#a9a49d",
+          "#cdc9c1",
+          "#f2eee6"
+        ]
+      },
+      "room-curtain": {
+        "role": "room-material",
+        "displayName": "Curtain",
+        "canonical": "oklch(34.9% 0.004 84.6)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262523",
+          "#434240",
+          "#62615f",
+          "#838280",
+          "#a6a5a2",
+          "#cac9c6",
+          "#efeeec"
+        ]
+      },
+      "room-hardware": {
+        "role": "room-material",
+        "displayName": "Hardware Black",
+        "canonical": "oklch(23.1% 0.006 271.2)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#414245",
+          "#606165",
+          "#818286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef3"
+        ]
+      },
+      "room-screen-black": {
+        "role": "room-material",
+        "displayName": "Screen Black",
+        "canonical": "oklch(17.3% 0.004 264.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c8c9cc",
+          "#edeef1"
+        ]
+      },
+      "room-night-glass": {
+        "role": "room-material",
+        "displayName": "Night Glass",
+        "canonical": "oklch(21.9% 0.036 264.4)",
+        "tonalRamp": [
+          "#050a1a",
+          "#1c2537",
+          "#384255",
+          "#576176",
+          "#788398",
+          "#9aa5bc",
+          "#bec9e1",
+          "#e3efff"
+        ]
+      },
+      "jersey-blau": {
+        "role": "room-material",
+        "displayName": "Jersey Blau",
+        "canonical": "oklch(42.6% 0.139 254.8)",
+        "tonalRamp": [
+          "#000043",
+          "#001d65",
+          "#003f89",
+          "#1d61ae",
+          "#4284d3",
+          "#65a7fa",
+          "#89cdff",
+          "#adf3ff"
+        ]
+      },
+      "jersey-grana": {
+        "role": "room-material",
+        "displayName": "Jersey Grana",
+        "canonical": "oklch(46.2% 0.185 8.3)",
+        "tonalRamp": [
+          "#3a0000",
+          "#610013",
+          "#88002e",
+          "#b0164c",
+          "#d8446c",
+          "#ff6a8e",
+          "#ff90b1",
+          "#ffb5d6"
+        ]
+      },
+      "jersey-pinstripe": {
+        "role": "room-material",
+        "displayName": "Jersey Pinstripe",
+        "canonical": "oklch(81.4% 0.166 89.2)",
+        "tonalRamp": [
+          "#240000",
+          "#441600",
+          "#653600",
+          "#875700",
+          "#aa7a00",
+          "#cf9d00",
+          "#f4c21b",
+          "#ffe855"
+        ]
+      },
+      "plush-yellow": {
+        "role": "room-material",
+        "displayName": "Plush Yellow",
+        "canonical": "oklch(87.1% 0.150 93.5)",
+        "tonalRamp": [
+          "#1f0100",
+          "#3e1c00",
+          "#5d3b00",
+          "#7e5c00",
+          "#a17e00",
+          "#c5a200",
+          "#eac641",
+          "#ffec6c"
+        ]
+      },
+      "light-ceiling": {
+        "role": "room-light",
+        "displayName": "Ceiling Fill",
+        "canonical": "oklch(90.9% 0.029 77.5)",
+        "tonalRamp": [
+          "#120901",
+          "#2d2315",
+          "#4b4031",
+          "#6b5f4f",
+          "#8c806f",
+          "#afa391",
+          "#d4c7b5",
+          "#faedd9"
+        ]
+      },
+      "light-lamp": {
+        "role": "room-light",
+        "displayName": "Lamp Amber",
+        "canonical": "oklch(82.7% 0.125 63.8)",
+        "tonalRamp": [
+          "#290000",
+          "#4b0a00",
+          "#6d2d00",
+          "#914e00",
+          "#b67020",
+          "#db9349",
+          "#ffb76e",
+          "#ffdc93"
+        ]
+      },
+      "light-bed-spill": {
+        "role": "room-light",
+        "displayName": "Bed Spill",
+        "canonical": "oklch(88.2% 0.097 74.0)",
+        "tonalRamp": [
+          "#200000",
+          "#3f1900",
+          "#603800",
+          "#825812",
+          "#a5793a",
+          "#ca9c5d",
+          "#efc080",
+          "#ffe5a5"
+        ]
+      },
+      "light-moon": {
+        "role": "room-light",
+        "displayName": "Moonlight",
+        "canonical": "oklch(76.5% 0.070 267.2)",
+        "tonalRamp": [
+          "#020628",
+          "#162247",
+          "#314067",
+          "#506089",
+          "#7081ad",
+          "#92a4d2",
+          "#b5c9f8",
+          "#daeeff"
+        ]
+      },
+      "light-key": {
+        "role": "room-light",
+        "displayName": "Key Light",
+        "canonical": "oklch(87.2% 0.012 79.8)",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28241e",
+          "#45413b",
+          "#65615a",
+          "#86827a",
+          "#a9a49d",
+          "#cdc8c0",
+          "#f3eee6"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The owner's name on the home view only; 26px on mobile."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The single heading at the top of each panel."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Row titles in project, role and gallery lists (17 to 18px, 650)."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Paragraph under a panel heading in Bone Dim, max 60ch; the focus line uses 550 in the accent."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base text."
+      },
+      "body-long": {
+        "displayName": "Body Long",
+        "purpose": "Case-study and interest prose, max 64ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Section titles, nav and object labels, button text (14 to 15px, 600 to 650)."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Dates, kinds, hints, breadcrumbs, tags in Ash (12.5 to 13.5px); dates tabular."
+      }
+    },
+    "shadows": [],
+    "elevation": {
+      "html": "Flat. No box-shadow, no backdrop-filter. Depth by tonal steps (ink-black, panel-charcoal, raised-charcoal) and 1px hairlines; the only gradient is the home legibility scrim.",
+      "room": "Soft PCF shadows from the moonlight only (2048 map); fog #0d0e10 from 16 to 30 units.",
+      "scrim": {
+        "desktop": "linear-gradient(75deg, rgb(13 14 16 / .82) 0%, rgb(13 14 16 / .35) 32%, transparent 52%)",
+        "mobile": "linear-gradient(180deg, rgb(13 14 16 / .9) 0%, rgb(13 14 16 / .4) 26%, transparent 42%, transparent 58%, rgb(13 14 16 / .92) 78%)",
+        "hiddenWhen": "a panel is open"
+      }
+    },
+    "focus": {
+      "value": "outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px",
+      "note": "Programmatically focused h1 shows no ring."
+    },
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single HTML easing curve."
+      },
+      {
+        "name": "hover",
+        "value": "150ms",
+        "purpose": "Colour and fill changes on links, rows, nav."
+      },
+      {
+        "name": "nudge",
+        "value": "200ms var(--ease-out)",
+        "purpose": "Chevrons and arrows moving 3 to 4px right on hover."
+      },
+      {
+        "name": "label",
+        "value": "180ms var(--ease-out)",
+        "purpose": "3D object label fade and 6px rise."
+      },
+      {
+        "name": "panel-in",
+        "value": "360ms var(--ease-out); from opacity 0, translateX(28px)",
+        "purpose": "Panel entrance."
+      },
+      {
+        "name": "stage-crossfade",
+        "value": "600ms var(--ease-out)",
+        "purpose": "Static still to live canvas."
+      },
+      {
+        "name": "camera-approach",
+        "value": "k = 1 - exp(-5.5 * dt) per frame",
+        "purpose": "Camera position, target, fov and view offset; about 0.5s to 95%, 0.7s to settle; interruptible; snaps on first frame and under reduced motion."
+      },
+      {
+        "name": "monitor-shimmer",
+        "value": "intensity 3.2 + sin(t * 0.8) * 0.12; 6 on hover; smoothed 0.2 per frame",
+        "purpose": "The only ambient motion. Stops under reduced motion."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition-duration and animation-duration 0.01ms",
+        "purpose": "Global CSS collapse under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tiny",
+        "value": "340px",
+        "note": "Max-width. Object hints hide."
+      },
+      {
+        "name": "mobile",
+        "value": "819px",
+        "note": "Max-width. Full-width panel, vertical scrim, top/bottom intro split, mobile camera shots (width < 820 in CameraRig), horizontal computer sidebar."
+      },
+      {
+        "name": "narrow-desktop",
+        "value": "1100px",
+        "note": "Max-width. Case-study and interest rows collapse to one column."
+      },
+      {
+        "name": "container-row",
+        "value": "620px",
+        "note": "@container max-width on the panel scroll area and computer content: label/body rows collapse."
+      }
+    ],
+    "room": {
+      "lights": [
+        {
+          "name": "ambient",
+          "color": "#b4b2ae",
+          "intensity": 0.7
+        },
+        {
+          "name": "hemisphere",
+          "sky": "#9a9a9e",
+          "ground": "#2e2622",
+          "intensity": 0.85
+        },
+        {
+          "name": "ceiling-fill",
+          "type": "point",
+          "color": "#ecdfcc",
+          "intensity": 9,
+          "distance": 9
+        },
+        {
+          "name": "bed-spill",
+          "type": "point",
+          "color": "#ffcf8f",
+          "intensity": 1.6,
+          "distance": 2.4
+        },
+        {
+          "name": "moonlight",
+          "type": "directional",
+          "color": "#9fb2e0",
+          "intensity": 1.1,
+          "castShadow": true
+        },
+        {
+          "name": "key",
+          "type": "spot",
+          "color": "#d9d4cc",
+          "intensity": 110,
+          "angle": 0.55,
+          "penumbra": 1
+        },
+        {
+          "name": "desk-lamp",
+          "type": "point",
+          "color": "#ffb46b",
+          "intensity": 1.4,
+          "distance": 2.2
+        },
+        {
+          "name": "nightstand-lamp",
+          "type": "point",
+          "color": "#ffb46b",
+          "intensity": 1.6,
+          "distance": 2.6
+        },
+        {
+          "name": "monitor-spill",
+          "type": "point",
+          "color": "#a9c7ff",
+          "intensity": "3.2 at rest, 6 on hover",
+          "distance": 3.4
+        }
+      ],
+      "objects": [
+        {
+          "id": "computer",
+          "label": "Computer",
+          "hint": "Work, résumé & contact",
+          "leadsTo": "/computer",
+          "inObjectList": true
+        },
+        {
+          "id": "soccer",
+          "label": "Ball & Barça jersey",
+          "hint": "Soccer & FC Barcelona",
+          "leadsTo": "/soccer",
+          "inObjectList": true,
+          "panelAccent": "barca-blue-lifted"
+        },
+        {
+          "id": "pokemon",
+          "label": "Pikachu & Switch",
+          "hint": "Pokémon VGC doubles",
+          "leadsTo": "/pokemon",
+          "inObjectList": true,
+          "panelAccent": "pika-yellow"
+        },
+        {
+          "id": "camera",
+          "label": "Camera",
+          "hint": "Content creation",
+          "leadsTo": "/creative",
+          "inObjectList": true
+        },
+        {
+          "id": "avatar",
+          "label": "Me",
+          "hint": "About",
+          "leadsTo": "/about",
+          "inObjectList": false
+        }
+      ],
+      "shots": {
+        "desktop": {
+          "room": {
+            "pos": [
+              6.9,
+              5.5,
+              7.3
+            ],
+            "target": [
+              -0.75,
+              0.85,
+              -0.75
+            ],
+            "fov": 31
+          },
+          "computer": {
+            "pos": [
+              4.4,
+              2.7,
+              1.3
+            ],
+            "target": [
+              1.3,
+              1.05,
+              -2.5
+            ],
+            "fov": 32
+          },
+          "soccer": {
+            "pos": [
+              2.2,
+              2.3,
+              1.6
+            ],
+            "target": [
+              -0.5,
+              1,
+              -2.6
+            ],
+            "fov": 32
+          },
+          "pokemon": {
+            "pos": [
+              1.2,
+              2.2,
+              1
+            ],
+            "target": [
+              -2.1,
+              0.62,
+              -1.85
+            ],
+            "fov": 30
+          },
+          "camera": {
+            "pos": [
+              2.4,
+              2.3,
+              3.6
+            ],
+            "target": [
+              -0.95,
+              1.05,
+              0.75
+            ],
+            "fov": 30
+          },
+          "avatar": {
+            "pos": [
+              4,
+              2.6,
+              1
+            ],
+            "target": [
+              1.35,
+              1,
+              -1.95
+            ],
+            "fov": 30
+          },
+          "focusedViewOffset": "viewport width * 0.25 (half the 50vw panel)"
+        },
+        "mobile": {
+          "room": {
+            "pos": [
+              9.2,
+              7,
+              8.2
+            ],
+            "target": [
+              0.55,
+              0.95,
+              -0.95
+            ],
+            "fov": 46
+          },
+          "objectFov": 44,
+          "overviewLift": "viewport height * 0.08"
+        }
+      },
+      "hover": {
+        "emissive": "material colour * 0.32 at intensity 1",
+        "coolFloor": "if r+g+b of the lifted emissive < 0.18, add (0.06, 0.07, 0.10)",
+        "excluded": "meshes flagged noHighlight (the monitor screen)",
+        "alsoBrightens": "monitor spill 3.2 to 6",
+        "never": "scale, move, outline, or bloom"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Only for a working action (Download PDF once it exists, Open demo).",
+      "html": "<a class=\"ds-button\" href=\"#\">Open demo</a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:#a9c7ff;color:#0d0e10;font:600 15px/1 'Schibsted Grotesk',system-ui,sans-serif;text-decoration:none;transition:background-color .15s}.ds-button:hover{background:#c2d7ff}.ds-button:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary working links such as View source.",
+      "html": "<a class=\"ds-button-quiet\" href=\"#\">View source</a>",
+      "css": ".ds-button-quiet{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:transparent;border:1px solid rgb(236 235 230 / .22);color:#ecebe6;font:600 15px/1 'Schibsted Grotesk',system-ui,sans-serif;text-decoration:none;transition:background-color .15s}.ds-button-quiet:hover{background:rgb(255 255 255 / .06)}.ds-button-quiet:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px}"
+    },
+    {
+      "name": "Back to Room",
+      "kind": "button",
+      "refersTo": "back-link",
+      "description": "First item in every panel bar; Escape does the same.",
+      "html": "<a class=\"ds-back\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 19-7-7 7-7M19 12H5\"/></svg>Back to room</a>",
+      "css": ".ds-back{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 15px 0 12px;border:1px solid rgb(236 235 230 / .22);border-radius:999px;color:#ecebe6;font:600 14px/1 'Schibsted Grotesk',system-ui,sans-serif;text-decoration:none;transition:background-color .15s,border-color .15s}.ds-back:hover{background:rgb(255 255 255 / .06);border-color:#8b8a84}.ds-back:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px}"
+    },
+    {
+      "name": "Site Menu",
+      "kind": "nav",
+      "refersTo": "site-nav-item",
+      "description": "The discreet pill menu: Work, About, Résumé, Contact.",
+      "html": "<ul class=\"ds-nav\"><li><a href=\"#\" aria-current=\"page\">Work</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Résumé</a></li><li><a href=\"#\">Contact</a></li></ul>",
+      "css": ".ds-nav{display:flex;gap:4px;list-style:none;margin:0;padding:4px;border:1px solid rgb(236 235 230 / .12);border-radius:999px;background:rgb(13 14 16 / .7);font-family:'Schibsted Grotesk',system-ui,sans-serif}.ds-nav a{display:block;padding:7px 13px;border-radius:999px;font-size:14px;font-weight:500;color:#b6b4ad;text-decoration:none;transition:color .15s,background-color .15s}.ds-nav a:hover{color:#ecebe6;background:rgb(255 255 255 / .06)}.ds-nav a[aria-current=page]{color:#ecebe6;background:rgb(255 255 255 / .1)}.ds-nav a:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px}"
+    },
+    {
+      "name": "Object Link",
+      "kind": "custom",
+      "refersTo": "object-link",
+      "description": "Home object-list row; lighting it lights the matching 3D object.",
+      "html": "<a class=\"ds-object-link\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg><span class=\"ds-object-text\"><span class=\"ds-object-label\">Computer</span><span class=\"ds-object-hint\">Work, résumé &amp; contact</span></span></a>",
+      "css": ".ds-object-link{display:flex;align-items:center;gap:12px;min-height:48px;padding:7px 12px 7px 8px;border:1px solid transparent;border-radius:12px;color:#ecebe6;text-decoration:none;font-family:'Schibsted Grotesk',system-ui,sans-serif;transition:background-color .15s,border-color .15s}.ds-object-link svg{flex:none;box-sizing:content-box;padding:8px;border-radius:9px;background:rgb(255 255 255 / .06);color:#b6b4ad;transition:color .15s,background-color .15s}.ds-object-link:hover,.ds-object-link:focus-visible{background:rgb(169 199 255 / .07);border-color:rgb(169 199 255 / .28)}.ds-object-link:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px}.ds-object-link:hover svg,.ds-object-link:focus-visible svg{color:#a9c7ff;background:rgb(169 199 255 / .12)}.ds-object-text{display:flex;flex-direction:column;line-height:1.3}.ds-object-label{font-size:15px;font-weight:600}.ds-object-hint{font-size:13px;color:#8b8a84}"
+    },
+    {
+      "name": "Object Label (3D)",
+      "kind": "custom",
+      "refersTo": "object-label",
+      "description": "Tag shown above a hovered object in the room.",
+      "html": "<div class=\"ds-obj-label\"><span class=\"ds-obj-name\">Pikachu &amp; Switch</span><span class=\"ds-obj-hint\">Pokémon VGC doubles</span></div>",
+      "css": ".ds-obj-label{display:inline-flex;flex-direction:column;gap:1px;padding:7px 11px 8px;background:rgb(13 14 16 / .92);border:1px solid rgb(169 199 255 / .32);border-radius:9px;white-space:nowrap;font-family:'Schibsted Grotesk',system-ui,sans-serif}.ds-obj-name{font-size:14px;font-weight:600;color:#ecebe6}.ds-obj-hint{font-size:12px;color:#b6b4ad}"
+    },
+    {
+      "name": "Computer File Row",
+      "kind": "custom",
+      "refersTo": "file-row",
+      "description": "The computer desktop as a file-browser list of apps.",
+      "html": "<a class=\"ds-file-row\" href=\"#\"><svg class=\"ds-file-icon\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"/></svg><span class=\"ds-file-name\">Projects</span><span class=\"ds-file-kind\">Case studies and apps</span><svg class=\"ds-file-chev\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"/></svg></a>",
+      "css": ".ds-file-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:'icon name chev' 'icon kind chev';column-gap:16px;align-items:center;min-height:64px;padding:10px 12px;border-top:1px solid rgb(236 235 230 / .12);border-bottom:1px solid rgb(236 235 230 / .12);color:#ecebe6;text-decoration:none;font-family:'Schibsted Grotesk',system-ui,sans-serif;transition:background-color .15s}.ds-file-row:hover{background:rgb(169 199 255 / .06)}.ds-file-row:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px;border-radius:6px}.ds-file-icon{grid-area:icon;color:#a9c7ff}.ds-file-name{grid-area:name;font-size:16px;font-weight:600}.ds-file-kind{grid-area:kind;font-size:14px;color:#8b8a84}.ds-file-chev{grid-area:chev;color:#8b8a84;transition:transform .2s cubic-bezier(.16,1,.3,1)}.ds-file-row:hover .ds-file-chev{transform:translateX(3px);color:#a9c7ff}"
+    },
+    {
+      "name": "Project Row",
+      "kind": "card",
+      "refersTo": "project-row",
+      "description": "List row for case studies, apps and media-less creative entries.",
+      "html": "<a class=\"ds-project-row\" href=\"#\"><span class=\"ds-pr-main\"><span class=\"ds-pr-title\">Guest-to-property routing for an AI voice agent</span><span class=\"ds-pr-meta\">Agoda (Booking Holdings) · Jun–Aug 2026</span><span class=\"ds-pr-summary\">Found three customer-experience gaps, picked the one worth building, shipped it end to end.</span></span><svg class=\"ds-pr-arrow\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg></a>",
+      "css": ".ds-project-row{display:flex;align-items:center;gap:20px;padding:18px 4px 20px;border-bottom:1px solid rgb(236 235 230 / .12);color:#ecebe6;text-decoration:none;font-family:'Schibsted Grotesk',system-ui,sans-serif}.ds-pr-main{display:grid;gap:4px;flex:1}.ds-pr-title{font-size:18px;font-weight:650;line-height:1.3}.ds-pr-meta{font-size:13.5px;color:#8b8a84}.ds-pr-summary{font-size:15px;color:#b6b4ad;max-width:62ch}.ds-pr-arrow{flex:none;color:#8b8a84;transition:transform .2s cubic-bezier(.16,1,.3,1),color .2s}.ds-project-row:hover .ds-pr-title,.ds-project-row:hover .ds-pr-arrow{color:#a9c7ff}.ds-project-row:hover .ds-pr-arrow{transform:translateX(4px)}.ds-project-row:focus-visible{outline:2px solid #a9c7ff;outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Hairline pill for topic tags.",
+      "html": "<ul class=\"ds-tags\"><li>AI voice</li><li>Customer experience</li><li>Internship</li></ul>",
+      "css": ".ds-tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;font-family:'Schibsted Grotesk',system-ui,sans-serif}.ds-tags li{padding:3px 10px;border:1px solid rgb(236 235 230 / .12);border-radius:999px;font-size:12.5px;color:#b6b4ad}"
+    },
+    {
+      "name": "Empty State",
+      "kind": "card",
+      "refersTo": "empty-state",
+      "description": "Dashed frame marking content the owner has not supplied yet.",
+      "html": "<div class=\"ds-empty\"><p class=\"ds-empty-title\">No apps shipped yet</p><p class=\"ds-empty-text\">Apps will appear here with screenshots, status, and demo and source links once they exist.</p></div>",
+      "css": ".ds-empty{padding:18px 20px;border:1px dashed rgb(236 235 230 / .22);border-radius:12px;display:grid;gap:4px;color:#ecebe6;font-family:'Schibsted Grotesk',system-ui,sans-serif}.ds-empty-title{margin:0;font-size:16px;font-weight:600}.ds-empty-text{margin:0;font-size:14.5px;color:#b6b4ad;max-width:58ch}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lamplit Room",
+    "overview": "The site is the owner's bedroom at night, built as a three-quarter cutaway diorama in React Three Fiber and held at an angled, mostly fixed camera. Charcoal plaster, smoked oak, a wool rug and matte fabrics sit in soft low light from a ceiling fill, a warm desk lamp and nightstand lamp, moonlight through the window, and the cool spill of the monitor. Colour enters the room only through the objects the visitor can use: the blaugrana jersey, the yellow plush, the cool monitor. Everything else is muted so those objects read as the navigation.\n\nOver the room sits a quiet HTML layer: near-black, glass-free panels with bone text, one grotesk, and hairline dividers. Every object leads to a panel that is ordinary, readable, linkable HTML; the 3D never carries content the HTML does not also carry. The monitor's cool white is the HTML layer's single accent, so focus, links and the active state all feel lit by the same screen. Interest pages swap that accent for their object's own colour.\n\nThe system is dense but calm: a recruiter can skip the room entirely through the menu, and nothing moves unless the visitor asks it to.",
+    "keyCharacteristics": [
+      "A real room as the navigation; four objects plus the seated figure, each with one destination.",
+      "Low, warm-and-cool practical lighting; colour only from the objects.",
+      "Flat near-black HTML panels with 1px hairlines, no shadows, no blur.",
+      "One variable grotesk (Schibsted Grotesk) at weights 400 to 700, including 550 and 650.",
+      "One accent per panel: monitor-cool by default, the object's colour on interest pages.",
+      "Motion only on request (hover, click, back); a faint monitor shimmer is the only ambient movement."
+    ],
+    "rules": [
+      {
+        "name": "The Objects Carry the Colour Rule",
+        "body": "Architecture, furniture and fabrics stay muted (saturation low, roughness high). Saturated colour belongs only to the interactive objects and the monitor's light. A new object earns colour by being navigable.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Accent Per Panel Rule",
+        "body": "A panel has exactly one accent: monitor-cool by default, or its object's colour on an interest page via the accent swap. Never mix two accents in one panel.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight Not Face Rule",
+        "body": "Hierarchy is weight and size inside one family. Do not introduce a second typeface, uppercase labels, or wide letterspacing.",
+        "section": "typography"
+      },
+      {
+        "name": "The Depth Lives in the Room Rule",
+        "body": "The 3D scene owns light, shadow and perspective. HTML surfaces stay flat and opaque so text never sits on a moving picture.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Own Colour Lift Rule",
+        "body": "On hover or keyboard focus, every surface of the object (minus the screen) glows faintly in its own colour: emissive becomes the material colour at 32%. Near-black materials whose lifted colour sums under 0.18 get a cool floor (0.06, 0.07, 0.10) so the monitor, tower and camera read as clearly as the bright objects. The monitor's spill light also rises from 3.2 to 6. The label appears and the cursor becomes a pointer. Nothing scales, moves or outlines.",
+        "section": "components"
+      },
+      {
+        "name": "The Still Room Rule",
+        "body": "The only ambient motion is the monitor spill light breathing (±0.12 on a slow sine). No floating, bobbing, spinning or particles. Under reduced motion the shimmer stops, the camera cuts instead of easing, and CSS transitions collapse to 0.01ms.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** make every new interactive object lead to one real, linkable HTML destination, and add it to the object list so it is reachable without the 3D.",
+      "**Do** give new room furniture muted colour and high roughness (0.6 to 1); reserve saturated colour for objects the visitor can use.",
+      "**Do** light hover in the object's own colour at 32% emissive, with the cool floor for near-black materials.",
+      "**Do** keep each panel to one accent, swapping it for the object's colour on interest pages.",
+      "**Do** build panel content as hairline-divided lists and label/body rows that collapse below 620px of container width.",
+      "**Do** mark missing content with a dashed frame or \"Link coming soon\" in Ash, and say plainly what is coming.",
+      "**Do** show a button only when its action works; the résumé download appears only once a PDF exists."
+    ],
+    "donts": [
+      "**Don't** add neon, bloom, coloured outlines or glowing edges to objects; the only glows are the room's real light sources (lamps, monitor, window, LEDs).",
+      "**Don't** add ambient animation beyond the monitor shimmer: no floating, bobbing, auto-rotating or particles.",
+      "**Don't** add shadows, backdrop blur or translucent glass to HTML panels.",
+      "**Don't** put content only in the 3D scene; the room is a way in, not the place content lives.",
+      "**Don't** render placeholders as working links or buttons, or fill a page with empty media frames.",
+      "**Don't** invent apps, metrics, users or achievements to fill a list; use an empty state.",
+      "**Don't** add a second typeface, uppercase labels, or letterspaced small caps."
+    ]
+  }
+}
