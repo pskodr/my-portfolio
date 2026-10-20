@@ -11,7 +11,7 @@ import { Layer, bulge, clamp, distToSeg, hash, inEllipse, inPoly, inRoundRect, m
 export const P = {
   bezel: ["#0b0c10", "#111318", "#181b21", "#20242c", "#2b303a", "#3a404c"],
   metal: ["#101216", "#171a1f", "#20242a", "#2b3038", "#3a404a", "#4f5662", "#68707d"],
-  screen: ["#0a0f1b", "#0c1322", "#0f172a", "#121c32", "#16223b"],
+  screen: ["#e1dbcc", "#e8e3d6", "#eee9de", "#f2eee5", "#f5f2e9"], // warm ivory glass, matching the HTML theme
   amber: ["#6b3f17", "#a3652a", "#d8954a", "#f6be78", "#ffdcaa"],
   pika: ["#5a3f0f", "#86621a", "#b28824", "#d6a92f", "#ecc443", "#f6d866", "#fbe79a"],
   pikaInk: ["#121216", "#24242a"],
@@ -39,7 +39,7 @@ export const P = {
   paper: ["#8d8676", "#b3ab99", "#d6cfbe", "#ece6d8"],
 };
 
-const COOL = "#9db7e8"; // monitor light
+const COOL = "#efe3c2"; // light from the warm ivory screen
 const WARM = "#ffcf8f"; // light bar
 
 
@@ -76,10 +76,8 @@ export const monitor = {
     // Screen glass
     const { x0, y0, x1, y1 } = SCREEN;
     L.paint(x0, y0, x1, y1, (x, y) => {
-      if (y <= y0 + 7) return y === y0 + 7 ? "#22304b" : "#141c2f";
-      const cx = (x - (x0 + x1) / 2) / ((x1 - x0) / 2);
-      const cy = (y - (y0 + y1) / 2) / ((y1 - y0) / 2);
-      return tone(P.screen, 0.9 - 0.55 * (cx * cx * 0.5 + cy * cy * 0.7), x, y, 0.08);
+      if (y <= y0 + 7) return y === y0 + 7 ? "#cfc7b6" : "#e8e3d7";
+      return tone(P.screen, 1, x, y, 0); // flat ivory glass, matching the HTML theme
     });
     // Neck and base
     L.paint(232, 150, 248, 171, (x, y) => {

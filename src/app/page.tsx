@@ -14,7 +14,7 @@ export default function Desk() {
           <ul className="bar-links">
             {shortcuts.map((s) => (
               <li key={s.href}>
-                <Link href={s.href} scroll={false} className="pbtn pbtn-quiet">
+                <Link href={s.href} scroll={false} className="pbtn pbtn-scene">
                   {s.label}
                 </Link>
               </li>

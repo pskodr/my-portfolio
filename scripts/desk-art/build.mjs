@@ -20,7 +20,7 @@ const WALL = ["#0e0f13", "#121318", "#16181e", "#1b1d24", "#21242c", "#282b35", 
 const WOOD = ["#140e0b", "#1b1410", "#241a14", "#2f2219", "#3b2b1f", "#4a3626", "#5b432f", "#6e5239"];
 const FELT = ["#121316", "#16171b", "#1b1c21", "#212328", "#282a30"];
 const FLOOR = "#0b0c0f";
-const COOL = "#7f9bd6";
+const COOL = "#c8b78e"; // the monitor's warm-ivory spill
 const AMBER = "#e9a35e";
 
 const DESK_TOP = 150;

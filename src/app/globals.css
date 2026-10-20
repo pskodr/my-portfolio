@@ -2,11 +2,12 @@
 
 /* =========================================================================
    Tokens
-   One system for the desk, the monitor, the content windows and the welcome
-   card: ink-blue windows from the monitor's screen, crisp 2px stepped frames,
-   Pixelify Sans for titles, JetBrains Mono for navigation, Schibsted Grotesk
-   for reading. Yellow (#f5d76e) means "interactive / selected" and nothing
-   else; the scene's warm light is amber so the two never blur together.
+   Outside: the dark pixel-art desk. Inside: warm ivory content surfaces,
+   charcoal text and yellow accents, framed with crisp 2px stepped borders.
+   Pixelify Sans for headings and short buttons, Geist Mono for everything
+   read or navigated. Yellow fills mark primary actions and selection; it is
+   never the only indicator on a light surface (charcoal frames, carets and
+   underlines carry the meaning). The scene keeps its own dark tokens.
    ========================================================================= */
 
 :root {
@@ -16,25 +17,33 @@
   --night: #0e0f13;
   --floor: #0b0c0f;
 
-  /* Interface */
-  --ink: #0b1020;
-  --win: #0f1526;
-  --win-2: #151d31;
-  --win-3: #1d2740;
-  --edge: #2a3654;
-  --edge-hi: #42517a;
-  --rule: #1c2540;
-  --drop: rgb(2 4 9 / 0.55);
+  /* Content surfaces (light) */
+  --ivory: #f5f2e9; /* main background */
+  --paper: #fffdf7; /* cards, raised surfaces, secondary buttons */
+  --stone: #e8e3d7; /* sidebar, title bars, secondary surfaces */
+  --stone-2: #ddd7c8; /* hover on stone */
+  --tint: #fbf3d4; /* hover on paper: a whisper of the accent */
+  --edge: #cfc7b6; /* window frames (decorative) */
+  --edge-strong: #8a8273; /* control frames, 3.4:1 on ivory */
+  --rule: #ddd6c7; /* list dividers */
+  --drop: rgb(20 18 12 / 0.24);
 
-  --text: #e8ecf4;
-  --text-2: #aab3c7;
-  --text-3: #7d879d;
-  --link: #a9c7ff;
+  --text: #242424; /* 14:1 on ivory */
+  --text-2: #59564f; /* 6.6:1 */
+  --text-3: #625e55; /* metadata: 5.7:1 on ivory, 5.1:1 on stone */
+  --disabled: #9a958a;
+  --link-line: #b8931f; /* link underline */
+  --focus: #242424;
 
   --accent: #f5d76e;
-  --accent-hi: #ffe596;
-  --accent-ink: #1b1606;
-  --accent-edge: #a8862f;
+  --accent-hi: #f9e293;
+  --accent-ink: #242424;
+  --accent-edge: #242424;
+
+  /* Scene controls (over the dark desk) */
+  --scene-fill: rgb(14 15 19 / 0.84);
+  --scene-text: #f5f2e9;
+  --scene-edge: #6b6658;
 
   --tone: var(--accent);
 
@@ -63,7 +72,7 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --art-bottom: 0px;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -96,7 +105,13 @@ body {
 
 a {
   color: inherit;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
   text-underline-offset: 0.22em;
+}
+
+a:hover {
+  text-decoration-color: var(--text);
 }
 
 button {
@@ -106,7 +121,7 @@ button {
 }
 
 :focus-visible {
-  outline: var(--unit) solid var(--accent);
+  outline: var(--unit) solid var(--focus);
   outline-offset: 4px;
   border-radius: 0;
 }
@@ -124,6 +139,13 @@ h2:focus {
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* Over the dark scene, focus rings are yellow instead of charcoal. */
+.bar,
+.desk,
+.home-sheet > .desk-list {
+  --focus: var(--accent);
 }
 
 .skip-link {
@@ -159,7 +181,8 @@ h2:focus {
    drop shadow. --e sets the frame colour. */
 .win {
   --e: var(--edge);
-  background: var(--win);
+  background: var(--ivory);
+  color: var(--text);
   box-shadow:
     0 calc(var(--unit) * -1) 0 0 var(--e),
     0 var(--unit) 0 0 var(--e),
@@ -174,7 +197,7 @@ h2:focus {
   gap: var(--s-3);
   min-height: 46px;
   padding: 0 var(--s-2) 0 var(--s-3);
-  background: var(--win-2);
+  background: var(--stone);
   border-bottom: var(--unit) solid var(--edge);
 }
 
@@ -204,13 +227,13 @@ h2:focus {
 }
 
 .win-close:hover {
-  background: var(--win-3);
-  color: var(--accent);
+  background: var(--stone-2);
+  color: var(--text);
 }
 
 /* Button: same stepped frame; it presses down one unit when clicked. */
 .pbtn {
-  --e: var(--edge-hi);
+  --e: var(--edge-strong);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +242,7 @@ h2:focus {
   margin: var(--unit);
   padding: 0 var(--s-4);
   border: 0;
-  background: var(--win-2);
+  background: var(--paper);
   color: var(--text);
   font-family: var(--ff-display);
   font-size: 17px;
@@ -234,8 +257,17 @@ h2:focus {
 }
 
 .pbtn:hover {
-  --e: var(--accent);
-  color: var(--accent);
+  --e: var(--text);
+  background: var(--tint);
+}
+
+.pbtn:disabled,
+.pbtn[aria-disabled="true"] {
+  --e: var(--edge);
+  background: var(--stone);
+  color: var(--disabled);
+  cursor: not-allowed;
+  transform: none;
 }
 
 .pbtn:active {
@@ -254,8 +286,26 @@ h2:focus {
   color: var(--accent-ink);
 }
 
+/* Secondary actions in title bars. */
 .pbtn-quiet {
-  background: rgb(11 14 22 / 0.86);
+  background: var(--stone);
+}
+
+.pbtn-quiet:hover {
+  background: var(--stone-2);
+}
+
+/* Buttons that sit directly on the dark desk. */
+.pbtn-scene {
+  --e: var(--scene-edge);
+  background: var(--scene-fill);
+  color: var(--scene-text);
+}
+
+.pbtn-scene:hover {
+  --e: var(--accent);
+  background: var(--scene-fill);
+  color: var(--accent);
 }
 
 .pbtn-sm {
@@ -271,7 +321,8 @@ h2:focus {
   font-family: var(--ff-display);
   font-size: 14px;
   line-height: 1.2;
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
   box-shadow:
     0 calc(var(--unit) * -1) 0 0 var(--accent-edge),
     0 var(--unit) 0 0 var(--accent-edge),
@@ -283,7 +334,8 @@ h2:focus {
   display: grid;
   gap: var(--s-3);
   padding: var(--s-4) var(--s-5);
-  border: var(--unit) dashed var(--edge-hi);
+  border: var(--unit) dashed var(--edge-strong);
+  background: var(--paper);
 }
 
 .draft-title {
@@ -389,7 +441,7 @@ h2:focus {
 }
 
 .desk[data-view="desk"] .sprite[data-id="monitor"][data-active] > .px:first-child {
-  filter: brightness(1.12);
+  filter: brightness(1.04); /* gentle: the screen is already light */
 }
 
 .desk-label {
@@ -483,7 +535,7 @@ h2:focus {
   font-family: var(--ff-text);
   font-size: max(calc(var(--u) * 3.4), 9px);
   line-height: 1;
-  color: #7686ab;
+  color: var(--text-2);
 }
 
 .screen-body {
@@ -500,12 +552,12 @@ h2:focus {
   aspect-ratio: 4 / 5;
   margin: var(--u);
   overflow: hidden;
-  background: #111a2e;
+  background: var(--stone);
   box-shadow:
-    0 calc(var(--u) * -1) 0 0 #34446a,
-    0 var(--u) 0 0 #34446a,
-    calc(var(--u) * -1) 0 0 0 #34446a,
-    var(--u) 0 0 0 #34446a;
+    0 calc(var(--u) * -1) 0 0 var(--edge-strong),
+    0 var(--u) 0 0 var(--edge-strong),
+    calc(var(--u) * -1) 0 0 0 var(--edge-strong),
+    var(--u) 0 0 0 var(--edge-strong);
 }
 
 .screen-photo img {
@@ -520,7 +572,7 @@ h2:focus {
   justify-items: center;
   gap: calc(var(--u) * 2);
   font-family: var(--ff-display);
-  color: #4a5b86;
+  color: #9e978a;
 }
 
 .screen-photo-empty span {
@@ -531,7 +583,7 @@ h2:focus {
 .screen-photo-empty small {
   font-family: var(--ff-text);
   font-size: max(calc(var(--u) * 2.8), 9px);
-  color: #6d7ea6;
+  color: var(--text-3);
 }
 
 .screen-name {
@@ -540,7 +592,7 @@ h2:focus {
   font-size: calc(var(--u) * 10.5);
   font-weight: 600;
   line-height: 1.05;
-  color: #f2f5fb;
+  color: var(--text);
 }
 
 .screen-intro {
@@ -548,7 +600,7 @@ h2:focus {
   margin: calc(var(--u) * 4) 0 0;
   font-size: calc(var(--u) * 4.6);
   line-height: 1.5;
-  color: #aab6d0;
+  color: var(--text-2);
 }
 
 .screen-actions {
@@ -590,12 +642,7 @@ h2:focus {
 .screen-secondary a {
   font-family: var(--ff-text);
   font-size: calc(var(--u) * 4.2);
-  color: var(--link);
-  text-decoration-color: rgb(169 199 255 / 0.4);
-}
-
-.screen-secondary a:hover {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .screen[data-compact] .screen-body {
@@ -655,7 +702,7 @@ h2:focus {
   bottom: -14px;
   width: 16px;
   height: 12px;
-  background: var(--edge);
+  background: var(--edge-strong);
   clip-path: polygon(0 0, 100% 0, 100% 4px, 75% 4px, 75% 8px, 50% 8px, 50% 12px, 25% 12px, 25% 4px, 0 4px);
 }
 
@@ -715,7 +762,7 @@ h2:focus {
   font-family: var(--ff-display);
   font-size: 16px;
   font-weight: 500;
-  color: var(--text-2);
+  color: #c9c3b5; /* on the dark desk */
 }
 
 .desk-list ul {
@@ -735,8 +782,13 @@ h2:focus {
   text-decoration: none;
 }
 
+.desk-list-item {
+  color: var(--text);
+}
+
 .desk-list-item:hover {
-  --e: var(--accent);
+  --e: var(--text);
+  background: var(--paper);
 }
 
 .desk-list-name {
@@ -747,7 +799,18 @@ h2:focus {
 .desk-list-label {
   font-family: var(--ff-display);
   font-size: 16px;
-  color: var(--accent);
+  color: var(--text-2);
+}
+
+.desk-list-label::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--edge-strong);
+  vertical-align: 1px;
 }
 
 /* =========================================================================
@@ -775,7 +838,7 @@ h2:focus {
 }
 
 .cwin[data-accent="pika"] {
-  --tone: #f2c94c;
+  --tone: #e8b923;
 }
 
 .cwin[data-accent="barca"] {
@@ -783,11 +846,11 @@ h2:focus {
 }
 
 .cwin[data-accent="sky"] {
-  --tone: #7fc3ec;
+  --tone: #3d8fd1;
 }
 
 .cwin[data-accent="warm"] {
-  --tone: #e9a35e;
+  --tone: #d98a3d;
 }
 
 .cwin .win-title::before {
@@ -857,7 +920,8 @@ h2:focus {
   z-index: 40;
   display: flex;
   flex-direction: column;
-  background: var(--ink);
+  background: var(--ivory);
+  color: var(--text);
   animation: term-in 0.42s var(--ease-out) both;
 }
 
@@ -895,8 +959,8 @@ h2:focus {
 
 .term-nav {
   padding: var(--s-6) var(--s-4);
-  border-right: var(--unit) solid var(--rule);
-  background: var(--win);
+  border-right: var(--unit) solid var(--edge);
+  background: var(--stone);
   font-family: var(--ff-text);
   overflow-y: auto;
 }
@@ -911,7 +975,8 @@ h2:focus {
 
 .term-home:hover,
 .term-home[aria-current] {
-  color: var(--accent);
+  color: var(--text);
+  text-decoration: underline;
 }
 
 .term-nav ul {
@@ -929,27 +994,30 @@ h2:focus {
   min-height: 42px;
   padding: 0 var(--s-3);
   font-size: var(--fs-nav);
-  color: #c4cbda;
+  color: var(--text);
   text-decoration: none;
 }
 
 .term-caret {
-  color: var(--accent);
+  color: var(--text);
   opacity: 0;
 }
 
 .term-nav li a:hover {
-  background: var(--win-2);
-  color: var(--text);
+  background: var(--stone-2);
 }
 
 .term-nav li a:hover .term-caret {
   opacity: 0.5;
 }
 
+/* Selected: a yellow fill plus a charcoal caret, edge bar and heavier
+   weight, so it doesn't rely on colour alone. */
 .term-nav li a[aria-current] {
-  background: rgb(245 215 110 / 0.1);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 650;
+  box-shadow: inset 4px 0 0 var(--text);
 }
 
 .term-nav li a[aria-current] .term-caret {
@@ -961,7 +1029,7 @@ h2:focus {
   padding: 0 var(--s-3);
   font-family: var(--ff-display);
   font-size: 16px;
-  color: var(--text-3);
+  color: var(--text-2);
 }
 
 .term-content {
@@ -1061,7 +1129,8 @@ h2:focus {
 }
 
 .crumb-back:hover {
-  color: var(--accent);
+  color: var(--text);
+  text-decoration: underline;
 }
 
 .bullets {
@@ -1082,9 +1151,10 @@ h2:focus {
   position: absolute;
   left: 0;
   top: 0.66em;
-  width: 6px;
-  height: 6px;
-  background: var(--link);
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--edge-strong);
 }
 
 .link-row {
@@ -1097,20 +1167,22 @@ h2:focus {
 .note {
   margin: 0;
   padding: var(--s-3) var(--s-4);
-  background: var(--win-2);
+  background: var(--stone);
   font-size: 15.5px;
   color: var(--text-2);
 }
 
 .note a {
-  color: var(--link);
+  color: var(--text);
 }
 
 .sample-note {
   margin: 0;
   padding: var(--s-3) var(--s-4);
-  border: var(--unit) dashed var(--accent-edge);
-  color: var(--accent);
+  border: var(--unit) dashed var(--edge-strong);
+  border-left: 8px solid var(--accent);
+  background: var(--paper);
+  color: var(--text);
   font-size: 15px;
 }
 
@@ -1123,6 +1195,11 @@ h2:focus {
   border-top: var(--unit) solid var(--rule);
 }
 
+/* A section heading already draws the divider above its list. */
+.section-title + .project-list {
+  border-top: 0;
+}
+
 .project-row {
   display: flex;
   align-items: center;
@@ -1133,7 +1210,7 @@ h2:focus {
 }
 
 .project-row:hover {
-  background: var(--win);
+  background: var(--paper);
 }
 
 .project-row-main {
@@ -1171,9 +1248,15 @@ h2:focus {
   transition: transform 0.2s var(--ease-out);
 }
 
-.project-row:hover .project-row-title,
+.project-row:hover .project-row-title {
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
 .project-row:hover .project-row-arrow {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .project-row:hover .project-row-arrow {
@@ -1210,7 +1293,7 @@ h2:focus {
   width: 6px;
   height: 6px;
   margin-right: 8px;
-  background: #7fd09a;
+  background: #2f8a4f;
   vertical-align: 2px;
 }
 
@@ -1287,7 +1370,8 @@ h2:focus {
 .role-title {
   margin: 0;
   font-size: 16px;
-  color: var(--link);
+  font-weight: 600;
+  color: var(--text-2);
 }
 
 .role .bullets {
@@ -1369,7 +1453,7 @@ h2:focus {
 }
 
 .contact-row:hover {
-  background: var(--win);
+  background: var(--paper);
 }
 
 .contact-label {
@@ -1387,9 +1471,15 @@ h2:focus {
   color: var(--text-3);
 }
 
-.contact-row:hover .contact-value,
+.contact-row:hover .contact-value {
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
 .contact-row:hover svg {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .chip-list {
@@ -1462,7 +1552,7 @@ h2:focus {
 .media video {
   width: 100%;
   height: auto;
-  background: var(--win-2);
+  background: var(--stone);
 }
 
 .media figcaption {
@@ -1548,7 +1638,7 @@ h2:focus {
     justify-content: center;
     padding: var(--s-2) var(--s-2);
     background: var(--night);
-    border-bottom: var(--unit) solid var(--rule);
+    border-bottom: var(--unit) solid #26272d;
   }
 
   .bar-links {

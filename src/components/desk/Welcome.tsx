@@ -59,7 +59,7 @@ export function WelcomeWindow() {
 
 export function HelpButton() {
   return (
-    <button type="button" className="pbtn pbtn-quiet" aria-controls="welcome" onClick={openWelcome}>
+    <button type="button" className="pbtn pbtn-scene" aria-controls="welcome" onClick={openWelcome}>
       Help
     </button>
   );
