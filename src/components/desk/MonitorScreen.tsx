@@ -11,13 +11,17 @@ const initials = profile.name
   .join("");
 
 // The monitor's screen as real HTML, laid exactly over the glass in the
-// artwork. Sizes are in art pixels (--u), so it scales with the scene.
-export function MonitorScreen({ left, top, s, compact }: { left: number; top: number; s: number; compact: boolean }) {
+// artwork. Sizes are in art pixels (--u), so it scales with the scene. When the
+// scene is small, it shows less rather than shrinking text: "mid" keeps the
+// name and the main action, "min" keeps the name.
+export type Density = "full" | "mid" | "min";
+
+export function MonitorScreen({ left, top, s, density }: { left: number; top: number; s: number; density: Density }) {
   const [first, ...rest] = profile.name.split(" ");
   return (
     <div
       className="screen"
-      data-compact={compact || undefined}
+      data-density={density}
       style={
         {
           left: left + SCREEN.x0 * s,

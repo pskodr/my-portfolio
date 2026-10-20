@@ -20,24 +20,47 @@ import {
   type GroupId,
 } from "./scene";
 
-type Frame = { s: number; left: number; top: number; vw: number; vh: number; compact: boolean };
+type Frame = { s: number; left: number; top: number; vw: number; vh: number; compact: boolean; barBottom: number };
 
-// Scale the scene so each art pixel lands on whole device pixels: crisp at any
-// size. Wide screens cover the viewport; narrow ones show the whole desk across
-// the top, with a labelled list below.
+// Space kept clear for the shortcut bar (Work, Résumé, Contact, Help), which
+// sits outside the scene's transform.
+const BAR = { wide: 68, compact: 60 };
+
+// Safe-area insets (notches, home indicators), read from CSS env().
+function safeArea() {
+  const cs = getComputedStyle(document.documentElement);
+  const n = (v: string) => parseFloat(cs.getPropertyValue(v)) || 0;
+  return { t: n("--safe-t"), r: n("--safe-r"), b: n("--safe-b"), l: n("--safe-l") };
+}
+
+// Snap to whole device pixels for crisp art, unless that would shrink the
+// scene noticeably; complete visibility wins over integer scaling.
+function snap(fit: number, dpr: number) {
+  const whole = Math.floor(fit * dpr) / dpr;
+  return whole >= fit * 0.88 ? whole : fit;
+}
+
+// Fit the whole scene inside the space below the shortcut bar, never cropping:
+// scale = min(availableWidth / sceneWidth, availableHeight / sceneHeight).
+// Narrow, portrait or very short windows get the compact layout: the scene as
+// an overview across the top, with labelled destinations listed beneath.
 function measure(): Frame {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const dpr = window.devicePixelRatio || 1;
-  const compact = vw < 820 || vh > vw;
-  const target = compact ? vw / SCENE.width : Math.max(vw / SCENE.width, vh / SCENE.height);
-  const s = Math.max(compact ? 0.5 : 1, Math.round(target * dpr)) / dpr;
-  const left = vw / 2 - (SCENE.width / 2) * s;
-  const top = compact ? 60 : (vh - SCENE.height * s) / 2;
-  return { s, left, top, vw, vh, compact };
+  const safe = safeArea();
+  // Keep in step with the compact media query in globals.css.
+  const compact = vw < 820 || vh > vw || vh < 480;
+  const barBottom = (compact ? BAR.compact : BAR.wide) + safe.t;
+  const availW = vw - safe.l - safe.r;
+  const availH = compact ? Math.max(150, (vh - barBottom) * 0.55) : vh - barBottom - 8 - safe.b;
+  const s = snap(Math.min(availW / SCENE.width, availH / SCENE.height), dpr);
+  const left = safe.l + (availW - SCENE.width * s) / 2;
+  const top = compact ? barBottom : barBottom + (availH - SCENE.height * s) / 2;
+  return { s, left, top, vw, vh, compact, barBottom };
 }
 
-const SSR_FRAME: Frame = { s: 3, left: 0, top: 0, vw: 1440, vh: 810, compact: false };
+const SSR_FRAME: Frame = { s: 3, left: 0, top: 68, vw: 1440, vh: 900, compact: false, barBottom: 68 };
 
 export function DeskStage() {
   const pathname = usePathname();
@@ -50,6 +73,7 @@ export function DeskStage() {
   const [pointer, setPointer] = useState<GroupId | null>(null);
   const [keyFocus, setKeyFocus] = useState<GroupId | null>(null);
   const hotspots = useRef<Partial<Record<GroupId, HTMLElement | null>>>({});
+  const labels = useRef<Partial<Record<GroupId, HTMLElement | null>>>({});
   const opener = useRef<GroupId | null>(null);
 
   useLayoutEffect(() => {
@@ -71,9 +95,28 @@ export function DeskStage() {
       r.setProperty("--card-x", `${cx}px`);
       r.setProperty("--card-top", `${cy}px`);
     };
+    // Re-fit on any size change: window resize (including height only),
+    // rotation, browser zoom and mobile toolbars showing or hiding. Batched to
+    // one measurement per frame; measuring never changes the layout it reads,
+    // so it can't loop.
+    let raf = 0;
+    const schedule = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const ro = new ResizeObserver(schedule);
+    ro.observe(document.documentElement);
+    window.addEventListener("resize", schedule);
+    window.addEventListener("orientationchange", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("orientationchange", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
+    };
   }, []);
 
   // Remember which object a page belongs to; when the visitor comes back to
@@ -97,6 +140,20 @@ export function DeskStage() {
   };
 
   const active = view === "desk" ? (pointer ?? keyFocus) : null;
+
+  // Keep the active label inside the viewport and clear of the shortcut bar.
+  useLayoutEffect(() => {
+    const el = active ? labels.current[active] : null;
+    if (!el) return;
+    el.style.setProperty("--nx", "0px");
+    el.style.setProperty("--ny", "0px");
+    const r = el.getBoundingClientRect();
+    const pad = 8;
+    const nx = Math.max(pad - r.left, 0) + Math.min(frame.vw - pad - r.right, 0);
+    const ny = Math.max(frame.barBottom + 4 - r.top, 0) + Math.min(frame.vh - pad - r.bottom, 0);
+    el.style.setProperty("--nx", `${nx}px`);
+    el.style.setProperty("--ny", `${ny}px`);
+  }, [active, frame]);
   const lit = (g: GroupId) => active === g || (view !== "desk" && focused === g);
   const origin = focused ? originFor(focused, frame) : "50% 50%";
 
@@ -132,7 +189,12 @@ export function DeskStage() {
         </div>
         {measured && (
           <div inert={view !== "desk"}>
-            <MonitorScreen left={frame.left} top={frame.top} s={frame.s} compact={frame.compact || frame.s < 2.5} />
+            <MonitorScreen
+              left={frame.left}
+              top={frame.top}
+              s={frame.s}
+              density={frame.compact || frame.s < 1.8 ? "min" : frame.s < 2.9 ? "mid" : "full"}
+            />
           </div>
         )}
       </div>
@@ -142,6 +204,9 @@ export function DeskStage() {
         return (
           <p
             key={o.id}
+            ref={(el) => {
+              labels.current[o.id] = el;
+            }}
             className="desk-label"
             data-side={a.side}
             data-on={active === o.id ? "" : undefined}

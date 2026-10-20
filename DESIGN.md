@@ -10,9 +10,18 @@ interests. The art is the scene; everything you read is crisp HTML.
 
 ## Scene
 
-- **Canvas:** 480×270 art pixels, scaled so each art pixel lands on whole device
-  pixels (`image-rendering: pixelated`). Wide screens cover the viewport; narrow
-  ones show the whole desk across the top with a labelled list below.
+- **Canvas:** 480×270 art pixels (`image-rendering: pixelated`), always shown
+  whole: scale = min(available width / 480, available height / 270) in the
+  space below the shortcut bar (safe areas included), centred, with the dark
+  background filling any spare room. The scale snaps to whole device pixels
+  unless that would shrink the scene by more than 12%. Narrow, portrait or very
+  short windows (under 820px wide, portrait, or under 480px tall) use the
+  compact layout: the scene as an overview under the bar, with every
+  destination listed beneath it. The fit re-runs on any resize, rotation, zoom
+  or mobile toolbar change.
+- **Monitor screen density:** the full intro and links from scale 2.9; below
+  that, the name and "Explore projects"; below 1.8, the name only. Text never
+  shrinks past reading size.
 - **Light:** the monitor's soft warm-ivory glow and an amber light bar on top of it.
   Shading is flat bands from short palette ramps, with thin 2x2 seams between
   them (`tone()` in `scripts/desk-art/lib.mjs`) and no per-pixel noise.

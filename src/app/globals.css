@@ -72,6 +72,12 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --art-bottom: 0px;
 
+  /* Safe-area insets, read by the desk's fit calculation. */
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+
   color-scheme: light;
 }
 
@@ -482,6 +488,11 @@ h2:focus {
   transform: translate(8px, -50%);
 }
 
+/* Nudge set by the desk so a label never leaves the viewport. */
+.desk-label {
+  translate: var(--nx, 0px) var(--ny, 0px);
+}
+
 .desk-label[data-on] {
   opacity: 1;
 }
@@ -641,22 +652,37 @@ h2:focus {
 
 .screen-secondary a {
   font-family: var(--ff-text);
-  font-size: calc(var(--u) * 4.2);
+  font-size: calc(var(--u) * 4.6);
   color: var(--text);
 }
 
-.screen[data-compact] .screen-body {
+/* Smaller scenes show less instead of shrinking text below reading size. */
+.screen[data-density="mid"] .screen-intro,
+.screen[data-density="mid"] .screen-secondary {
+  display: none;
+}
+
+.screen[data-density="mid"] .screen-name {
+  font-size: max(calc(var(--u) * 10.5), 18px);
+}
+
+.screen[data-density="mid"] .screen-primary {
+  font-size: max(calc(var(--u) * 5), 14px);
+  padding: max(calc(var(--u) * 2.6), 7px) max(calc(var(--u) * 5), 12px);
+}
+
+.screen[data-density="min"] .screen-body {
   grid-template-columns: calc(var(--u) * 40) minmax(0, 1fr);
   gap: calc(var(--u) * 8);
 }
 
-.screen[data-compact] .screen-name {
+.screen[data-density="min"] .screen-name {
   font-size: max(calc(var(--u) * 10.5), 12px);
 }
 
-.screen[data-compact] .screen-intro,
-.screen[data-compact] .screen-actions,
-.screen[data-compact] .screen-photo-empty small {
+.screen[data-density="min"] .screen-intro,
+.screen[data-density="min"] .screen-actions,
+.screen[data-density="min"] .screen-photo-empty small {
   display: none;
 }
 
@@ -691,6 +717,9 @@ h2:focus {
   right: var(--gutter);
   bottom: calc(100dvh - var(--card-top, 700px) + 20px);
   width: min(340px, calc(100vw - 2 * var(--gutter)));
+  /* Never taller than the room between the shortcut bar and the card. */
+  max-height: calc(var(--card-top, 700px) - 20px - 76px);
+  overflow-y: auto;
   animation: pop-in 0.22s var(--ease-out) both;
 }
 
@@ -1607,7 +1636,7 @@ h2:focus {
    Touch and narrow screens
    ========================================================================= */
 
-@media (hover: none) and (min-width: 820px) {
+@media (hover: none) and (min-width: 820px) and (min-height: 480px) and (orientation: landscape) {
   .desk-list {
     display: block;
     position: fixed;
@@ -1628,7 +1657,8 @@ h2:focus {
   }
 }
 
-@media (max-width: 819px), (orientation: portrait) {
+/* Compact layout: matches `compact` in DeskStage's measure(). */
+@media (max-width: 819px), (orientation: portrait), (max-height: 479px) {
   :root {
     --fs-lede: 17px;
     --fs-body: 16.5px;
@@ -1666,6 +1696,7 @@ h2:focus {
   .welcome {
     position: static;
     width: auto;
+    max-height: none;
     margin: var(--unit);
     animation: none;
   }
@@ -1676,6 +1707,8 @@ h2:focus {
 
   .desk-list {
     display: block;
+    position: static;
+    width: auto;
   }
 
   .desk[data-view] .desk-cam {
