@@ -403,11 +403,19 @@ h2:focus {
   filter: brightness(0.32) saturate(0.7);
 }
 
+/* Scene pixels, scaled as one. The background layers reach far past this
+   box, so the wall and desk fill the window whatever its shape. */
 .desk-art {
   position: absolute;
   width: 480px;
   height: 270px;
   transform-origin: 0 0;
+}
+
+.desk-floor {
+  position: absolute;
+  height: 1200px;
+  background: #0b0c0f; /* FLOOR in scripts/desk-art/build.mjs */
 }
 
 .px {
@@ -1636,13 +1644,11 @@ h2:focus {
    Touch and narrow screens
    ========================================================================= */
 
+/* Touch screens in the full layout have no hover: every object shows its
+   label. (Compact layouts list them beneath the scene instead.) */
 @media (hover: none) and (min-width: 820px) and (min-height: 480px) and (orientation: landscape) {
-  .desk-list {
-    display: block;
-    position: fixed;
-    left: var(--gutter);
-    bottom: var(--gutter);
-    width: 300px;
+  .desk[data-view="desk"] .desk-label {
+    opacity: 1;
   }
 }
 

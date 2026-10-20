@@ -10,31 +10,41 @@ interests. The art is the scene; everything you read is crisp HTML.
 
 ## Scene
 
-- **Canvas:** 480×270 art pixels (`image-rendering: pixelated`), always shown
-  whole: scale = min(available width / 480, available height / 270) in the
-  space below the shortcut bar (safe areas included), centred, with the dark
-  background filling any spare room. The scale snaps to whole device pixels
-  unless that would shrink the scene by more than 12%. Narrow, portrait or very
-  short windows (under 820px wide, portrait, or under 480px tall) use the
-  compact layout: the scene as an overview under the bar, with every
-  destination listed beneath it. The fit re-runs on any resize, rotation, zoom
-  or mobile toolbar change.
+- **Canvas:** a fullscreen workspace, laid out per window by
+  `src/components/desk/layout.ts`. The wall and desk surface are one wide plate
+  that always reaches every edge (its light is radial around the monitor and
+  settles to flat bands, so wherever the window crops it there is no seam).
+  The monitor stays centred and sets the scale: as large as possible while
+  every object stays fully visible below the shortcut bar. Spare width spreads
+  the side objects outward (up to a cap, so the group stays together); in short
+  windows the wall objects drop and the front objects move back before
+  anything shrinks. Decorative wall, desk and floor crop freely; objects never
+  do, and art is never stretched. The scale snaps to whole device pixels when
+  that costs under 10%. Narrow, portrait or very short windows (under 820px
+  wide, portrait, or under 480px tall) use the compact layout: the scene, only
+  as tall as its objects, with every destination listed beneath. Phones in
+  portrait use a stacked arrangement: jersey and racket on the wall above the
+  monitor, Pikachu, Pad Thai, headphones and the card in a row in front of the
+  keyboard. The layout re-runs on any resize, rotation, zoom or toolbar change.
 - **Monitor screen density:** the full intro and links from scale 2.9; below
   that, the name and "Explore projects"; below 1.8, the name only. Text never
   shrinks past reading size.
 - **Light:** the monitor's soft warm-ivory glow and an amber light bar on top of it.
   Shading is flat bands from short palette ramps, with thin 2x2 seams between
   them (`tone()` in `scripts/desk-art/lib.mjs`) and no per-pixel noise.
-  Objects carry contact shadows on the desk, and the wall objects cast offset
-  shadows. Every object has the same 1px darkened silhouette edge.
+  Objects carry their own contact shadows on the desk, and the wall objects
+  cast offset shadows. Every object has the same 1px darkened silhouette edge.
 - **Palette:** charcoal wall `#0f1014`–`#393e4c`, walnut desk, felt mat. Colour
   comes only from the objects: Pikachu yellow (flat, sprite-style, with its own dark outline), Barça garnet and blue, racket sky
   blue, noodles and lime, plus the monitor's ivory screen.
 - **Objects:** jersey (framed, wall left), racket (wall right), monitor (centre,
   ~47% of the width), keyboard and mouse on the mat, Pikachu and Pad Thai at
   front left, headphones on the right, a small welcome card at the front. No person, no extra decoration.
-- **Layers:** a background plate plus one PNG per object, each with a yellow
-  silhouette outline and a hit mask (`scripts/desk-art/`).
+- **Layers:** the background plate (wall, desk surface, mat and the
+  computer's shadows), a desk-front strip placed under the front objects, a
+  flat floor, then one PNG per object with its own shadow, a yellow silhouette
+  outline and a hit mask (`scripts/desk-art/`). Objects move with their
+  shadows, outlines, hit masks and labels.
 
 ## Interaction
 
