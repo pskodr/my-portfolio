@@ -13,7 +13,8 @@ function NavList({ items, pathname }: { items: Destination[]; pathname: string }
   return (
     <ul>
       {items.map((d) => {
-        const current = pathname === d.href || pathname.startsWith(`${d.href}/`);
+        // Home is only current on itself; other items also cover their subpages.
+        const current = pathname === d.href || (d.id !== "home" && pathname.startsWith(`${d.href}/`));
         return (
           <li key={d.id}>
             <Link href={d.href} scroll={false} aria-current={current ? "page" : undefined}>
@@ -68,9 +69,6 @@ export function WorkShell({ children }: { children: React.ReactNode }) {
       </header>
       <div className="term-body">
         <nav className="term-nav" aria-label="Portfolio">
-          <Link href="/work" scroll={false} className="term-home" aria-current={pathname === "/work" ? "page" : undefined}>
-            ~/workspace
-          </Link>
           <NavList items={work} pathname={pathname} />
           <p className="term-group">Beyond work</p>
           <NavList items={beyond} pathname={pathname} />

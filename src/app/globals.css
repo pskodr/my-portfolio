@@ -581,6 +581,7 @@ h2:focus {
 
 .screen-photo img {
   object-fit: cover;
+  object-position: 50% 22%; /* keep the face in the crop */
 }
 
 .screen-photo-empty {
@@ -1002,20 +1003,6 @@ h2:focus {
   overflow-y: auto;
 }
 
-.term-home {
-  display: block;
-  padding: var(--s-1) var(--s-3) var(--s-3);
-  font-size: 14px;
-  color: var(--text-3);
-  text-decoration: none;
-}
-
-.term-home:hover,
-.term-home[aria-current] {
-  color: var(--text);
-  text-decoration: underline;
-}
-
 .term-nav ul {
   list-style: none;
   margin: 0;
@@ -1070,6 +1057,7 @@ h2:focus {
 }
 
 .term-content {
+  container-type: inline-size;
   min-width: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -1221,6 +1209,160 @@ h2:focus {
   background: var(--paper);
   color: var(--text);
   font-size: 15px;
+}
+
+/* Home: portrait beside the introduction; stacked when the column is narrow. */
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5cqi, 56px);
+}
+
+.home-intro {
+  display: grid;
+  gap: var(--s-4);
+}
+
+/* The photo keeps its 2:3 shape inside a stepped pixel frame on a paper mat;
+   the photo itself is never pixelated. */
+.portrait {
+  --e: var(--edge-strong);
+  margin: var(--unit);
+  padding: 8px;
+  background: var(--paper);
+  box-shadow:
+    0 calc(var(--unit) * -1) 0 0 var(--e),
+    0 var(--unit) 0 0 var(--e),
+    calc(var(--unit) * -1) 0 0 0 var(--e),
+    var(--unit) 0 0 0 var(--e),
+    8px 8px 0 0 var(--stone-2);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background: var(--stone);
+}
+
+.portrait-empty {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 2 / 3;
+  background: var(--stone);
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+.home-actions {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.home-actions .link-row {
+  margin: 0;
+}
+
+/* Third-level actions: quieter than buttons, still clearly links. */
+.quiet-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quiet-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 40px;
+  font-size: var(--fs-nav);
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+.quiet-links a::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--edge-strong);
+}
+
+.quiet-links a:hover {
+  text-decoration-color: var(--text);
+}
+
+@container (max-width: 600px) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .portrait {
+    width: min(160px, 50%);
+  }
+}
+
+/* Personal Interests overview */
+
+.interest-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--unit) solid var(--rule);
+}
+
+.interest-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px var(--s-4);
+  padding: var(--s-4) var(--s-2);
+  border-bottom: var(--unit) solid var(--rule);
+  text-decoration: none;
+}
+
+.interest-row:hover {
+  background: var(--paper);
+}
+
+.interest-title {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.interest-meta {
+  grid-column: 1;
+  font-size: 15.5px;
+  color: var(--text-2);
+}
+
+.interest-go {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: var(--text-3);
+}
+
+.interest-row:hover .interest-title {
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.interest-row:hover .interest-go {
+  color: var(--text);
 }
 
 /* Projects */
@@ -1750,10 +1892,6 @@ h2:focus {
     padding: var(--s-3) var(--gutter);
     border-right: 0;
     border-bottom: var(--unit) solid var(--rule);
-  }
-
-  .term-home {
-    padding: var(--s-1) var(--s-2);
   }
 
   .term-nav ul {

@@ -38,7 +38,7 @@ export function MonitorScreen({ left, top, s, density }: { left: number; top: nu
       <div className="screen-body">
         <figure className="screen-photo">
           {profile.photo ? (
-            <Image src={profile.photo.src} alt={profile.photo.alt} fill sizes="200px" />
+            <Image src={profile.photo.src} alt="" fill sizes="(max-width: 819px) 120px, 240px" />
           ) : (
             <span className="screen-photo-empty" aria-hidden>
               <span>{initials}</span>
@@ -55,14 +55,14 @@ export function MonitorScreen({ left, top, s, density }: { left: number; top: nu
           <p className="screen-intro">{profile.monitorIntro}</p>
           <div className="screen-actions">
             <Link href="/work/projects" scroll={false} className="screen-primary">
-              Explore projects <span aria-hidden>→</span>
+              My Projects <span aria-hidden>→</span>
             </Link>
             <span className="screen-secondary">
               <Link href="/work/resume" scroll={false}>
                 Résumé
               </Link>
               <Link href="/work/contact" scroll={false}>
-                Contact
+                Contact Me
               </Link>
             </span>
           </div>

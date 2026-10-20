@@ -27,7 +27,7 @@ interests. The art is the scene; everything you read is crisp HTML.
   monitor, Pikachu, Pad Thai, headphones and the card in a row in front of the
   keyboard. The layout re-runs on any resize, rotation, zoom or toolbar change.
 - **Monitor screen density:** the full intro and links from scale 2.9; below
-  that, the name and "Explore projects"; below 1.8, the name only. Text never
+  that, the name and "My Projects"; below 1.8, the name only. Text never
   shrinks past reading size.
 - **Light:** the monitor's soft warm-ivory glow and an amber light bar on top of it.
   Shading is flat bands from short palette ramps, with thin 2x2 seams between
@@ -54,10 +54,19 @@ interests. The art is the scene; everything you read is crisp HTML.
   "computer" group: hovering any of them outlines all three, with one label
   ("Explore my work") and one keyboard stop.
 - **Monitor screen:** real HTML laid over the glass and sized in art pixels:
-  a pixel-framed portrait slot, the full name, a short intro, "Explore
-  projects", Résumé and Contact.
+  a preview of Home: the framed portrait, the full name, a short intro, "My
+  Projects", Résumé and Contact Me.
 - **Monitor → /work:** the desk scales toward the screen while the full-screen
-  window grows out of the screen's rectangle (0.42s).
+  window grows out of the screen's rectangle (0.42s). It opens on Home.
+- **Computer pages, one purpose each:** Home (who I am: portrait, name, bio,
+  then "Right now"), Projects (my work), Résumé (qualifications and
+  experience), Personal Interests (an index of the interest pages), Gallery
+  (visual media), Contact Me (ways to reach me). Home's actions are ranked:
+  "My Projects" is the yellow primary button, "Read My Résumé" a standard
+  button, and Personal Interests, Gallery and Contact Me quieter underlined
+  links with a small yellow marker. The portrait keeps its 2:3 shape in a
+  stepped frame on a paper mat, beside the introduction on wide columns and
+  above it on narrow ones.
 - **Interests:** a large centred window (about 86% of the viewport, max
   1240px) over a dimmed desk. A 66ch reading column, with media and what's
   coming in a side column when there is any. Full screen on mobile.

@@ -17,9 +17,14 @@ export const profile = {
   // Shown on the monitor. Keep it to two or three short sentences.
   monitorIntro:
     "Product builder studying Information Systems & Business at Carnegie Mellon. I like finding the problem worth solving, shipping the fix, and measuring what changed.",
-  // Your portrait for the monitor. Put the file in /public (e.g. "/media/portrait.jpg",
-  // roughly 4:5) and fill this in. While null, a clearly marked placeholder shows.
-  photo: null as { src: string; alt: string } | null,
+  // Your portrait, on Home and the monitor. The file lives in /public/media
+  // (2:3, metadata removed). Set to null to show a placeholder instead.
+  photo: {
+    src: "/media/professional-image.jpg",
+    width: 1200,
+    height: 1800,
+    alt: "Phasakorn Chivatxaranukul in a dark suit and red tie, arms crossed, in a bright atrium",
+  } as { src: string; width: number; height: number; alt: string } | null,
 };
 
 export const welcome = {

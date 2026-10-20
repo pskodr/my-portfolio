@@ -49,7 +49,7 @@ Contact (confirmed, all to be shown):
 Content will grow: the owner plans to add photos and more interactivity over time, so sections should be easy to extend with images and new entries.
 
 Site structure (owner brief, 2026-10-20, replaces the 3D bedroom):
-- The homepage is a pixel-art nighttime desk. Monitor, keyboard and mouse open the professional portfolio at /work (Projects, Résumé, Blogs once posts exist, About Me, Contact Me, Gallery, plus "Beyond work"). Pikachu → Pokémon VGC doubles; racket → tennis; Barça jersey → FC Barcelona; headphones → music; Pad Thai → food & exploring.
+- The homepage is a pixel-art nighttime desk. Monitor, keyboard and mouse open the professional portfolio at /work (Home, which is the profile and introduction; Projects; Résumé; Blogs once posts exist; Personal Interests; Gallery; Contact Me; plus "Beyond work"). Pikachu → Pokémon VGC doubles; racket → tennis; Barça jersey → FC Barcelona; headphones → music; Pad Thai → food & exploring.
 - The monitor's "Beyond work" entries and the desk objects open the same pages. New interests can be added to the monitor menu without a desk object.
 - A dismissible welcome card (remembered locally, reopened from Help) and quiet Work / Résumé / Contact shortcuts on the desk.
 - No apps are built yet: never invent apps, users, metrics or results. One clearly labelled sample project demonstrates the layout during development.

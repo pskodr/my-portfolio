@@ -6,8 +6,8 @@ artwork, routing or animation to change them. Save the file and the dev server
 
 | To change | Edit |
 |---|---|
-| Name, welcome card, About intro | `src/content/site.ts` (`profile`, `welcome`) |
-| Your photo on the monitor | Put a portrait (about 4:5) in `public/media/` and set `profile.photo` in `src/content/site.ts`, e.g. `{ src: "/media/portrait.jpg", alt: "Phasakorn smiling, outdoors" }`. Until then the screen shows your initials. |
+| Name, bio (Home and welcome card), welcome card | `src/content/site.ts` (`profile`, `welcome`) |
+| Your photo (Home and the monitor) | `public/media/professional-image.jpg`, set in `profile.photo` in `src/content/site.ts` with its width, height and alt text. To replace it, export a 2:3 JPEG with location and camera metadata removed and update those fields. Set `photo` to `null` to show a placeholder. |
 | Monitor introduction | `profile.monitorIntro` in `src/content/site.ts` |
 | Contact links (email, LinkedIn, GitHub…) | `src/content/site.ts` (`contactLinks`). Add a line to show a link; add `hidden: true` to hide one. |
 | Résumé PDF | Put the PDF in `public/` and set `resumePdf` in `src/content/site.ts`. No download button appears until you do. |

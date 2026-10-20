@@ -3,7 +3,8 @@
 //
 // To add an interest: add its content, a page under src/app/<id>/, and an
 // entry below with group "beyond". It appears in the monitor's "Beyond work"
-// menu; it doesn't need an object on the desk.
+// menu and on the Personal Interests overview; it doesn't need an object on
+// the desk.
 
 import { publishedPosts } from "./blog";
 
@@ -16,12 +17,13 @@ export type Destination = {
 };
 
 export const destinations: Destination[] = [
+  { id: "home", title: "Home", href: "/work", group: "work" },
   { id: "projects", title: "Projects", href: "/work/projects", group: "work" },
   { id: "resume", title: "Résumé", href: "/work/resume", group: "work" },
   { id: "blog", title: "Blogs", href: "/work/blog", group: "work", hidden: publishedPosts.length === 0 },
-  { id: "about", title: "About Me", href: "/work/about", group: "work" },
-  { id: "contact", title: "Contact Me", href: "/work/contact", group: "work" },
+  { id: "interests", title: "Personal Interests", href: "/work/interests", group: "work" },
   { id: "gallery", title: "Gallery", href: "/work/gallery", group: "work" },
+  { id: "contact", title: "Contact Me", href: "/work/contact", group: "work" },
   { id: "pokemon", title: "Pokémon", href: "/pokemon", group: "beyond" },
   { id: "tennis", title: "Tennis", href: "/tennis", group: "beyond" },
   { id: "barcelona", title: "FC Barcelona", href: "/barcelona", group: "beyond" },
