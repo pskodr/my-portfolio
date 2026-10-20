@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { InterestLayout } from "@/components/ui/InterestLayout";
+import { InterestView } from "@/components/ui/InterestView";
 import { Panel } from "@/components/ui/Panel";
 import { pokemon } from "@/content/interests";
 
-export const metadata: Metadata = { title: "Pokémon VGC" };
+export const metadata: Metadata = { title: pokemon.title };
 
-export default function PokemonPage() {
+export default function Page() {
   return (
-    <Panel label="Pokémon VGC doubles" accent="pika" crumbs={[{ label: "Pikachu & Switch" }]}>
-      <InterestLayout page={pokemon} />
+    <Panel title={pokemon.title} file="pokemon.txt" accent="pika">
+      <InterestView page={pokemon} />
     </Panel>
   );
 }

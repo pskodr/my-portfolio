@@ -44,25 +44,22 @@ Contact (confirmed, all to be shown):
 - Personal email: to.phasakorn@gmail.com
 - School email: pchivatx@andrew.cmu.edu
 - LinkedIn: https://www.linkedin.com/in/phasakorn/
+- GitHub: https://github.com/pskodr
 
 Content will grow: the owner plans to add photos and more interactivity over time, so sections should be easy to extend with images and new entries.
 
-Site structure (owner brief, 2026-10-19, replaces the earlier team-sheet site):
-- The homepage is an interactive 3D bedroom. Objects navigate: monitor → professional portfolio (Projects, Experience, Résumé, Socials & Contact); Pikachu plush / Switch → Pokémon VGC doubles; soccer ball / FC Barcelona jersey → soccer; camera → content creation.
-- A discreet conventional menu (Work, About, Résumé, Contact) and semantic HTML navigation outside the 3D scene. Browser Back and direct links work for every destination.
-- Projects hold PM case studies (problem, audience, role, constraints, research, decisions, trade-offs, solution, outcomes, learnings) and apps (screenshots, status, demo and source links). No apps are built yet: never invent completed apps, users, metrics, or achievements. Future ideas live in a modest, clearly labeled experiments area.
-- Résumé: readable HTML summary; a download link only once a PDF exists. No fake or non-working buttons.
-- Socials: LinkedIn, GitHub, email, and relevant social accounts; clearly marked placeholders until links are supplied.
-- Content creation: a gallery of Lambda Phi Epsilon posts, graphics, and videos plus future personal content, with published work clearly separated from experiments.
-- Pokémon and soccer pages are personal-interest pages: no forced PM analogies, no invented rankings, results, or personal history.
-- No mandatory intro sequence and no autoplay audio. Static room fallback when WebGL is unavailable.
+Site structure (owner brief, 2026-10-20, replaces the 3D bedroom):
+- The homepage is a pixel-art nighttime desk. Monitor, keyboard and mouse open the professional portfolio at /work (Projects, Résumé, Blogs once posts exist, About Me, Contact Me, Gallery, plus "Beyond work"). Pikachu → Pokémon VGC doubles; racket → tennis; Barça jersey → FC Barcelona; headphones → music; Pad Thai → food & exploring.
+- The monitor's "Beyond work" entries and the desk objects open the same pages. New interests can be added to the monitor menu without a desk object.
+- A dismissible welcome card (remembered locally, reopened from Help) and quiet Work / Résumé / Contact shortcuts on the desk.
+- No apps are built yet: never invent apps, users, metrics or results. One clearly labelled sample project demonstrates the layout during development.
+- Music uses Spotify's official embed once exact recordings are verified. No autoplay, no fake playback.
+- Asset budget is $0. All desk art is original; see ASSET_CREDITS.md.
 
-Interests (owner-confirmed): product management, building apps, soccer and FC Barcelona, Pokémon VGC doubles, content creation including Lambda Phi Epsilon social media work. The owner's title and responsibilities for the Lambda Phi Epsilon content work are not yet known; don't invent them.
+Interests (owner-confirmed): product management, building apps, soccer and FC Barcelona (supporter since 2015; all-time favorite Luis Suárez, current favorite Pedri; attended the Daegu FC vs. FC Barcelona preseason match), Pokémon VGC doubles, tennis (UTR about 4–5), music, Thai food and café/restaurant hopping, content creation including Lambda Phi Epsilon social media work. The owner's title and responsibilities for the Lambda Phi Epsilon content work are not yet known; don't invent them.
 
 Open decisions:
 - Whether to keep "Thai Student Association: Events Lead" and "a major Thai bank" (raised against the earlier "don't read as international student" steer).
-- The owner's GitHub account (the repo lives at github.com/pskodr; unconfirmed as the public profile to link).
-- A character reference for the seated avatar.
 
 ## Evidence on Hand
 

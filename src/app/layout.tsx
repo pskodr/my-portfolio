@@ -1,36 +1,28 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
-import { RoomProvider } from "@/components/room/RoomContext";
-import { RoomStage } from "@/components/room/RoomStage";
-import { SiteHeader } from "@/components/ui/SiteHeader";
-import { profile } from "@/content/profile";
+import { DeskStage } from "@/components/desk/DeskStage";
+import { welcomeScript } from "@/components/desk/Welcome";
+import { profile } from "@/content/site";
+import { geistMono, notoThai, pixelify } from "@/fonts";
 import "./globals.css";
 
-const grotesk = Schibsted_Grotesk({
-  variable: "--font-grotesk",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: { default: `${profile.name} · Product`, template: `%s · ${profile.name}` },
-  description: `${profile.focus}. Step into my room: projects, experience, résumé, and the things I care about.`,
+  title: { default: `${profile.name} · Portfolio`, template: `%s · ${profile.name}` },
+  description: profile.intro,
 };
 
-// The room stays mounted across every route; pages render as panels over it.
+// The desk stays mounted across every route; pages open over it.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={grotesk.variable}>
+    <html lang="en" className={`${geistMono.variable} ${pixelify.variable} ${notoThai.variable}`} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: welcomeScript }} />
         <a href="#content" className="skip-link">
           Skip to content
         </a>
-        <RoomProvider>
-          <RoomStage />
-          <SiteHeader />
-          <main id="content" className="layer">
-            {children}
-          </main>
-        </RoomProvider>
+        <main id="content" className="layer">
+          {children}
+        </main>
+        <DeskStage />
       </body>
     </html>
   );

@@ -76,8 +76,7 @@ export const leadership: Role[] = [
     title: "Fundraising Lead",
     period: "",
     points: [],
-    pending:
-      "Social media and content work for the chapter: role and details coming soon. See the camera in the room for the work itself.",
+    pending: "Social media and content work for the chapter: details coming soon.",
   },
   { org: "Alpha Kappa Psi", title: "Marketing Lead", period: "", points: [] },
   { org: "Product Management Club", title: "Analyst", period: "", points: [] },

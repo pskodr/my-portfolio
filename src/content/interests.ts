@@ -1,50 +1,75 @@
-// Personal-interest pages. Write in your own words; don't force PM analogies.
-// `body` undefined renders as a clearly marked "coming soon" block.
-// Never invent rankings, results, or personal history.
+// Interest pages, opened from objects on the desk or from "Beyond work" on the
+// monitor. Write in your own words; never invent rankings, results, visits,
+// reviews or personal history.
+//
+// `media` lists ids from content/media.ts. `planned` lists what's coming; it's
+// shown as a clearly marked draft and hidden when drafts are off.
 
-export type InterestSection = { title: string; body?: string | string[] };
-export type FutureArea = { title: string; note: string };
-
-export type InterestPage = {
+export type Interest = {
   title: string;
   lede: string;
-  facts: string[];
-  sections: InterestSection[];
-  future: FutureArea[];
-  photos: { src: string; alt: string; caption?: string }[];
+  body: string[];
+  media: string[];
+  planned: { title: string; note: string }[];
 };
 
-export const pokemon: InterestPage = {
-  title: "Pokémon VGC doubles",
-  lede: "The competitive doubles format: build a team of six, bring four, and outthink the player across from you.",
-  facts: ["Competitive play: top 1%"],
-  sections: [
-    { title: "Why I enjoy it" },
-    { title: "Team-building" },
-    { title: "Strategy" },
-    { title: "Favorite teams" },
-    { title: "What playing has taught me" },
+export const pokemon: Interest = {
+  title: "Competitive Pokémon",
+  lede: "I play VGC doubles: the official competitive format, where each player has two Pokémon on the field at a time.",
+  body: [
+    "With two Pokémon active on each side, every turn is a small puzzle. My opponent is trying to read me as hard as I'm trying to read them.",
+    "What I enjoy most is the anticipation. It feels a lot like chess: predicting the options my opponent has, and planning a turn or two ahead. A choice I make on one turn shapes what's possible on the next.",
+    "Team-building is its own creative outlet. There are endless combinations of roles and synergies, and lots of room for approaches nobody expects.",
+    "When I lose, I go back through the game. Sometimes my preparation had a gap or I misjudged a turn; sometimes the matchup was rough or the randomness didn't go my way. Telling those apart is how I get better.",
   ],
-  future: [
-    { title: "Team breakdowns", note: "Teams I've built, with the reasoning behind each slot." },
-    { title: "Practice journal", note: "Notes from sets: what worked, what didn't." },
+  media: [],
+  planned: [
+    { title: "Team breakdowns", note: "Teams I've built and the thinking behind each slot." },
+    { title: "Screenshots", note: "Moments from games worth looking at." },
+    { title: "Reflections", note: "What I took away from sets, wins and losses." },
   ],
-  photos: [],
 };
 
-export const soccer: InterestPage = {
+export const tennis: Interest = {
+  title: "Tennis",
+  lede: "Tennis is how I de-stress.",
+  body: [
+    "Time on court clears my head better than almost anything. I'm around a 4–5 UTR, and I like that there's always another part of my game to improve.",
+    "I'm working on a playing style that feels like my own, and enjoying the process of getting there.",
+  ],
+  media: [],
+  planned: [
+    { title: "Photos", note: "From the court." },
+    { title: "Match and practice clips", note: "With notes on what I'm working on." },
+    { title: "Reflections", note: "How my game is developing." },
+  ],
+};
+
+export const barcelona: Interest = {
   title: "Soccer & FC Barcelona",
-  lede: "Watching Barça, playing 5-a-side, and the occasional FIFA match.",
-  facts: ["Plays 5-a-side", "FC Barcelona supporter"],
-  sections: [
-    { title: "How I got into soccer" },
-    { title: "FC Barcelona" },
-    { title: "Playing" },
-    { title: "Watching" },
+  lede: "I've supported FC Barcelona since 2015.",
+  body: [
+    "Luis Suárez is my favorite player of all time. These days, my favorite is Pedri.",
+    "I got to see the team in person at the Daegu FC vs. FC Barcelona preseason match.",
   ],
-  future: [
-    { title: "Favorite moments", note: "Matches and moments worth remembering." },
-    { title: "Short reflections", note: "Thoughts after big games." },
+  media: [],
+  planned: [
+    { title: "Daegu FC vs. FC Barcelona", note: "Photos and video from the match." },
+    { title: "Memories", note: "Moments that made me a fan." },
   ],
-  photos: [],
+};
+
+export const food: Interest = {
+  title: "Food & exploring",
+  lede: "I'm from Thailand, and Thai food will always be my favorite.",
+  body: [
+    "I also love Japanese, Italian, Indian, and plenty of other cuisines.",
+    "Some of my favorite days are spent café and restaurant hopping, trying somewhere new and ordering something I haven't had before.",
+  ],
+  media: [],
+  planned: [
+    { title: "Food photos", note: "What I've been eating." },
+    { title: "Café visits", note: "Places worth the trip." },
+    { title: "Restaurant notes and video reviews", note: "Short, honest takes." },
+  ],
 };

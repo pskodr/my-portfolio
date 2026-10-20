@@ -2,74 +2,62 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, X } from "lucide-react";
 
-type Crumb = { label: string; href?: string };
-
-// Every destination opens in a panel over the room. It always offers
-// "Back to room", closes on Escape, and moves focus to its heading on arrival.
-// The entrance is a CSS animation, so the panel is visible even before hydration.
+// A large, centred pixel-framed window that opens over the desk for an
+// interest. It has a title bar with "Back to desk" and close, closes on
+// Escape, and moves focus to its heading whenever it's shown.
 export function Panel({
   children,
-  crumbs = [],
-  variant = "default",
+  title,
+  file,
   accent,
-  label,
 }: {
   children: React.ReactNode;
-  crumbs?: Crumb[];
-  variant?: "default" | "screen";
-  accent?: "pika" | "barca";
-  label: string;
+  title: string;
+  file: string;
+  accent?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
-    const h1 = ref.current?.querySelector("h1");
-    if (h1) {
-      h1.setAttribute("tabindex", "-1");
-      h1.focus({ preventScroll: true });
-    }
-    ref.current?.querySelectorAll(".panel-scroll, .os-content").forEach((el) => el.scrollTo({ top: 0 }));
-  }, [pathname]);
-
-  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Pages stay mounted (hidden) between visits, so re-run this whenever the
+    // window becomes visible again.
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      el.querySelector(".cwin-scroll")?.scrollTo({ top: 0 });
+      const h1 = el.querySelector("h1");
+      h1?.setAttribute("tabindex", "-1");
+      h1?.focus({ preventScroll: true });
+    });
+    io.observe(el);
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") router.push("/", { scroll: false });
+      if (e.key === "Escape" && el.checkVisibility()) router.push("/", { scroll: false });
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      io.disconnect();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [router]);
 
   return (
-    <section ref={ref} aria-label={label} className={`panel panel-${variant}`} data-accent={accent}>
-      <div className="panel-bar">
-        <Link href="/" scroll={false} className="back-link">
-          <ArrowLeft size={16} aria-hidden />
-          Back to room
+    <section ref={ref} aria-label={title} className="win cwin" data-accent={accent}>
+      <div className="win-bar">
+        <Link href="/" scroll={false} className="pbtn pbtn-quiet pbtn-sm">
+          <ArrowLeft size={15} aria-hidden />
+          Back to desk
         </Link>
-        {crumbs.length > 0 && (
-          <nav aria-label="Breadcrumb" className="crumbs">
-            <ol>
-              {crumbs.map((c, i) => (
-                <li key={i}>
-                  {c.href && i < crumbs.length - 1 ? (
-                    <Link href={c.href} scroll={false}>
-                      {c.label}
-                    </Link>
-                  ) : (
-                    <span aria-current={i === crumbs.length - 1 ? "page" : undefined}>{c.label}</span>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </nav>
-        )}
+        <span className="win-title">{file}</span>
+        <Link href="/" scroll={false} className="win-close" aria-label="Close">
+          <X size={16} aria-hidden />
+        </Link>
       </div>
-      <div className="panel-scroll">{children}</div>
+      <div className="cwin-scroll">{children}</div>
     </section>
   );
 }
