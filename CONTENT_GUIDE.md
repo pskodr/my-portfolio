@@ -18,6 +18,8 @@ artwork, routing or animation to change them. Save the file and the dev server
 | Projects | `src/content/projects.ts`. Copy an entry, give it a new `slug`, fill in what you have. Order in the file is order on the page. |
 | Interest pages (Pokémon, tennis, Barça, food) | `src/content/interests.ts` |
 | Songs | `src/content/music.ts` |
+| Home: bold phrases in the bio, the education row, "Previously at" | `home` in `src/content/site.ts` (`emphasis` must match the bio's wording exactly; logos are ids from `src/content/logos.ts`). |
+| Gallery caption and "Coming Soon" | `galleryCaption` and `galleryComingSoon` in `src/content/gallery.ts`. Set `galleryComingSoon` to `false` to show the collections. |
 | Photos, graphics and videos | Put files in `public/media/`, describe each in `src/content/media.ts`, then list its `id` wherever it should appear: a project's `media`, a gallery collection in `src/content/gallery.ts`, or an interest's `media`. The same photo can appear in several places. |
 | Blog posts | `src/content/blog.ts`. The Blogs menu entry appears once there's a post. |
 | Menu entries, desk object names and hover labels | `src/content/destinations.ts` (`destinations`, `deskObjects`) |

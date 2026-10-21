@@ -86,10 +86,13 @@ interests. The art is the scene; everything you read is crisp HTML.
   left-aligned, on the right.
 - **Monitor → /work:** the desk scales toward the screen while the full-screen
   window grows out of the screen's rectangle (0.42s). It opens on Home.
-- **Computer pages, one purpose each:** Home (who I am: portrait, name, bio,
-  then "Right now"), Projects (my work), Résumé (qualifications and
+- **Computer pages, one purpose each:** Home (who I am: portrait, name, bio
+  with three phrases in bold and a one-time yellow underline under "product
+  builder", then "Right now": one CMU education row and "Previously at" logos
+  for Agoda and Accenture), Projects (my work), Résumé (qualifications and
   experience), Personal Interests (an index of the interest pages), Gallery
-  (visual media), Contact Me (ways to reach me). Home's actions are ranked:
+  (visual media; "Coming Soon :)" until there is some), Contact Me (ways to
+  reach me). Home's actions are ranked:
   "My Projects" is the yellow primary button, "Read My Résumé" a standard
   button, and Personal Interests, Gallery and Contact Me quieter underlined
   links with a small yellow marker. The portrait keeps its 2:3 shape in a

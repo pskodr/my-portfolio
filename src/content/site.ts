@@ -28,6 +28,15 @@ export const profile = {
   } as { src: string; width: number; height: number; alt: string } | null,
 };
 
+// Home: phrases in the bio set in bold (the first also gets a one-time yellow
+// underline), the education row, and the organisations under "Previously at"
+// (ids from content/logos.ts).
+export const home = {
+  emphasis: ["product builder", "Information Systems & Business", "Carnegie Mellon University"],
+  education: { logo: "cmu", text: "B.S. Information Systems, Additional Major in Business Administration" },
+  previouslyAt: ["agoda", "accenture"],
+} as const;
+
 export const welcome = {
   hint: "Everything on the desk is clickable: the monitor holds my work, the rest is what I love outside it.",
   primary: "Explore my work",
@@ -43,7 +52,7 @@ export type ContactLink = {
 };
 
 // The caption on the Contact Me page.
-export const contactCaption = "Let’s talk product, building ideas, or shared interests. Email is a great place to start.";
+export const contactCaption = "Let’s talk product, building ideas, or shared interests!";
 
 // Add a link here and it appears on the Contact page. Set `hidden: true` to
 // keep one without showing it.

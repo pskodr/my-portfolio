@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Draft } from "@/components/ui/Draft";
-import { education } from "@/content/experience";
-import { profile } from "@/content/site";
+import { OrgLogo } from "@/components/ui/OrgLogo";
+import { Bio } from "@/components/work/Bio";
+import { home, profile } from "@/content/site";
 
 export const metadata: Metadata = { title: "Home" };
 
@@ -30,7 +30,7 @@ export default function WorkHome() {
 
         <div className="home-intro">
           <h1 className="page-title">{profile.name}</h1>
-          <p className="page-lede">{profile.intro}</p>
+          <Bio />
 
           <nav aria-label="Explore" className="home-actions">
             <p className="link-row">
@@ -66,27 +66,20 @@ export default function WorkHome() {
         <h2 id="now-h" className="section-title">
           Right now
         </h2>
-        <dl className="kv">
-          <div>
-            <dt>Studying</dt>
-            <dd>
-              {education.degree}, {profile.school} ({education.period})
-            </dd>
-          </div>
-          <div>
-            <dt>Teaching</dt>
-            <dd>Teaching Assistant for Database Design & Development at CMU Heinz College</dd>
-          </div>
-          <div>
-            <dt>Most recently</dt>
-            <dd>Technical Product Management Intern at Agoda, on the AI voice automation team</dd>
-          </div>
-        </dl>
-      </section>
+        <div className="home-edu">
+          <OrgLogo id={home.education.logo} />
+          <p>{home.education.text}</p>
+        </div>
 
-      <Draft title="A longer bio">
-        <p>How I got into product, in my own words.</p>
-      </Draft>
+        <h3 className="home-prev-title">Previously at</h3>
+        <ul className="home-prev">
+          {home.previouslyAt.map((id) => (
+            <li key={id}>
+              <OrgLogo id={id} />
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
