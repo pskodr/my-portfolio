@@ -1293,58 +1293,6 @@ h2:focus {
   }
 }
 
-/* Personal Interests overview */
-
-.interest-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: var(--unit) solid var(--rule);
-}
-
-.interest-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2px var(--s-4);
-  padding: var(--s-4) var(--s-2);
-  border-bottom: var(--unit) solid var(--rule);
-  text-decoration: none;
-}
-
-.interest-row:hover {
-  background: var(--paper);
-}
-
-.interest-title {
-  font-family: var(--ff-display);
-  font-size: 22px;
-  line-height: 1.25;
-}
-
-.interest-meta {
-  grid-column: 1;
-  font-size: 15.5px;
-  color: var(--text-2);
-}
-
-.interest-go {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
-  color: var(--text-3);
-}
-
-.interest-row:hover .interest-title {
-  text-decoration: underline;
-  text-decoration-color: var(--link-line);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.2em;
-}
-
-.interest-row:hover .interest-go {
-  color: var(--text);
-}
-
 /* Projects */
 
 .project-list {
@@ -1499,11 +1447,38 @@ h2:focus {
   padding: 0;
 }
 
+/* A role: the organisation's logo badge, then the text column. The badge
+   lines up with the organisation and role; bullets align under the text. */
 .role {
   display: grid;
-  gap: 4px;
+  grid-template-columns: 48px minmax(0, 1fr);
+  column-gap: var(--s-4);
+  align-items: start;
   padding: 18px 0 20px;
   border-bottom: var(--unit) solid var(--rule);
+}
+
+.role-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Organisation logos: a round badge, the logo whole inside it. */
+.org-logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 var(--unit) var(--edge);
+}
+
+.org-logo img {
+  display: block;
+  max-width: none;
+  height: auto;
 }
 
 .role-head {
@@ -1540,12 +1515,7 @@ h2:focus {
   color: var(--text-2);
 }
 
-.role-pending {
-  margin: 6px 0 0;
-  font-size: 14px;
-  color: var(--text-3);
-}
-
+/* Leadership roles without details: a compact grid, all alike. */
 .compact-roles {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1557,13 +1527,205 @@ h2:focus {
 
 .compact-roles li {
   display: grid;
+  gap: 2px;
   padding: var(--s-3) 0;
   border-bottom: var(--unit) solid var(--rule);
 }
 
+.compact-roles strong {
+  font-size: 16px;
+  font-weight: 650;
+}
+
 .compact-roles span {
-  font-size: 14px;
+  font-size: 14.5px;
+  color: var(--text-2);
+}
+
+/* Education: the degree leads; the colleges are secondary; coursework is a
+   quieter wrapping list. */
+.role.edu {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.edu-degree {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.edu-courses {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--s-3);
+}
+
+.edu-courses h4 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--text-3);
+}
+
+.edu-courses ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* A small marker before each course, so wrapped lines start cleanly. */
+.edu-courses li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edu-courses li::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: var(--edge-strong);
+}
+
+/* Skills: grouped chips. */
+.skill-groups {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.skill-group {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.skill-group h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.skill-group h3::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--edge-strong);
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A chip: paper on the ivory page, a thin stepped frame (notched corners). */
+.skill-chips li {
+  margin: var(--unit);
+  padding: 4px 10px 5px;
+  background: var(--paper);
+  font-size: 14.5px;
+  line-height: 1.35;
+  box-shadow:
+    0 calc(var(--unit) * -1) 0 0 var(--edge),
+    0 var(--unit) 0 0 var(--edge),
+    calc(var(--unit) * -1) 0 0 0 var(--edge),
+    var(--unit) 0 0 0 var(--edge);
+}
+
+.skill-group:nth-child(even) .skill-chips li {
+  background: var(--stone);
+}
+
+/* Rows with a pixel icon (Personal Interests, Contact Me): each row is one
+   link: icon, title and a line, arrow. */
+.icon-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--unit) solid var(--rule);
+}
+
+.icon-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  min-height: 72px;
+  padding: var(--s-3) var(--s-3);
+  border-bottom: var(--unit) solid var(--rule);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.icon-row:hover {
+  background: var(--paper);
+}
+
+.icon-row-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.icon-row-title {
+  font-family: var(--ff-display);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.icon-row-note {
+  font-size: 15.5px;
+  color: var(--text-2);
+}
+
+.icon-row-value {
+  overflow-wrap: anywhere;
+}
+
+.icon-row-go {
+  color: var(--text-3);
+}
+
+.icon-row:hover .icon-row-title {
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.icon-row:hover .icon-row-go {
+  color: var(--text);
+}
+
+/* Pixel icons: 16px art at a whole multiple, never smoothed. */
+.pixel-icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+
+.pbtn-lg {
+  min-height: 48px;
+  padding: 0 var(--s-5);
+  font-size: 18px;
 }
 
 .kv {
@@ -1589,65 +1751,6 @@ h2:focus {
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
-}
-
-/* Contact */
-
-.contact-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: var(--unit) solid var(--rule);
-}
-
-.contact-row {
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--s-4);
-  min-height: 60px;
-  padding: var(--s-2);
-  border-bottom: var(--unit) solid var(--rule);
-  text-decoration: none;
-}
-
-.contact-row:hover {
-  background: var(--paper);
-}
-
-.contact-label {
-  font-family: var(--ff-display);
-  font-size: 18px;
-  color: var(--text-2);
-}
-
-.contact-value {
-  font-size: 17px;
-  overflow-wrap: anywhere;
-}
-
-.contact-row svg {
-  color: var(--text-3);
-}
-
-.contact-row:hover .contact-value {
-  text-decoration: underline;
-  text-decoration-color: var(--link-line);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.2em;
-}
-
-.contact-row:hover svg {
-  color: var(--text);
-}
-
-.chip-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 /* Music */
@@ -1898,13 +2001,22 @@ h2:focus {
     padding: var(--s-6) var(--gutter) 64px;
   }
 
-  .kv > div,
-  .contact-row {
+  .kv > div {
     grid-template-columns: 1fr;
     gap: 2px;
   }
 
-  .contact-row svg {
-    display: none;
+  .role {
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: var(--s-3);
+  }
+
+  .org-logo {
+    width: 40px;
+  }
+
+  .icon-row {
+    gap: var(--s-3);
+    padding-inline: var(--s-1);
   }
 }

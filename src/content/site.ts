@@ -38,20 +38,28 @@ export type ContactLink = {
   label: string;
   value: string;
   href: string;
+  icon: string; // pixel icon in /media/icons
   hidden?: boolean;
 };
+
+// The caption on the Contact Me page.
+export const contactCaption = "Let’s talk product, building ideas, or shared interests. Email is a great place to start.";
 
 // Add a link here and it appears on the Contact page. Set `hidden: true` to
 // keep one without showing it.
 export const contactLinks: ContactLink[] = [
-  { label: "Email", value: "to.phasakorn@gmail.com", href: "mailto:to.phasakorn@gmail.com" },
-  { label: "School email", value: "pchivatx@andrew.cmu.edu", href: "mailto:pchivatx@andrew.cmu.edu" },
-  { label: "LinkedIn", value: "linkedin.com/in/phasakorn", href: "https://www.linkedin.com/in/phasakorn/" },
-  { label: "GitHub", value: "github.com/pskodr", href: "https://github.com/pskodr" },
+  { label: "Email", value: "to.phasakorn@gmail.com", href: "mailto:to.phasakorn@gmail.com", icon: "gmail" },
+  // CMU's Andrew mail runs on Google Workspace (Gmail).
+  { label: "School email", value: "pchivatx@andrew.cmu.edu", href: "mailto:pchivatx@andrew.cmu.edu", icon: "gmail" },
+  { label: "LinkedIn", value: "linkedin.com/in/phasakorn", href: "https://www.linkedin.com/in/phasakorn/", icon: "linkedin" },
+  { label: "GitHub", value: "github.com/pskodr", href: "https://github.com/pskodr", icon: "github" },
 ];
 
 export const primaryEmail = contactLinks[0];
 
-// Put the PDF in /public (e.g. "/resume.pdf", without a phone number) and set
-// the path here. While null, no download button renders.
+// The résumé PDF for "Download Résumé": put it in /public (e.g.
+// "/Phasakorn_Chivatxaranukul_Resume.pdf") and set the path here. It must not
+// show a phone number or GPA (see PRODUCT.md). While null, no download link
+// renders (a marked draft placeholder shows while drafts are on).
 export const resumePdf: string | null = null;
+export const resumeFilename = "Phasakorn_Chivatxaranukul_Resume.pdf";

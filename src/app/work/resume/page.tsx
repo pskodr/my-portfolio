@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Download } from "lucide-react";
-import { awards, education, leadership, professional, skills, type Role } from "@/content/experience";
-import { primaryEmail, resumePdf } from "@/content/site";
+import { OrgLogo } from "@/components/ui/OrgLogo";
+import { awards, education, leadership, professional, resumeCaption, skills, type Role } from "@/content/experience";
+import { resumeFilename, resumePdf, showDrafts } from "@/content/site";
 
 export const metadata: Metadata = { title: "Résumé" };
 
@@ -10,19 +11,21 @@ function Roles({ roles }: { roles: Role[] }) {
     <ol className="roles">
       {roles.map((r) => (
         <li key={r.org} className="role">
-          <div className="role-head">
-            <h3 className="role-org">{r.org}</h3>
-            {r.period && <span className="role-period">{r.period}</span>}
+          {r.logo ? <OrgLogo id={r.logo} /> : <span />}
+          <div className="role-body">
+            <div className="role-head">
+              <h3 className="role-org">{r.org}</h3>
+              {r.period && <span className="role-period">{r.period}</span>}
+            </div>
+            <p className="role-title">{r.title}</p>
+            {r.points.length > 0 && (
+              <ul className="bullets">
+                {r.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            )}
           </div>
-          <p className="role-title">{r.title}</p>
-          {r.points.length > 0 && (
-            <ul className="bullets">
-              {r.points.map((p) => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-          )}
-          {r.pending && <p className="role-pending">{r.pending}</p>}
         </li>
       ))}
     </ol>
@@ -30,25 +33,31 @@ function Roles({ roles }: { roles: Role[] }) {
 }
 
 export default function ResumePage() {
-  const detailed = leadership.filter((r) => r.points.length || r.pending);
-  const brief = leadership.filter((r) => !r.points.length && !r.pending);
+  const detailed = leadership.filter((r) => r.points.length);
+  const brief = leadership.filter((r) => !r.points.length);
 
   return (
     <div className="stack">
       <header className="page-head">
         <h1 className="page-title">Résumé</h1>
-        <p className="page-lede">Product, strategy and consulting roles, plus the student organizations I help lead.</p>
+        <p className="page-lede">{resumeCaption}</p>
         {resumePdf ? (
           <p className="link-row">
-            <a href={resumePdf} download className="pbtn pbtn-primary">
-              <Download size={16} aria-hidden />
-              Download PDF
+            <a href={resumePdf} download={resumeFilename} type="application/pdf" className="pbtn pbtn-primary pbtn-lg">
+              <Download size={18} aria-hidden />
+              Download Résumé
             </a>
           </p>
         ) : (
-          <p className="note">
-            Want a PDF copy? Email <a href={primaryEmail.href}>{primaryEmail.value}</a> and I&apos;ll send one.
-          </p>
+          showDrafts && (
+            <p className="link-row">
+              <span className="pbtn pbtn-lg" aria-disabled="true">
+                <Download size={18} aria-hidden />
+                Download Résumé
+              </span>
+              <span className="tag-draft">Draft: PDF not added yet</span>
+            </p>
+          )
         )}
       </header>
 
@@ -78,38 +87,43 @@ export default function ResumePage() {
         <h2 id="edu-h" className="section-title">
           Education
         </h2>
-        <dl className="kv">
-          <div>
-            <dt>School</dt>
-            <dd>{education.school}</dd>
+        <div className="role edu">
+          <OrgLogo id={education.logo} />
+          <div className="role-body">
+            <div className="role-head">
+              <h3 className="role-org">{education.school}</h3>
+              <span className="role-period">{education.period}</span>
+            </div>
+            <p className="edu-degree">{education.degree}</p>
+            <p className="role-title">{education.colleges}</p>
+            <div className="edu-courses">
+              <h4>Relevant coursework</h4>
+              <ul>
+                {education.coursework.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div>
-            <dt>Degree</dt>
-            <dd>{education.degree}</dd>
-          </div>
-          <div>
-            <dt>Graduation</dt>
-            <dd>{education.period}</dd>
-          </div>
-          <div>
-            <dt>Coursework</dt>
-            <dd>{education.coursework.join(", ")}</dd>
-          </div>
-        </dl>
+        </div>
       </section>
 
       <section aria-labelledby="sk-h" className="section">
         <h2 id="sk-h" className="section-title">
           Skills
         </h2>
-        <dl className="kv">
+        <div className="skill-groups">
           {skills.map((s) => (
-            <div key={s.group}>
-              <dt>{s.group}</dt>
-              <dd>{s.items}</dd>
+            <div key={s.group} className="skill-group">
+              <h3>{s.group}</h3>
+              <ul className="skill-chips">
+                {s.items.map((i) => (
+                  <li key={i}>{i}</li>
+                ))}
+              </ul>
             </div>
           ))}
-        </dl>
+        </div>
       </section>
 
       <section aria-labelledby="aw-h" className="section">

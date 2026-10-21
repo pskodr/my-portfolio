@@ -38,8 +38,38 @@ Anything else falls back to the system monospace font.
 
 ## Icons
 
-[Lucide](https://lucide.dev) icons (ISC License) for interface arrows and the
-close button. Not used in the artwork.
+[Lucide](https://lucide.dev) icons (ISC License) for interface arrows, the
+close button and the download icon. Not used in the artwork.
+
+### Pixel icons (Personal Interests, Contact Me)
+
+16x16 pixel icons in `public/media/icons/*.svg`, hand-placed in
+`scripts/build-icons.mjs` (rebuild with `npm run icons`). No image files were
+copied or traced.
+
+| Icon | Source | Notes |
+|---|---|---|
+| Poké Ball, racket, headphones, Pad Thai | Simplified from this site's own desk artwork | Original. The Poké Ball design is a trademark of Nintendo / Creatures / GAME FREAK / The Pokémon Company; used as a personal, non-commercial reference to the owner's hobby. |
+| FC Barcelona crest | Pixel interpretation of the club crest, drawn by hand | The crest is a registered trademark of FC Barcelona. Used only to label the owner's fan page; no official artwork file is used. Not licensed for other reuse. |
+| Gmail, GitHub, LinkedIn | Pixel renderings of each company's official mark, drawn by hand in their brand colours | Trademarks of Google, GitHub and LinkedIn. Used only to identify the owner's own accounts, as each brand's guidelines allow for linking to a profile. Not licensed for other reuse; do not alter the marks beyond this pixel rendering. |
+
+## Organisation logos (Résumé)
+
+Logos identify the organisations the owner worked with. They are trademarks of
+their owners, used only to identify those organisations next to the owner's
+own roles, and are **not** licensed for any other reuse. Originals are kept
+untouched in `assets/logos/`; `scripts/build-logos.mjs` (`npm run logos`)
+writes trimmed, resized copies to `public/media/logos/`. None are pixelated or
+recoloured.
+
+| Organisation | Original file | Source |
+|---|---|---|
+| Accenture | `assets/logos/accenture-logo.png` | Supplied by the owner |
+| Agoda | `assets/logos/agoda-logo.png` | Supplied by the owner |
+| Carnegie Mellon University | `assets/logos/cmu-logo.png` | Supplied by the owner (CMU wordmark) |
+| Undergraduate Consulting Club | `assets/logos/ucc-logo.png` | Supplied by the owner |
+| OvertureXL | `assets/logos/overturexl-logo.png` | Official site, https://overturexl.com/assets/images/logo-XL.png (retrieved 2026-10-20). The badge uses the heart-and-shield mark from its left side, the same mark as the site's favicon. |
+| Animal Health Experts | `assets/logos/animalhealthexperts-logo.jpg` | Official site header logo, https://animalhealthexperts.com/ (image served from img1.wsimg.com, retrieved 2026-10-20). The badge uses the dog illustration from its left side. |
 
 ## Music (planned)
 

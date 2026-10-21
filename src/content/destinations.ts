@@ -14,7 +14,12 @@ export type Destination = {
   href: string;
   group: "work" | "beyond";
   hidden?: boolean;
+  icon?: string; // pixel icon in /media/icons (interests)
+  summary?: string; // one line on the Personal Interests page
 };
+
+// The caption on the Personal Interests page.
+export const interestsCaption = "A few things I always make time for.";
 
 export const destinations: Destination[] = [
   { id: "home", title: "Home", href: "/work", group: "work" },
@@ -24,11 +29,32 @@ export const destinations: Destination[] = [
   { id: "interests", title: "Personal Interests", href: "/work/interests", group: "work" },
   { id: "gallery", title: "Gallery", href: "/work/gallery", group: "work" },
   { id: "contact", title: "Contact Me", href: "/work/contact", group: "work" },
-  { id: "pokemon", title: "Pokémon", href: "/pokemon", group: "beyond" },
-  { id: "tennis", title: "Tennis", href: "/tennis", group: "beyond" },
-  { id: "barcelona", title: "FC Barcelona", href: "/barcelona", group: "beyond" },
-  { id: "music", title: "Music", href: "/music", group: "beyond" },
-  { id: "food", title: "Food & Exploring", href: "/food", group: "beyond" },
+  {
+    id: "pokemon",
+    title: "Pokémon",
+    href: "/pokemon",
+    group: "beyond",
+    icon: "pokeball",
+    summary: "Competitive VGC doubles and creative team-building.",
+  },
+  { id: "tennis", title: "Tennis", href: "/tennis", group: "beyond", icon: "racket", summary: "A way to reset and keep improving." },
+  {
+    id: "barcelona",
+    title: "FC Barcelona",
+    href: "/barcelona",
+    group: "beyond",
+    icon: "barcelona",
+    summary: "Supporting Barça since 2015.",
+  },
+  { id: "music", title: "Music", href: "/music", group: "beyond", icon: "headphones", summary: "What I’m listening to." },
+  {
+    id: "food",
+    title: "Food & Exploring",
+    href: "/food",
+    group: "beyond",
+    icon: "padthai",
+    summary: "Thai food, new cuisines, and café hopping.",
+  },
 ];
 
 export const visibleDestinations = destinations.filter((d) => !d.hidden);

@@ -1,17 +1,24 @@
 // Roles from the owner's résumé, copied without rounding or embellishment.
+// The website omits some items that stay on the downloadable PDF.
+
+import type { LogoId } from "./logos";
 
 export type Role = {
   org: string;
   title: string;
   period: string;
   location?: string;
+  logo?: LogoId; // see content/logos.ts
   points: string[];
-  pending?: string; // a clearly marked note for content the owner hasn't supplied
 };
+
+// The caption under the Résumé heading.
+export const resumeCaption = "Product Management | Consulting | Business Development";
 
 export const professional: Role[] = [
   {
     org: "Agoda (Booking Holdings)",
+    logo: "agoda",
     title: "Technical Product Management Intern, Customer Experience AI Voice Automation",
     period: "Jun–Aug 2026",
     location: "Bangkok",
@@ -23,6 +30,7 @@ export const professional: Role[] = [
   },
   {
     org: "Overture XL",
+    logo: "overturexl",
     title: "GTM Strategy Analyst",
     period: "Aug–Dec 2025",
     location: "Atlanta",
@@ -33,6 +41,7 @@ export const professional: Role[] = [
   },
   {
     org: "Accenture",
+    logo: "accenture",
     title: "Technology Consulting Summer Analyst",
     period: "Jun–Aug 2025",
     location: "Bangkok",
@@ -44,6 +53,7 @@ export const professional: Role[] = [
   },
   {
     org: "Animal Health Experts",
+    logo: "animalhealthexperts",
     title: "AI Strategy Consultant",
     period: "Jan–Jun 2025",
     location: "Pittsburgh",
@@ -57,6 +67,7 @@ export const professional: Role[] = [
 export const leadership: Role[] = [
   {
     org: "Carnegie Mellon University, Heinz College",
+    logo: "cmu",
     title: "Teaching Assistant, Database Design & Development",
     period: "Aug 2026–present",
     points: [
@@ -65,19 +76,14 @@ export const leadership: Role[] = [
   },
   {
     org: "Undergraduate Consulting Club",
+    logo: "ucc",
     title: "Senior Consultant",
     period: "Jan 2025–present",
     points: [
       "Lead a cross-functional team of 8 student consultants delivering data-driven recommendations to SME clients.",
     ],
   },
-  {
-    org: "Lambda Phi Epsilon",
-    title: "Fundraising Lead",
-    period: "",
-    points: [],
-    pending: "Social media and content work for the chapter: details coming soon.",
-  },
+  { org: "Lambda Phi Epsilon", title: "Fundraising Lead", period: "", points: [] },
   { org: "Alpha Kappa Psi", title: "Marketing Lead", period: "", points: [] },
   { org: "Product Management Club", title: "Analyst", period: "", points: [] },
   { org: "Tepper Marketing Association", title: "Consultant", period: "", points: [] },
@@ -85,7 +91,9 @@ export const leadership: Role[] = [
 ];
 
 export const education = {
-  school: "Carnegie Mellon University, Heinz College & Tepper School of Business",
+  school: "Carnegie Mellon University",
+  colleges: "Heinz College & Tepper School of Business",
+  logo: "cmu" as LogoId,
   degree:
     "B.S. Information Systems, additional major in Business Administration, minor in AI",
   period: "Expected May 2028",
@@ -103,12 +111,15 @@ export const awards = [
   "CMU Prod Hacks: 3rd of 300+ participants",
   "WICO Innovation Competition: Gold",
   "World Economic Cup: Bronze Continental Award",
-  "Deloitte Case Competition",
-  "The Challenger Case Competition",
 ];
 
+// The owner's skills, grouped by what they are.
 export const skills = [
-  { group: "Product & strategy", items: "Roadmapping, market research, UX research, competitive analysis, KPIs, OKRs, Agile" },
-  { group: "Technical", items: "Systems design, GenAI-assisted development, data analytics, DCF modeling" },
-  { group: "Languages & tools", items: "Python, JavaScript, SQL, R, PlantUML, Superset, Excel, PowerPoint, Confluence, Claude Code" },
+  {
+    group: "Product & Strategy",
+    items: ["Roadmapping", "Market research", "UX research", "Competitive analysis", "KPIs", "OKRs", "Agile"],
+  },
+  { group: "Technical & Analytical", items: ["Systems design", "GenAI-assisted development", "Data analytics", "DCF modeling"] },
+  { group: "Programming", items: ["Python", "JavaScript", "SQL", "R"] },
+  { group: "Tools", items: ["PlantUML", "Superset", "Excel", "PowerPoint", "Confluence", "Claude Code"] },
 ];
