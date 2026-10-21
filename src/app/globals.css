@@ -438,9 +438,10 @@ h2:focus {
   transition: filter 0.2s;
 }
 
+/* A yellow ring with a dark ring outside it (two art pixels). */
 .sprite-outline {
-  left: -1px;
-  top: -1px;
+  left: -2px;
+  top: -2px;
   opacity: 0;
   transition: opacity 0.14s;
 }
@@ -449,8 +450,18 @@ h2:focus {
   opacity: 1;
 }
 
+/* The stand shares the headphones' highlight, more quietly. */
+.sprite[data-id="stand"][data-active] .sprite-outline {
+  opacity: 0.5;
+}
+
+/* Decoration is part of the picture only. */
+.decor {
+  pointer-events: none;
+}
+
 /* A one-art-pixel lift for things resting on the desk. */
-.desk[data-view="desk"] .sprite[data-active]:is([data-id="pikachu"], [data-id="padthai"], [data-id="headphones"], [data-id="mouse"], [data-id="card"]) {
+.desk[data-view="desk"] .sprite[data-active]:is([data-id="pokemon"], [data-id="padthai"], [data-id="headphones"], [data-id="stand"], [data-id="mouse"], [data-id="card"]) {
   transform: translateY(-1px);
 }
 
@@ -557,17 +568,27 @@ h2:focus {
   color: var(--text-2);
 }
 
+/* Below the title bar: one centred group, portrait left, name and the
+   primary action right, about 82% of the screen's width, leaving room right of the name.
+   Everything is in art pixels, so the proportions hold at any scale. */
 .screen-body {
   flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: calc(var(--u) * 54) minmax(0, 1fr);
+  place-content: center;
+  padding: calc(var(--u) * 4) calc(var(--u) * 10);
+}
+
+.screen-group {
+  display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
-  gap: calc(var(--u) * 10);
-  padding: calc(var(--u) * 6) calc(var(--u) * 12) calc(var(--u) * 7);
+  gap: calc(var(--u) * 13);
 }
 
 .screen-photo {
   position: relative;
+  height: calc(var(--u) * 80);
   aspect-ratio: 4 / 5;
   margin: var(--u);
   overflow: hidden;
@@ -576,12 +597,13 @@ h2:focus {
     0 calc(var(--u) * -1) 0 0 var(--edge-strong),
     0 var(--u) 0 0 var(--edge-strong),
     calc(var(--u) * -1) 0 0 0 var(--edge-strong),
-    var(--u) 0 0 0 var(--edge-strong);
+    var(--u) 0 0 0 var(--edge-strong),
+    calc(var(--u) * 3) calc(var(--u) * 3) 0 0 var(--stone-2);
 }
 
 .screen-photo img {
   object-fit: cover;
-  object-position: 50% 22%; /* keep the face in the crop */
+  object-position: 50% 24%; /* head and shoulders */
 }
 
 .screen-photo-empty {
@@ -606,41 +628,33 @@ h2:focus {
   color: var(--text-3);
 }
 
+.screen-text {
+  display: grid;
+  justify-items: start;
+  gap: calc(var(--u) * 10);
+}
+
+/* The focal point: the full name, deliberately on two lines. */
 .screen-name {
   margin: 0;
   font-family: var(--ff-display);
-  font-size: calc(var(--u) * 10.5);
+  font-size: calc(var(--u) * 12.75);
   font-weight: 600;
-  line-height: 1.05;
+  line-height: 1.08;
+  white-space: nowrap;
   color: var(--text);
-}
-
-.screen-intro {
-  max-width: 52ch;
-  margin: calc(var(--u) * 4) 0 0;
-  font-size: calc(var(--u) * 4.6);
-  line-height: 1.5;
-  color: var(--text-2);
-}
-
-.screen-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: calc(var(--u) * 4) calc(var(--u) * 7);
-  margin-top: calc(var(--u) * 6);
 }
 
 .screen-primary {
   display: inline-flex;
   align-items: center;
-  gap: calc(var(--u) * 2);
+  gap: calc(var(--u) * 2.5);
   margin: var(--u);
-  padding: calc(var(--u) * 2.6) calc(var(--u) * 5);
+  padding: calc(var(--u) * 3.6) calc(var(--u) * 7);
   background: var(--accent);
   color: var(--accent-ink);
   font-family: var(--ff-display);
-  font-size: calc(var(--u) * 5);
+  font-size: max(calc(var(--u) * 6.2), 12px);
   line-height: 1;
   text-decoration: none;
   box-shadow:
@@ -654,43 +668,9 @@ h2:focus {
   background: var(--accent-hi);
 }
 
-.screen-secondary {
-  display: flex;
-  gap: calc(var(--u) * 6);
-}
-
-.screen-secondary a {
-  font-family: var(--ff-text);
-  font-size: calc(var(--u) * 4.6);
-  color: var(--text);
-}
-
-/* Smaller scenes show less instead of shrinking text below reading size. */
-.screen[data-density="mid"] .screen-intro,
-.screen[data-density="mid"] .screen-secondary {
-  display: none;
-}
-
-.screen[data-density="mid"] .screen-name {
-  font-size: max(calc(var(--u) * 10.5), 18px);
-}
-
-.screen[data-density="mid"] .screen-primary {
-  font-size: max(calc(var(--u) * 5), 14px);
-  padding: max(calc(var(--u) * 2.6), 7px) max(calc(var(--u) * 5), 12px);
-}
-
-.screen[data-density="min"] .screen-body {
-  grid-template-columns: calc(var(--u) * 40) minmax(0, 1fr);
-  gap: calc(var(--u) * 8);
-}
-
-.screen[data-density="min"] .screen-name {
-  font-size: max(calc(var(--u) * 10.5), 12px);
-}
-
-.screen[data-density="min"] .screen-intro,
-.screen[data-density="min"] .screen-actions,
+/* Very small scenes (phones): portrait and name only, at a size that still
+   reads; the list under the desk carries the actions. */
+.screen[data-density="min"] .screen-primary,
 .screen[data-density="min"] .screen-photo-empty small {
   display: none;
 }

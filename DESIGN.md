@@ -4,7 +4,7 @@ Owner brief, 2026-10-20. Replaces the earlier 3D bedroom and full-room concepts.
 
 ## Thesis
 
-A nighttime desk drawn as polished pixel art. The monitor is the focal point and
+A close-up of a warm bedroom workspace at early evening, drawn as polished pixel art. The monitor is the focal point and
 opens the professional portfolio. The objects around it carry the owner's
 interests. The art is the scene; everything you read is crisp HTML.
 
@@ -24,26 +24,52 @@ interests. The art is the scene; everything you read is crisp HTML.
   wide, portrait, or under 480px tall) use the compact layout: the scene, only
   as tall as its objects, with every destination listed beneath. Phones in
   portrait use a stacked arrangement: jersey and racket on the wall above the
-  monitor, Pikachu, Pad Thai, headphones and the card in a row in front of the
+  monitor, the Poké Ball group, Pad Thai, headphones and the card in a row in front of the
   keyboard. The layout re-runs on any resize, rotation, zoom or toolbar change.
-- **Monitor screen density:** the full intro and links from scale 2.9; below
-  that, the name and "My Projects"; below 1.8, the name only. Text never
-  shrinks past reading size.
-- **Light:** the monitor's soft warm-ivory glow and an amber light bar on top of it.
+- **Monitor screen density:** portrait, name and "My Projects" from scale 1.5;
+  below that (phones), portrait and name only. Text never shrinks past
+  reading size.
+- **Light:** one soft, neutral-gold wash of early-evening daylight from the
+  window at the left, over wall and desk; a modest glow on the wall behind the monitor; the light
+  bar's warm light rising a little up the wall; and the monitor's light on
+  the desk just in front of it. Three bands at most per light, with short
+  ordered (4x4) dithering only where bands meet. The wall has faint vertical
+  panel seams (a dark line with a lit edge, every 96 art pixels). All of it stays lower in contrast and saturation than the objects,
+  and nothing decorative is yellow or outlined, so it never reads as
+  clickable.
   Shading is flat bands from short palette ramps, with thin 2x2 seams between
   them (`tone()` in `scripts/desk-art/lib.mjs`) and no per-pixel noise.
   Objects carry their own contact shadows on the desk, and the wall objects
   cast offset shadows. Every object has the same 1px darkened silhouette edge.
-- **Palette:** charcoal wall `#0f1014`–`#393e4c`, walnut desk, felt mat. Colour
-  comes only from the objects: Pikachu yellow (flat, sprite-style, with its own dark outline), Barça garnet and blue, racket sky
-  blue, noodles and lime, plus the monitor's ivory screen.
-- **Objects:** jersey (framed, wall left), racket (wall right), monitor (centre,
-  ~47% of the width), keyboard and mouse on the mat, Pikachu and Pad Thai at
-  front left, headphones on the right, a small welcome card at the front. No person, no extra decoration.
+- **Palette:** a warm bedroom workspace: mushroom/taupe wall
+  `#3d312a`–`#8a7565`, matte honey-wood desk `#40291b`–`#a87a53` (no
+  reflections), dark felt mat.
+  Colour comes only from the objects: Poké Ball red and white, Barça garnet
+  and blue, racket sky blue, noodles and lime, plus the monitor's ivory
+  screen. The notebook (slate) and pen (warm grey) stay muted.
+- **Objects and labels** (each group is one destination, one keyboard stop
+  and one shared outline):
+  - Monitor, keyboard and mouse: "Explore my work".
+  - Poké Ball, closed notebook and pen, front left: "Pokémon & Strategy".
+  - Framed jersey (number 22, about 17% smaller than before) with a small
+    soccer ball on a shallow ledge beneath, wall left: "Soccer & FC Barcelona".
+  - Racket with a tennis ball in a small wall cup, wall right: "Tennis".
+  - Headphones resting on a slim walnut stand (cups 20% shorter), right:
+    "What I'm listening to". The stand's outline is quieter than the
+    headphones'.
+  - Pad Thai: "Food & Café Hopping". Welcome card: "Welcome guide".
+  - Decoration: a narrow window with a simple dusk view and a light linen
+    curtain, pinned to the left edge of the visible scene so it crops
+    naturally, with one faint band of window light on the wall. It shows
+    whenever it fits beside the jersey (hidden in the tightest layouts). No
+    outline, label, cursor, hit area or keyboard stop. No person, plant,
+    bed or other props.
+- **Outlines:** a 1-art-pixel yellow ring with a dark ring outside it, so
+  highlights read on light wall and wood as well as dark objects.
 - **Layers:** the background plate (wall, desk surface, mat and the
   computer's shadows), a desk-front strip placed under the front objects, a
-  flat floor, then one PNG per object with its own shadow, a yellow silhouette
-  outline and a hit mask (`scripts/desk-art/`). Objects move with their
+  flat floor, decoration, then one PNG per object with its own shadow, a
+  yellow silhouette outline and a hit mask (`scripts/desk-art/`). Objects move with their
   shadows, outlines, hit masks and labels.
 
 ## Interaction
@@ -54,8 +80,10 @@ interests. The art is the scene; everything you read is crisp HTML.
   "computer" group: hovering any of them outlines all three, with one label
   ("Explore my work") and one keyboard stop.
 - **Monitor screen:** real HTML laid over the glass and sized in art pixels:
-  a preview of Home: the framed portrait, the full name, a short intro, "My
-  Projects", Résumé and Contact Me.
+  a preview of Home. One group, centred below the title bar and about 84% of
+  the screen's width: the framed portrait (4:5 crop, head and shoulders) on
+  the left; the full name on two lines and the "My Projects" button,
+  left-aligned, on the right.
 - **Monitor → /work:** the desk scales toward the screen while the full-screen
   window grows out of the screen's rectangle (0.42s). It opens on Home.
 - **Computer pages, one purpose each:** Home (who I am: portrait, name, bio,
@@ -79,7 +107,7 @@ interests. The art is the scene; everything you read is crisp HTML.
 
 ## Interface system (`src/app/globals.css`)
 
-Outside is dark, inside is light: the desk keeps its night palette; every
+The desk keeps its own muted, warm palette; every
 content surface (the monitor screen, the full-screen monitor, interest
 windows, the welcome window) uses warm ivory.
 

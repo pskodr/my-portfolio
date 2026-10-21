@@ -1,8 +1,8 @@
 import { deskObjects, type DeskObject } from "@/content/destinations";
 import type { Arrangement, Offsets } from "./layout";
-import { FLOOR, FRONT_H, PLATE, SCENE, SCREEN, sprites, type GroupId, type Sprite, type SpriteId } from "./sprites.generated";
+import { FLOOR, FRONT_H, PLATE, SCENE, SCREEN, decor, sprites, type GroupId, type Sprite, type SpriteId } from "./sprites.generated";
 
-export { FLOOR, FRONT_H, PLATE, SCENE, SCREEN, sprites };
+export { FLOOR, FRONT_H, PLATE, SCENE, SCREEN, decor, sprites };
 export type { GroupId, Sprite, SpriteId };
 
 // Where each hover label sits in the desk arrangement, in scene pixels before
@@ -12,10 +12,10 @@ export type Side = "above" | "below" | "left" | "right";
 type Anchor = { x: number; y: number; side: Side };
 const labelAnchors: Record<GroupId, Anchor> = {
   computer: { x: 240, y: 12, side: "above" },
-  jersey: { x: 62, y: 4, side: "above" },
-  pikachu: { x: 64, y: 146, side: "above" },
+  jersey: { x: 58, y: 121, side: "below" },
+  pokemon: { x: 70, y: 200, side: "above" },
   racket: { x: 411, y: 40, side: "left" },
-  headphones: { x: 413, y: 143, side: "above" },
+  headphones: { x: 413, y: 141, side: "above" },
   padthai: { x: 128, y: 246, side: "below" },
   card: { x: 353, y: 237, side: "left" },
 };

@@ -11,10 +11,10 @@ const initials = profile.name
   .join("");
 
 // The monitor's screen as real HTML, laid exactly over the glass in the
-// artwork. Sizes are in art pixels (--u), so it scales with the scene. When the
-// scene is small, it shows less rather than shrinking text: "mid" keeps the
-// name and the main action, "min" keeps the name.
-export type Density = "full" | "mid" | "min";
+// artwork: a preview of Home (portrait, name, My Projects). Sizes are in art
+// pixels (--u), so it scales with the scene. When the scene is too small for
+// the button to read, "min" keeps the portrait and name.
+export type Density = "full" | "min";
 
 export function MonitorScreen({ left, top, s, density }: { left: number; top: number; s: number; density: Density }) {
   const [first, ...rest] = profile.name.split(" ");
@@ -36,35 +36,28 @@ export function MonitorScreen({ left, top, s, density }: { left: number; top: nu
         ~/workspace
       </p>
       <div className="screen-body">
-        <figure className="screen-photo">
-          {profile.photo ? (
-            <Image src={profile.photo.src} alt="" fill sizes="(max-width: 819px) 120px, 240px" />
-          ) : (
-            <span className="screen-photo-empty" aria-hidden>
-              <span>{initials}</span>
-              {showDrafts && <small>Photo to come</small>}
-            </span>
-          )}
-        </figure>
-        <div className="screen-text">
-          <p className="screen-name">
-            {first}
-            <br />
-            {rest.join(" ")}
-          </p>
-          <p className="screen-intro">{profile.monitorIntro}</p>
-          <div className="screen-actions">
+        <div className="screen-group">
+          <figure className="screen-photo">
+            {profile.photo ? (
+              // The photo frame is 64 art pixels wide: ask for exactly that much,
+              // so it is sharp at any scale and device density.
+              <Image src={profile.photo.src} alt="" fill sizes={`${Math.ceil(64 * s)}px`} />
+            ) : (
+              <span className="screen-photo-empty" aria-hidden>
+                <span>{initials}</span>
+                {showDrafts && <small>Photo to come</small>}
+              </span>
+            )}
+          </figure>
+          <div className="screen-text">
+            <p className="screen-name">
+              {first}
+              <br />
+              {rest.join(" ")}
+            </p>
             <Link href="/work/projects" scroll={false} className="screen-primary">
               My Projects <span aria-hidden>→</span>
             </Link>
-            <span className="screen-secondary">
-              <Link href="/work/resume" scroll={false}>
-                Résumé
-              </Link>
-              <Link href="/work/contact" scroll={false}>
-                Contact Me
-              </Link>
-            </span>
           </div>
         </div>
       </div>

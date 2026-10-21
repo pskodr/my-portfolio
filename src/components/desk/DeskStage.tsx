@@ -12,6 +12,7 @@ import {
   FRONT_H,
   PLATE,
   SCREEN,
+  decor,
   groupBox,
   groupForPath,
   groups,
@@ -183,7 +184,8 @@ export function DeskStage() {
       <div className="desk-cam" style={{ transformOrigin: origin }}>
         <div className="desk-art" style={{ left: frame.left, top: frame.top, transform: `scale(${frame.s})` }} aria-hidden>
           {/* The wall and desk surface, then the desk's front edge and the floor
-              under it, then each object's shadow, then the objects. */}
+              under it, then decoration (never interactive), then each object's
+              shadow, then the objects. */}
           <img
             className="px"
             src="/desk/desk-bg.png"
@@ -202,6 +204,25 @@ export function DeskStage() {
             alt=""
           />
           <div className="desk-floor" style={{ left: PLATE.x, top: frame.lipY + FRONT_H, width: PLATE.w }} />
+          {decor.map((d) => {
+            const o = frame.decor[d.id];
+            if (!o) return null;
+            return (
+              <div key={d.id} className="decor">
+                {d.shadow && (
+                  <img
+                    className="px"
+                    src={`/desk/${d.id}-shadow.png`}
+                    width={d.shadow.w}
+                    height={d.shadow.h}
+                    style={{ left: d.shadow.x + o.dx, top: d.shadow.y + o.dy }}
+                    alt=""
+                  />
+                )}
+                <img className="px" src={`/desk/${d.id}.png`} width={d.w} height={d.h} style={{ left: d.x + o.dx, top: d.y + o.dy }} alt="" />
+              </div>
+            );
+          })}
           {sprites.map(
             (s) =>
               s.shadow && (
@@ -225,7 +246,7 @@ export function DeskStage() {
               style={{ left: s.x + frame.offsets[s.group].dx, top: s.y + frame.offsets[s.group].dy, width: s.w, height: s.h }}
             >
               <img className="px" src={`/desk/${s.id}.png`} width={s.w} height={s.h} alt="" />
-              <img className="px sprite-outline" src={`/desk/${s.id}-outline.png`} width={s.w + 2} height={s.h + 2} alt="" />
+              <img className="px sprite-outline" src={`/desk/${s.id}-outline.png`} width={s.w + 4} height={s.h + 4} alt="" />
             </div>
           ))}
         </div>
@@ -235,7 +256,7 @@ export function DeskStage() {
               left={frame.left}
               top={frame.top}
               s={frame.s}
-              density={frame.compact || frame.s < 1.8 ? "min" : frame.s < 2.9 ? "mid" : "full"}
+              density={frame.s < 1.5 ? "min" : "full"}
             />
           </div>
         )}

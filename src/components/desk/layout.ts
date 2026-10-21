@@ -1,4 +1,4 @@
-import { sprites, type GroupId } from "./sprites.generated";
+import { decor, sprites, type GroupId } from "./sprites.generated";
 
 // Lays the desk out to fill the window. The wall and desk surface are one wide
 // plate that always reaches the edges; the objects move to suit the space.
@@ -25,8 +25,8 @@ const SPREAD_CAP = 72; // how far (before scaling by spread) side objects drift 
 // follows spare width (negative = leftward). shortDy: shift in short windows.
 const DESK: Record<GroupId, { dx: number; spread: number; shortDy: number }> = {
   computer: { dx: 0, spread: 0, shortDy: 0 },
-  jersey: { dx: 6, spread: -0.75, shortDy: 8 },
-  pikachu: { dx: 2, spread: -0.65, shortDy: 0 },
+  jersey: { dx: 16, spread: -0.4, shortDy: 6 }, // drifts less, leaving room for the window
+  pokemon: { dx: 2, spread: -0.65, shortDy: 0 },
   padthai: { dx: 0, spread: -0.35, shortDy: -5 },
   racket: { dx: -10, spread: 0.75, shortDy: 8 },
   headphones: { dx: -4, spread: 0.65, shortDy: 0 },
@@ -36,12 +36,21 @@ const DESK: Record<GroupId, { dx: number; spread: number; shortDy: number }> = {
 // Stack arrangement: fixed offsets from the drawn positions.
 const STACK: Offsets = {
   computer: { dx: 0, dy: 0 },
-  jersey: { dx: 146, dy: -113 },
-  racket: { dx: -130, dy: -120 },
-  pikachu: { dx: 84, dy: 72 },
+  jersey: { dx: 151, dy: -116 },
+  racket: { dx: -138, dy: -120 },
+  pokemon: { dx: 86, dy: 74 },
   padthai: { dx: 87, dy: 58 },
-  headphones: { dx: -124, dy: 72 },
+  headphones: { dx: -124, dy: 74 },
   card: { dx: -27, dy: 57 },
+};
+
+// Decoration follows the layout too, but never counts toward the fit. The
+// window is pinned to the left edge of what is visible (cropping naturally),
+// kept clear of the object beside it, and hidden when too little would show.
+// `solid` is the width of its frame and curtain; the light patch beyond it
+// may pass behind objects.
+const DECOR_SPEC: Record<string, { solid: number; beside: GroupId; minVisible: number }> = {
+  window: { solid: 45, beside: "jersey", minVisible: 16 },
 };
 
 // Where the desk's front edge sits (scene y) in each arrangement.
@@ -103,6 +112,7 @@ export type Placement = {
   left: number; // screen position of scene (0, 0)
   top: number;
   offsets: Offsets;
+  decor: Record<string, Offset | null>; // null: hidden in this layout
   lipY: number;
   height: number; // screen height the objects need, padding included
 };
@@ -126,7 +136,18 @@ export function place(arrangement: Arrangement, area: { x: number; y: number; w:
   const spare = Math.max(0, area.h / s - box.h);
   const top = area.y - (box.top - spare * above) * s;
   const left = area.x + area.w / 2 - CENTER * s;
-  return { arrangement, s, left, top, offsets, lipY: LIP_Y[arrangement], height: box.h * s };
+  const visLeft = CENTER - area.w / s / 2;
+  const decorOffsets = Object.fromEntries(
+    decor.map((d) => {
+      const spec = DECOR_SPEC[d.id];
+      if (!spec) return [d.id, null];
+      const neighbour = RAW[spec.beside].x0 + offsets[spec.beside].dx;
+      const x0 = Math.floor(Math.min(visLeft - 3, neighbour - 4 - spec.solid));
+      const visible = x0 + spec.solid - visLeft;
+      return [d.id, visible >= spec.minVisible ? { dx: x0 - d.x, dy: 0 } : null];
+    }),
+  );
+  return { arrangement, s, left, top, offsets, decor: decorOffsets, lipY: LIP_Y[arrangement], height: box.h * s };
 }
 
 // The scale each arrangement would get, to choose between them.

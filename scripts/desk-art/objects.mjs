@@ -13,9 +13,6 @@ export const P = {
   metal: ["#101216", "#171a1f", "#20242a", "#2b3038", "#3a404a", "#4f5662", "#68707d"],
   screen: ["#e1dbcc", "#e8e3d6", "#eee9de", "#f2eee5", "#f5f2e9"], // warm ivory glass, matching the HTML theme
   amber: ["#6b3f17", "#a3652a", "#d8954a", "#f6be78", "#ffdcaa"],
-  pika: ["#5a3f0f", "#86621a", "#b28824", "#d6a92f", "#ecc443", "#f6d866", "#fbe79a"],
-  pikaInk: ["#121216", "#24242a"],
-  cheek: ["#7a2218", "#a8301f", "#cd432c", "#e4613f"],
   garnet: ["#33081a", "#4f0d28", "#6c1336", "#8c1c48", "#a92b5c"],
   blue: ["#0a1631", "#0f234c", "#15336d", "#1d4790", "#2a5db0"],
   navy: ["#070c1d", "#0d1530", "#17224a"],
@@ -160,114 +157,80 @@ export const mouse = {
   },
 };
 
-// ---------- Pikachu ----------
-// Sprite-style: flat yellow with a few deliberate gold/brown clusters and a
-// dark outline, sitting on the desk. Light comes from the monitor (right).
-const PK = {
-  line: "#2b1906",
-  brown: "#8a5317",
-  deep: "#c8851a",
-  gold: "#e3a92a",
-  base: "#f6cf3a",
-  light: "#fbe47e",
-  ink: "#19191e",
-  inkHi: "#3d3d46",
-  red: "#d8352a",
-  redDk: "#9f2018",
-  mouth: "#4a1a08",
-  tongue: "#e9776a",
+// ---------- Poké Ball, notebook and pen ----------
+// One destination (Pokémon & strategy): the ball is the identifying object;
+// the closed notebook and pen (team-building and planning) are muted so they
+// support it. Light comes from the monitor, up and to the right.
+const PB = {
+  red: ["#561417", "#83201e", "#ad2f27", "#cf4535", "#e66a57"],
+  white: ["#75726b", "#a09c93", "#c7c2b6", "#e2ddd1", "#f2eee5"],
+  ink: "#16161a",
+  cover: ["#232833", "#2c3341", "#363e4e", "#424b5d", "#4f596c"],
+  pages: ["#7d776a", "#9f998b"],
+  pen: ["#2f2c27", "#5e584e", "#857d70"],
 };
-const PKL = [0.55, -0.65, 0.55];
+const BALL = { cx: 91, cy: 214.5, r: 11.5 };
+const BALL_LIGHT = [0.55, -0.7, 0.6];
 
-// Flat bands from a bulge value: highlight, base, gold, deep gold.
-const pkBand = (v) => (v > 0.86 ? PK.light : v > 0.5 ? PK.base : v > 0.3 ? PK.gold : PK.deep);
-
-export const pikachu = {
-  id: "pikachu",
-  noSelout: true,
+export const pokemon = {
+  id: "pokemon",
   draw() {
     const L = new Layer();
-    const cx = 64;
-    const head = (x, y) => inEllipse(x, y, cx, 186, 17, 13.5);
-    const body = (x, y) => inEllipse(x, y, cx, 210, 16, 14) && y <= 223;
 
-    // Lightning tail behind the right shoulder; brown where it meets the body
-    const tail = [[77, 214], [84, 207], [80, 203], [91, 195], [87, 191], [99, 180], [104, 184], [95, 192], [99, 196], [88, 204], [92, 208], [80, 219]];
-    L.paint(76, 179, 105, 220, (x, y) => {
-      if (!inPoly(x + 0.5, y + 0.5, tail)) return null;
-      if (y >= 205) return PK.brown;
-      return inPoly(x + 0.5, y - 1.5, tail) ? (x > 93 ? PK.base : PK.gold) : PK.light;
-    });
-
-    // Ears: tapered, black tips, shaded on the side away from the monitor
-    const ear = (bx, by, tx, ty) => {
-      for (let t = 0; t <= 1; t += 0.01) {
-        const ex = bx + (tx - bx) * t;
-        const ey = by + (ty - by) * t;
-        const r = 4.6 * Math.pow(1 - t, 0.55) + 0.6;
-        L.paint(ex - r - 1, ey - r - 1, ex + r + 1, ey + r + 1, (x, y) => {
-          if ((x - ex) ** 2 + (y - ey) ** 2 > r * r) return null;
-          const lit = x >= ex;
-          if (t > 0.62) return lit ? PK.inkHi : PK.ink;
-          return lit ? PK.base : PK.gold;
-        });
+    // Notebook, lying flat and turned slightly: top face, then its page edges.
+    const top = [[38, 205], [78, 202], [83, 215], [41, 218]];
+    const front = [[41, 218], [83, 215], [83, 218], [41, 221]];
+    L.paint(37, 201, 84, 222, (x, y) => {
+      const px = x + 0.5;
+      const py = y + 0.5;
+      if (inPoly(px, py, top)) {
+        if (px < 42.5 + (py - 205) * 0.25) return PB.cover[0]; // spine
+        const strap = Math.abs(px - (72 + (py - 202) * 0.4)) < 0.8;
+        if (strap) return PB.cover[0];
+        return tone(PB.cover, 0.4 + (px - 40) / 90 - (py - 205) / 60, x, y);
       }
-    };
-    ear(54, 178, 41, 149);
-    ear(74, 178, 88, 151);
-
-    // Body, then head on top
-    L.paint(cx - 17, 195, cx + 17, 223, (x, y) => {
-      if (!body(x, y)) return null;
-      if (inEllipse(x, y - 2, cx, 186, 17, 13.5)) return PK.gold; // shadow under the head
-      return pkBand(bulge(x, y, cx + 2, 208, 16, 14, PKL, 0.3, 0.75));
-    });
-    L.paint(cx - 18, 172, cx + 18, 200, (x, y) =>
-      head(x, y) ? pkBand(bulge(x, y, cx + 2, 184, 17, 13.5, PKL, 0.3, 0.8)) : null,
-    );
-    // Seam where the head meets the shoulders
-    L.paint(cx - 17, 196, cx + 17, 202, (x, y) => {
-      const d = Math.abs(x - cx);
-      return d > 8 && body(x, y) && !head(x, y) && head(x, y - 1) ? PK.brown : null;
+      if (inPoly(px, py, front)) {
+        const row = y - Math.round(218 - (px - 41) * (3 / 42));
+        if (row <= 0 || row >= 2) return PB.cover[1];
+        return PB.pages[px > 62 ? 1 : 0];
+      }
+      return null;
     });
 
-    // Paws resting on the belly
-    // Arms: short nubs that reach past the body's sides, so the outline
-    // defines them; a brown contour where they overlap the body
-    [[48, 207, -1], [80, 207, 1]].forEach(([ax, ay, s]) => {
-      const arm = (x, y) => inEllipse(x, y, ax, ay, 4.6, 3.2);
-      L.paint(ax - 6, ay - 4, ax + 6, ay + 4, (x, y) => {
-        if (!arm(x, y)) return null;
-        const inner = s < 0 ? !arm(x + 1, y) : !arm(x - 1, y);
-        if (inner || !arm(x, y + 1)) return PK.brown;
-        return y < ay ? (s > 0 ? PK.light : PK.base) : s > 0 ? PK.base : PK.gold;
-      });
+    // Pen resting diagonally across the cover
+    const pa = [46, 214.5];
+    const pb = [74, 205];
+    L.paint(44, 203, 76, 217, (x, y) => {
+      const d = distToSeg(x + 0.5, y + 0.5, pa[0], pa[1], pb[0], pb[1]);
+      if (d > 1.1) return null;
+      const t = clamp((x + 0.5 - pa[0]) / (pb[0] - pa[0]));
+      if (t < 0.08) return P.silver[1]; // tip
+      if (t > 0.86) return d < 0.6 ? P.silver[2] : P.silver[1]; // clip end
+      const above = y + 0.5 < pa[1] + (pb[1] - pa[1]) * t;
+      return above ? PB.pen[2] : PB.pen[1];
     });
-    // Feet
-    [[55, 224], [73, 224]].forEach(([fx, fy]) =>
-      L.paint(fx - 7, fy - 3, fx + 7, fy + 3, (x, y) => {
-        if (!inEllipse(x, y, fx, fy, 6, 2.6)) return null;
-        return y < fy - 1 ? PK.brown : x > fx ? PK.base : PK.gold;
-      }),
-    );
 
-    // Face
-    const EYE = [".EE.", "EWEE", "EEEE", ".EE."];
-    [[54, 181], [69, 181]].forEach(([ex, ey]) =>
-      EYE.forEach((row, j) => [...row].forEach((c, i) => c !== "." && L.set(ex + i, ey + j, c === "W" ? "#ffffff" : PK.ink))),
-    );
-    [[48, 191], [80, 191]].forEach(([chx, chy]) =>
-      L.paint(chx - 4, chy - 3, chx + 4, chy + 3, (x, y) =>
-        inEllipse(x, y, chx, chy, 3.6, 2.8) ? (y > chy + 1 ? PK.redDk : PK.red) : null,
-      ),
-    );
-    L.set(63, 187, PK.ink);
-    [[61, 190], [66, 190], [62, 191], [65, 191], [63, 192], [64, 192]].forEach(([x, y]) => L.set(x, y, PK.mouth));
-    L.set(63, 191, PK.tongue);
-    L.set(64, 191, PK.tongue);
-
-    // Dark outline around the whole silhouette
-    L.composite(L.outline(PK.line));
+    // Poké Ball: red top, white bottom, a dark band that curves with the
+    // sphere, and the button facing the viewer.
+    const { cx, cy, r } = BALL;
+    L.paint(cx - 12, cy - 12, cx + 12, cy + 12, (x, y) => {
+      const px = x + 0.5;
+      const py = y + 0.5;
+      const dx = px - cx;
+      if (dx * dx + (py - cy) ** 2 > r * r) return null;
+      const bandY = cy + 1.4 * Math.sqrt(Math.max(0, 1 - (dx / r) ** 2));
+      const bd = Math.hypot(dx, py - (cy + 1.4));
+      if (bd <= 2.3) return bd < 1.2 && dx > -0.5 ? PB.white[4] : PB.white[3];
+      if (bd <= 3.9) return PB.ink;
+      if (Math.abs(py - bandY) <= 1) return PB.ink;
+      const v = bulge(px, py, cx, cy, r, r, BALL_LIGHT, 0.2, 0.85);
+      if (py < bandY) return tone(PB.red, v, x, y, 0.1);
+      return tone(PB.white, v * 0.95, x, y, 0.1);
+    });
+    // A small, crisp highlight on the red shell
+    L.set(cx + 4, cy - 7, PB.red[4]);
+    L.set(cx + 5, cy - 7, "#f2a090");
+    L.set(cx + 5, cy - 6, PB.red[4]);
     return L;
   },
 };
@@ -343,10 +306,12 @@ export const padthai = {
   },
 };
 
-// ---------- Headphones (AirPods Max-inspired, space grey, front view) ----------
-// Slim, tall cups with the cushion facing inward, a thin curved band and a
-// mesh canopy under it, joined by short steel arms.
-const HP = { cx: 413, by: 178 };
+// ---------- Headphones on a stand (AirPods Max-inspired, space grey) ----------
+// Slim cups with the cushion facing inward, a thin curved band and a mesh
+// canopy under it, joined by short steel arms. The canopy rests on the walnut
+// top support of a slim stand; the cups hang either side of its stem.
+const HP = { cx: 413, by: 173 };
+const CUP = 32; // shell height (was 40): softly rectangular, not stretched
 
 export const headphones = {
   id: "headphones",
@@ -378,17 +343,17 @@ export const headphones = {
       const shell = side < 0 ? [cx - 31, cx - 22] : [cx + 22, cx + 31];
       const cush = side < 0 ? [cx - 24, cx - 17] : [cx + 17, cx + 24];
       const dim = side < 0 ? 0 : -0.1; // the right cup is further from the light
-      L.paint(cush[0], by + 9, cush[1], by + 48, (x, y) => {
-        if (!inRoundRect(x, y, cush[0], by + 11, cush[1], by + 46, 3)) return null;
+      L.paint(cush[0], by + 9, cush[1], by + CUP + 8, (x, y) => {
+        if (!inRoundRect(x, y, cush[0], by + 11, cush[1], by + CUP + 7, 3)) return null;
         const inner = side < 0 ? x === cush[1] : x === cush[0];
         return tone(P.slate, (inner ? 0.5 : 0.66) + dim, x, y, 0);
       });
-      L.paint(shell[0], by + 8, shell[1], by + 50, (x, y) => {
-        if (!inRoundRect(x, y, shell[0], by + 9, shell[1], by + 49, 4)) return null;
+      L.paint(shell[0], by + 8, shell[1], by + CUP + 10, (x, y) => {
+        if (!inRoundRect(x, y, shell[0], by + 9, shell[1], by + CUP + 9, 4)) return null;
         const outer = side < 0 ? x <= shell[0] + 1 : x >= shell[1] - 1;
         let v = 0.36 + dim + (outer ? (side < 0 ? 0.2 : -0.06) : 0);
         if (y < by + 14) v += 0.08;
-        if (y > by + 45) v -= 0.1;
+        if (y > by + CUP + 5) v -= 0.1;
         return tone(P.slate, v, x, y, 0);
       });
     };
@@ -396,6 +361,34 @@ export const headphones = {
     cup(1);
     // Digital crown on the right cup
     L.paint(cx + 28, by + 5, cx + 30, by + 8, (x, y) => tone(P.slate, y === by + 5 ? 0.7 : 0.5, x, y, 0));
+    return L;
+  },
+};
+
+// The stand: walnut base and top support, a slender dark stem.
+const STAND_WOOD = ["#2a1d14", "#3b2a1d", "#503a28", "#664b34", "#7d5d41"];
+const STAND = { top: HP.by - 22, base: 228 };
+
+export const stand = {
+  id: "stand",
+  group: "headphones",
+  draw() {
+    const L = new Layer();
+    const { cx } = HP;
+    // Top support: a short curved saddle under the headband
+    L.paint(cx - 8, STAND.top, cx + 8, STAND.top + 3, (x, y) => {
+      const arch = Math.round(((x - cx) / 8) ** 2 * 2);
+      if (y < STAND.top + arch || y > STAND.top + arch + 2) return null;
+      return y === STAND.top + arch ? STAND_WOOD[4] : tone(STAND_WOOD, x < cx ? 0.7 : 0.45, x, y);
+    });
+    // Stem
+    L.paint(cx - 1, STAND.top + 3, cx + 1, STAND.base - 4, (x) => (x === cx - 1 ? "#3a3d44" : x === cx ? "#25272c" : "#17181c"));
+    // Base: a low rounded walnut block, lit top, darker front
+    L.paint(cx - 13, STAND.base - 4, cx + 13, STAND.base, (x, y) => {
+      if (!inRoundRect(x, y, cx - 13, STAND.base - 4, cx + 13, STAND.base, 2)) return null;
+      if (y === STAND.base - 4) return STAND_WOOD[4];
+      return tone(STAND_WOOD, (y < STAND.base - 2 ? 0.62 : 0.32) + (cx - x) / 80, x, y);
+    });
     return L;
   },
 };
@@ -422,6 +415,28 @@ function racketPart(x, y) {
 }
 
 export const RACKET_HOOK = [RK.cx, RK.cy + RK.a + 7];
+
+// A tennis ball in a small walnut cup on the wall, beside the grip.
+const TB = { cx: 446.5, cy: 102.5, r: 4.5 };
+const BALL_GREEN = ["#4c561b", "#748326", "#9aaa34", "#bac852", "#d3dc80"];
+const tennisCup = (x, y) => y >= TB.cy + 1 && ((x + 0.5 - TB.cx) / 6) ** 2 + ((y + 0.5 - TB.cy - 1.5) / 5) ** 2 <= 1;
+
+function tennisBall(L) {
+  const { cx, cy, r } = TB;
+  L.paint(cx - 5, cy - 5, cx + 5, cy + 5, (x, y) => {
+    const px = x + 0.5;
+    const py = y + 0.5;
+    if ((px - cx) ** 2 + (py - cy) ** 2 > r * r) return null;
+    const seam = Math.abs(Math.hypot(px - (cx - 6.5), py - cy) - 5.2) < 0.55;
+    if (seam) return "#d9dcc2";
+    return tone(BALL_GREEN, bulge(px, py, cx, cy, r, r, [-0.5, -0.6, 0.6], 0.25, 0.75), x, y, 0.1);
+  });
+  // The cup sits in front of the ball's lower half
+  L.paint(cx - 7, cy, cx + 7, cy + 7, (x, y) => {
+    if (!tennisCup(x, y)) return null;
+    return y === Math.ceil(TB.cy + 1) ? "#7d5d41" : tone(["#2a1d14", "#3b2a1d", "#503a28", "#664b34"], x < cx ? 0.75 : 0.45, x, y);
+  });
+}
 
 export const racket = {
   id: "racket",
@@ -457,6 +472,7 @@ export const racket = {
       }
       return null;
     });
+    tennisBall(L);
     // Wall hook through the throat
     const [hx, hy] = RACKET_HOOK;
     L.paint(hx - 2, hy - 1, hx + 2, hy + 2, (x, y) => {
@@ -474,88 +490,137 @@ export const racket = {
       const t = (y - jy) / (RK_SHAFT - jy);
       return t >= 0 && t <= 1 && Math.abs(x - RK.cx) < 9.5 * (1 - t) + 1.5 ? "#fff" : null;
     });
+    // The tennis ball and its cup
+    L.paint(TB.cx - 7, TB.cy - 5, TB.cx + 7, TB.cy + 7, (x, y) =>
+      (x + 0.5 - TB.cx) ** 2 + (y + 0.5 - TB.cy) ** 2 <= TB.r ** 2 || tennisCup(x, y) ? "#fff" : null,
+    );
     return L;
   },
 };
 
-// ---------- FC Barcelona jersey in a frame ----------
+// ---------- FC Barcelona jersey in a frame, a soccer ball on a ledge ----------
+// The jersey is designed on a 101x113 grid (FR) and drawn into a smaller frame
+// (FRN): every pixel of the frame maps back to the design grid, so the shirt
+// scales cleanly. The lettering and number are drawn at their real size.
 const FR = { x0: 12, y0: 4, x1: 112, y1: 116 };
 const JCX = 62;
+const JK = 0.83; // the framed display is 17% smaller than the design grid
+const FRN = { x0: 16, y0: 6, x1: 16 + Math.round((FR.x1 - FR.x0) * JK), y1: 6 + Math.round((FR.y1 - FR.y0) * JK) };
+const toDesign = (x, y) => [FR.x0 + (x + 0.5 - FRN.x0) / JK, FR.y0 + (y + 0.5 - FRN.y0) / JK];
+const JCXN = FRN.x0 + (JCX - FR.x0) * JK; // the shirt's centre line in the scene
 const jerseyShape = [
   [JCX - 9, 12], [JCX - 22, 16], [JCX - 45, 31], [JCX - 39, 43], [JCX - 30, 37], [JCX - 31, 104],
   [JCX + 31, 104], [JCX + 30, 37], [JCX + 39, 43], [JCX + 45, 31], [JCX + 22, 16], [JCX + 9, 12],
   [JCX + 5, 14], [JCX, 15], [JCX - 5, 14],
 ];
 
-// One continuous numeral: two overlapping lobes with a single opening each.
-function eight(x, y) {
-  const top = ((x - JCX) / 7.5) ** 2 + ((y - 60) / 8) ** 2 <= 1;
-  const bot = ((x - JCX) / 8.5) ** 2 + ((y - 75) / 8.5) ** 2 <= 1;
-  const holeT = ((x - JCX) / 3) ** 2 + ((y - 59.5) / 3.2) ** 2 <= 1;
-  const holeB = ((x - JCX) / 3.5) ** 2 + ((y - 75.5) / 3.8) ** 2 <= 1;
-  return (top || bot) && !holeT && !holeB;
-}
+// A chunky "2" for the number 22: 8x13 with three-pixel strokes.
+const TWO = [
+  ".######.",
+  "########",
+  "###..###",
+  ".....###",
+  ".....###",
+  "....###.",
+  "...###..",
+  "..###...",
+  ".###....",
+  "###.....",
+  "###.....",
+  "########",
+  "########",
+];
+const NUM = { x: Math.round(JCXN) - 9, y: 45 }; // two digits, 2px apart
+const inNumber = (x, y) => {
+  const r = y - NUM.y;
+  if (r < 0 || r >= TWO.length) return false;
+  const c = x - NUM.x;
+  const d = c >= 10 ? c - 10 : c;
+  return d >= 0 && d < 8 && (c < 8 || c >= 10) && TWO[r][d] === "#";
+};
 
 const folds = [
-  // [ax, ay, bx, by, darkness]
+  // [ax, ay, bx, by, darkness], design grid
   [JCX - 29, 39, JCX - 14, 68, 0.2],
   [JCX + 29, 39, JCX + 15, 66, 0.2],
   [JCX - 19, 82, JCX - 17, 103, 0.14],
   [JCX + 21, 86, JCX + 19, 103, 0.14],
 ];
 
+// A shallow walnut ledge under the frame, and a small ball resting on it.
+const LEDGE = { x0: Math.round(JCXN) - 11, x1: Math.round(JCXN) + 11, y: FRN.y1 + 16 };
+const SB = { cx: JCXN + 0.5, cy: LEDGE.y - 5.5, r: 5.5 };
+const WALNUT = ["#2a1d14", "#3b2a1d", "#503a28", "#664b34", "#7d5d41"];
+
 export const jerseyFrame = {
   id: "jersey",
   draw() {
     const L = new Layer();
-    L.paint(FR.x0, FR.y0, FR.x1, FR.y1, (x, y) => {
-      const edge = Math.min(x - FR.x0, FR.x1 - x, y - FR.y0, FR.y1 - y);
+    L.paint(FRN.x0, FRN.y0, FRN.x1, FRN.y1, (x, y) => {
+      const edge = Math.min(x - FRN.x0, FRN.x1 - x, y - FRN.y0, FRN.y1 - y);
       if (edge === 0) return P.frame[2];
       if (edge === 1) return P.frame[1];
-      if (edge === 2) return mix(P.frame[3], COOL, x > 80 ? 0.15 : 0.05);
-      return x > 70 ? "#17181e" : "#131419";
+      if (edge === 2) return mix(P.frame[3], COOL, x > JCXN + 15 ? 0.15 : 0.05);
+      return x > JCXN + 7 ? "#17181e" : "#131419";
     });
-    L.paint(FR.x0 + 3, FR.y0 + 3, FR.x1 - 3, FR.y1 - 3, (x, y) => {
-      if (!inPoly(x + 0.5, y + 0.5, jerseyShape)) return null;
-      const right = x >= JCX;
+    L.paint(FRN.x0 + 3, FRN.y0 + 3, FRN.x1 - 3, FRN.y1 - 3, (x, y) => {
+      const [dx, dy] = toDesign(x, y);
+      if (!inPoly(dx, dy, jerseyShape)) return null;
+      const right = x >= JCXN;
       let v = right ? 0.62 : 0.5; // the monitor is to the right
       for (const [ax, ay, bx, by, k] of folds) {
-        const d = distToSeg(x, y, ax, ay, bx, by);
-        if (d < 1.3) v -= k;
-        else if (d < 2.6 && x > (ax + bx) / 2) v += 0.1; // lit ridge beside each crease
+        const d = distToSeg(dx, dy, ax, ay, bx, by);
+        if (d < 1.4) v -= k;
+        else if (d < 2.8 && dx > (ax + bx) / 2) v += 0.1; // lit ridge beside each crease
       }
-      // underside of the sleeves
-      const sleeve = Math.abs(x - JCX) > 30;
-      if (sleeve && distToSeg(x, y, JCX + Math.sign(x - JCX) * 22, 16, JCX + Math.sign(x - JCX) * 39, 43) < 4) v -= 0.12;
-      const cuff =
-        distToSeg(x, y, JCX - 45, 31, JCX - 39, 43) < 2.4 || distToSeg(x, y, JCX + 45, 31, JCX + 39, 43) < 2.4;
-      if (cuff || (y < 16 && Math.abs(x - JCX) < 10)) return tone(P.navy, v + 0.1, x, y);
-      if (eight(x, y)) return tone(P.gold, right ? 0.8 : 0.62, x, y);
+      const sleeve = Math.abs(dx - JCX) > 30;
+      if (sleeve && distToSeg(dx, dy, JCX + Math.sign(dx - JCX) * 22, 16, JCX + Math.sign(dx - JCX) * 39, 43) < 4) v -= 0.12;
+      const cuff = distToSeg(dx, dy, JCX - 45, 31, JCX - 39, 43) < 2.6 || distToSeg(dx, dy, JCX + 45, 31, JCX + 39, 43) < 2.6;
+      if (cuff || (dy < 16.5 && Math.abs(dx - JCX) < 10)) return tone(P.navy, v + 0.1, x, y);
+      if (inNumber(x, y)) return tone(P.gold, right ? 0.8 : 0.62, x, y);
       return tone(right ? P.blue : P.garnet, v, x, y);
     });
-    // Deep gold outline around the 8
+    // Deep gold edge around the number
     const ring = [];
-    L.paint(JCX - 10, 50, JCX + 10, 85, (x, y) => {
-      if (!eight(x, y) && (eight(x + 1, y) || eight(x - 1, y) || eight(x, y + 1) || eight(x, y - 1))) ring.push([x, y]);
+    L.paint(NUM.x - 1, NUM.y - 1, NUM.x + 19, NUM.y + 14, (x, y) => {
+      if (!inNumber(x, y) && (inNumber(x + 1, y) || inNumber(x - 1, y) || inNumber(x, y + 1) || inNumber(x, y - 1))) ring.push([x, y]);
       return null;
     });
     ring.forEach(([x, y]) => L.set(x, y, P.gold[0]));
-    // Surname, gently arched like a printed nameset
+    // Surname across the shoulders, gently arched like a printed nameset
     const name = "CHIVATXARANUKUL";
-    const startX = JCX - (name.length * 4 - 1) / 2;
+    const startX = Math.round(JCXN - (name.length * 4 - 1) / 2);
     [...name].forEach((ch, i) => {
       const k = (i - (name.length - 1) / 2) / ((name.length - 1) / 2);
-      const lift = Math.round(k * k * 2);
-      text(L, ch, Math.round(startX + i * 4), 40 + lift, (x, y) => tone(P.gold, x >= JCX ? 0.85 : 0.7, x, y));
+      const lift = Math.round(k * k * 1.4);
+      text(L, ch, startX + i * 4, 30 + lift, (x, y) => tone(P.gold, x >= JCXN ? 0.85 : 0.7, x, y));
     });
     // Catalan stripes at the back of the neck, brass plaque
-    for (let d = 0; d < 5; d++) L.rect(JCX - 2 + d, 17, 1, 3, d % 2 ? "#a02428" : "#d9b03a");
-    L.rect(JCX - 7, 108, 14, 3, "#9d8656");
-    L.rect(JCX - 7, 108, 14, 1, "#cdb684");
+    for (let d = 0; d < 5; d++) L.rect(Math.round(JCXN) - 2 + d, 18, 1, 2, d % 2 ? "#a02428" : "#d9b03a");
+    L.rect(Math.round(JCXN) - 6, FRN.y1 - 7, 12, 2, "#9d8656");
+    L.rect(Math.round(JCXN) - 6, FRN.y1 - 7, 12, 1, "#cdb684");
     // Glass: one clean diagonal glint
-    L.paint(FR.x0 + 3, FR.y0 + 3, FR.x1 - 3, FR.y1 - 3, (x, y) => {
-      const d = x - FR.x0 - (y - FR.y0) * 0.55;
-      return d >= 68 && d < 70 ? mix(L.get(x, y), "#ffffff", 0.08) : null;
+    L.paint(FRN.x0 + 3, FRN.y0 + 3, FRN.x1 - 3, FRN.y1 - 3, (x, y) => {
+      const d = x - FRN.x0 - (y - FRN.y0) * 0.55;
+      return d >= 57 && d < 59 ? mix(L.get(x, y), "#ffffff", 0.08) : null;
+    });
+
+    // Ledge: a lit top edge, the front face, and a small bracket below
+    L.paint(LEDGE.x0, LEDGE.y, LEDGE.x1, LEDGE.y + 2, (x, y) =>
+      y === LEDGE.y ? WALNUT[4] : tone(WALNUT, y === LEDGE.y + 1 ? 0.55 : 0.3, x, y),
+    );
+    L.rect(Math.round(JCXN) - 1, LEDGE.y + 3, 3, 2, WALNUT[1]);
+
+    // Soccer ball: white with dark patches, lit from the monitor side
+    const { cx, cy, r } = SB;
+    const patches = [[cx, cy, 1.8], [cx - 4.2, cy - 2.4, 1.6], [cx + 4.2, cy - 2.2, 1.6], [cx - 3, cy + 4, 1.5], [cx + 3.2, cy + 4, 1.5]];
+    L.paint(cx - 6, cy - 6, cx + 6, cy + 6, (x, y) => {
+      const px = x + 0.5;
+      const py = y + 0.5;
+      if ((px - cx) ** 2 + (py - cy) ** 2 > r * r) return null;
+      if (patches.some(([qx, qy, qr]) => (px - qx) ** 2 + (py - qy) ** 2 <= qr * qr)) return "#2a2b31";
+      const v = bulge(px, py, cx, cy, r, r, [0.6, -0.6, 0.55], 0.25, 0.8);
+      return tone(P.cream, v, x, y, 0.1);
     });
     return L;
   },
@@ -579,5 +644,64 @@ export const card = {
   },
 };
 
+// ---------- Window and curtain (decoration only: no outline, label or hit area) ----------
+// A narrow window at the far left of the room with a light linen curtain, and
+// the soft patch of early-evening light it throws on the wall. Drawn on its own
+// tall layer (scene y from the plate's top down to the desk); the page pins it
+// to the left edge of whatever is visible, so it crops naturally.
+const WIN = { top: -260, bottom: 149, w: 112 };
+const WIN_H = WIN.bottom - WIN.top + 1;
+const SKY = [
+  [-70, "#9c9fb2"], // muted dusk blue
+  [10, "#ada6b3"],
+  [70, "#c2aca7"],
+  [110, "#d2b49e"], // pale peach near the horizon
+  [Infinity, "#d8bb9b"],
+];
+const LINEN = ["#a99b85", "#bcae98", "#cdc0aa", "#d9cdb8"];
+const SASH = ["#9f917b", "#b6a891", "#cbbea8"];
+
+export const windowDecor = {
+  id: "window",
+  origin: { x: 0, y: WIN.top },
+  draw() {
+    const L = new Layer(WIN.w, WIN_H);
+    const sy = (ly) => ly + WIN.top; // scene y
+    // City silhouette: a few low blocks, no detail
+    const roof = (x) => 96 + Math.round(hash(Math.floor(x / 5), 7) * 22) - (x > 12 && x < 18 ? 14 : 0);
+    L.paint(0, 0, WIN.w - 1, WIN_H - 1, (x, ly) => {
+      const y = sy(ly);
+      // Wall light patch: one quiet band of warm light to the right of the window
+      const px = 46 + (y + 60) * 0.3;
+      if (x >= 46 && y > -60 && x >= px && x < px + 30) return [236, 214, 170, 26];
+      if (x > 30) return null;
+      // Frame: painted wood, lit on the inner left edges
+      if (x <= 2 || x >= 28 || y === 30 || y === 31) {
+        if (y === 30 || y === 31) return SASH[y === 30 ? 2 : 0];
+        return x === 1 || x === 28 ? SASH[2] : x === 2 ? SASH[0] : SASH[1];
+      }
+      // Glass: dusk sky, then the low city silhouette
+      if (y >= roof(x)) return y > 128 ? "#5c5363" : "#6a6070";
+      return SKY.find(([limit]) => y < limit)[1];
+    });
+    // Curtain: gathered linen hanging over the window's right side, folds lit
+    // from the window (left)
+    L.paint(22, 0, 44, WIN_H - 1, (x, ly) => {
+      const y = sy(ly);
+      const sway = Math.round(Math.sin((y + 40) / 37) * 1.2);
+      const lx = x - 22 - sway;
+      if (lx < 0 || lx > 20) return null;
+      // Soft, uneven folds: a slow wave across the width whose spacing drifts
+      // down the drop, brighter on the side facing the window.
+      const phase = (lx + Math.sin(y / 53) * 1.5) / (5 + Math.sin(lx * 1.7) * 0.8);
+      const fold = 0.5 + 0.5 * Math.cos(phase * Math.PI * 2);
+      const v = fold * 0.7 + (20 - lx) / 60;
+      return LINEN[Math.max(0, Math.min(3, Math.floor(v * 4)))];
+    });
+    return L;
+  },
+};
+
 // Back to front.
-export const ALL = [jerseyFrame, racket, monitor, headphones, pikachu, padthai, keyboard, mouse, card];
+export const ALL = [jerseyFrame, racket, monitor, stand, headphones, pokemon, padthai, keyboard, mouse, card];
+export const DECOR = [windowDecor];

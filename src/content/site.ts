@@ -14,7 +14,8 @@ export const profile = {
   school: "Carnegie Mellon University",
   degree: "B.S. Information Systems, additional major in Business Administration, minor in AI",
   graduation: "Expected May 2028",
-  // Shown on the monitor. Keep it to two or three short sentences.
+  // Not shown at present: the monitor previews Home (photo, name, My Projects).
+  // Kept so the wording is not lost.
   monitorIntro:
     "Product builder studying Information Systems & Business at Carnegie Mellon. I like finding the problem worth solving, shipping the fix, and measuring what changed.",
   // Your portrait, on Home and the monitor. The file lives in /public/media

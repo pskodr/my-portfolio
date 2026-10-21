@@ -14,11 +14,12 @@ copied artwork or logos:
 
 | Object | Notes |
 |---|---|
-| Pikachu | Original sprite-style pixel drawing, seated on the desk. A game sprite the owner supplied was used only as a style reference (flat colour, dark outline, chunky clusters); no pixels were copied. Pikachu is a trademark of Nintendo / Creatures / GAME FREAK / The Pokémon Company; this is a personal, non-commercial reference to the owner's hobby. No official artwork is used. |
-| FC Barcelona jersey | Original drawing in the club's colours with the number 8 and the owner's surname, "CHIVATXARANUKUL". No crest, sponsor or kit-maker logo is drawn. |
-| Tennis racket | Generic racket in sky-blue tones. No brand marks. |
-| Headphones | Original drawing of slim over-ear headphones in space grey with a mesh canopy, drawn from the owner's product reference photo (not traced or copied). No brand marks. |
+| Poké Ball, notebook and pen | Original pixel drawing in code (`scripts/desk-art/objects.mjs`); no reference image or external pixels used. The Poké Ball design is a trademark of Nintendo / Creatures / GAME FREAK / The Pokémon Company; this is a personal, non-commercial reference to the owner's hobby. No official artwork is used. |
+| FC Barcelona jersey and soccer ball | Original drawing in the club's colours with the number 22 and the owner's surname, "CHIVATXARANUKUL", in a frame, with a generic soccer ball on a small walnut ledge. No crest, sponsor or kit-maker logo is drawn. |
+| Tennis racket and ball | Generic racket in sky-blue tones and a generic tennis ball in a small wall cup. No brand marks. |
+| Headphones | Original drawing of slim over-ear headphones in space grey with a mesh canopy, drawn from the owner's product reference photo (not traced or copied), resting on a generic walnut stand drawn from the owner's written description. No brand marks. |
 | Pad Thai, keyboard, mouse, monitor, welcome card | Generic, original. |
+| Room backdrop: wall, desk, window, curtain | Original pixel art drawn in code (`scripts/desk-art/build.mjs`, `objects.mjs`). The owner's AI-generated mockup was used only as written direction for palette and atmosphere; no pixels, lettering or portrait were taken from it. |
 
 ## Fonts
 

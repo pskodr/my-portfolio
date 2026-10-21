@@ -41,11 +41,11 @@ export type DeskObject = { id: string; name: string; label: string; href?: strin
 
 export const deskObjects: DeskObject[] = [
   { id: "computer", name: "Computer", label: "Explore my work", href: "/work" },
-  { id: "pikachu", name: "Pikachu plush", label: "Pokémon & strategy", href: "/pokemon" },
-  { id: "racket", name: "Tennis racket", label: "My tennis game", href: "/tennis" },
-  { id: "jersey", name: "FC Barcelona jersey", label: "Being a Barça fan", href: "/barcelona" },
-  { id: "headphones", name: "Headphones", label: "What I'm listening to", href: "/music" },
-  { id: "padthai", name: "Pad Thai", label: "Food & exploring", href: "/food" },
+  { id: "pokemon", name: "Poké Ball, notebook and pen", label: "Pokémon & Strategy", href: "/pokemon" },
+  { id: "racket", name: "Tennis racket and ball", label: "Tennis", href: "/tennis" },
+  { id: "jersey", name: "FC Barcelona jersey and soccer ball", label: "Soccer & FC Barcelona", href: "/barcelona" },
+  { id: "headphones", name: "Headphones on a stand", label: "What I'm listening to", href: "/music" },
+  { id: "padthai", name: "Pad Thai", label: "Food & Café Hopping", href: "/food" },
   { id: "card", name: "Welcome card", label: "Welcome guide", action: "welcome" },
 ];
 

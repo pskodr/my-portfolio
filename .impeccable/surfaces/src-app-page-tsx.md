@@ -12,7 +12,7 @@ Mode: Experience. The desk is the work; the reading interface stays clean.
 
 THESIS: A polished pixel-art nighttime desk where the monitor is the professional portfolio and the objects around it are the owner's interests. Pixel art for the scene, crisp HTML for everything read.
 
-FIRST VIEWPORT: The desk fills the viewport at an integer pixel scale. Monitor centred (~47% width); jersey and racket on the wall; Pikachu and Pad Thai front-left; keyboard and mouse on the mat; headphones right. A small welcome card sits on the mat; Work / Résumé / Contact / Help top-right.
+FIRST VIEWPORT: The desk fills the viewport at an integer pixel scale. Monitor centred (~47% width); jersey and racket on the wall; Poké Ball, notebook and pen, and Pad Thai front-left; headphones on a stand right; a warm taupe bedroom wall with a narrow window and curtain at the left edge when there is room; jersey (22) with a soccer ball ledge and racket with a tennis ball on the wall; keyboard and mouse on the mat; headphones right. A small welcome card sits on the mat; Work / Résumé / Contact / Help top-right.
 
 SIGNATURE: Hover or focus draws a 1-art-pixel #F5D76E silhouette outline and a Pixelify Sans label; pointers hit-test real pixels. The monitor opens with the terminal window growing out of the screen rectangle.
 

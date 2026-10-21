@@ -49,7 +49,7 @@ Contact (confirmed, all to be shown):
 Content will grow: the owner plans to add photos and more interactivity over time, so sections should be easy to extend with images and new entries.
 
 Site structure (owner brief, 2026-10-20, replaces the 3D bedroom):
-- The homepage is a pixel-art nighttime desk. Monitor, keyboard and mouse open the professional portfolio at /work (Home, which is the profile and introduction; Projects; Résumé; Blogs once posts exist; Personal Interests; Gallery; Contact Me; plus "Beyond work"). Pikachu → Pokémon VGC doubles; racket → tennis; Barça jersey → FC Barcelona; headphones → music; Pad Thai → food & exploring.
+- The homepage is a pixel-art desk in a warm bedroom workspace at early evening. Monitor, keyboard and mouse open the professional portfolio at /work (Home, which is the profile and introduction; Projects; Résumé; Blogs once posts exist; Personal Interests; Gallery; Contact Me; plus "Beyond work"). Poké Ball with notebook and pen → Pokémon VGC doubles; racket and tennis ball → tennis; Barça jersey (22) and soccer ball → FC Barcelona; headphones on a stand → music; Pad Thai → food & café hopping. A window and curtain at the left edge are decoration only.
 - The monitor's "Beyond work" entries and the desk objects open the same pages. New interests can be added to the monitor menu without a desk object.
 - A dismissible welcome card (remembered locally, reopened from Help) and quiet Work / Résumé / Contact shortcuts on the desk.
 - No apps are built yet: never invent apps, users, metrics or results. One clearly labelled sample project demonstrates the layout during development.
@@ -101,7 +101,7 @@ Source: the owner's resume (PDF, provided 2026-10-19; not committed to the repo)
 ## Brand Commitments
 
 Owner brief (2026-10-19, supersedes the earlier "hobbies stay in the background" steer): the room represents the owner, and interests are first-class rooms of the site alongside professional work. The professional path (monitor, plus the Work / Résumé / Contact menu) must still be reachable immediately.
-- The art direction is pinned by the owner: dark charcoal bedroom diorama, angled mostly fixed camera, soft lighting, monitor light spill, muted colors with Barça, Pikachu, and screen accents; no excessive neon or constant floating animation.
+- The art direction is pinned by the owner: dark charcoal bedroom diorama, angled mostly fixed camera, soft lighting, monitor light spill, muted colors with Barça, Poké Ball, and screen accents (Pikachu was replaced by a Poké Ball, notebook and pen, 2026-10-20); no excessive neon or constant floating animation. Updated 2026-10-20: the backdrop is now a warm taupe bedroom wall and honey-wood desk with soft daylight from a window at the left, still close-up and calm.
 
 Earlier steer (2026-10-19), still in force where compatible:
 - Bangkok roots may inform the identity, but quietly. The site must not read as "international student" or raise visa/sponsorship questions.
