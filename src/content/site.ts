@@ -4,7 +4,7 @@
 
 // Drafts: sample projects and "coming soon" placeholders. Set to false before
 // the public release; every draft-only entry and empty slot disappears.
-export const showDrafts = true;
+export const showDrafts = false;
 
 export const profile = {
   name: "Phasakorn Chivatxaranukul",
@@ -12,7 +12,7 @@ export const profile = {
   intro:
     "Hey! I'm Phasakorn, a product builder & business enthusiast studying Information Systems & Business at Carnegie Mellon University.",
   school: "Carnegie Mellon University",
-  degree: "B.S. Information Systems, additional major in Business Administration, minor in AI",
+  degree: "B.S. Information Systems, additional major in Business Administration",
   graduation: "Expected May 2028",
   // Not shown at present: the monitor previews Home (photo, name, My Projects).
   // Kept so the wording is not lost.
