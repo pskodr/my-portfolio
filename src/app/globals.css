@@ -1382,12 +1382,14 @@ h2:focus {
   border-top: 0;
 }
 
+/* A project row: tags, logo and title, description, then quiet metadata
+   beside a "View case study" cue. The whole row is one link. */
 .project-row {
-  display: flex;
-  align-items: center;
-  gap: var(--s-5);
-  padding: var(--s-5) var(--s-2) 26px;
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-3) var(--s-5);
   border-bottom: var(--unit) solid var(--rule);
+  color: var(--text);
   text-decoration: none;
 }
 
@@ -1395,54 +1397,110 @@ h2:focus {
   background: var(--paper);
 }
 
-.project-row-main {
-  display: grid;
-  flex: 1;
-  gap: 6px;
+.project-row-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
 }
 
-.project-row-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 16px;
-  font-family: var(--ff-text);
-  font-size: 13.5px;
-  color: var(--text-3);
+.project-row-head .org-logo {
+  flex: none;
 }
 
 .project-row-title {
   font-family: var(--ff-display);
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
+  text-wrap: balance;
 }
 
 .project-row-summary {
   max-width: 64ch;
   font-size: 16px;
+  line-height: 1.6;
   color: var(--text-2);
 }
 
-.project-row-arrow {
-  flex: none;
+.project-row-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-5);
+}
+
+.project-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 0;
+  font-size: 14px;
   color: var(--text-3);
+}
+
+.project-row-meta span + span::before {
+  content: "\00b7";
+  margin: 0 10px;
+}
+
+.project-row-go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--ff-display);
+  font-size: 16px;
+  color: var(--text);
+}
+
+.project-row-go svg {
   transition: transform 0.2s var(--ease-out);
 }
 
-.project-row:hover .project-row-title {
+.project-row:hover .project-row-title,
+.project-row:hover .project-row-go {
   text-decoration: underline;
   text-decoration-color: var(--link-line);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
 }
 
-.project-row:hover .project-row-arrow {
-  color: var(--text);
+.project-row:hover .project-row-go svg {
+  transform: translateX(3px);
 }
 
-.project-row:hover .project-row-arrow {
-  transform: translateX(4px);
+/* Blog index rows reuse the row with a simpler layout. */
+.project-row-main {
+  display: grid;
+  gap: 6px;
+}
+
+.project-row-arrow {
+  color: var(--text-3);
+}
+
+/* Tags: informational labels in a few quiet, distinct fills. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.tag {
+  padding: 2px 8px 3px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+  background: #f6ecc4;
+  box-shadow: inset 0 0 0 1px rgb(36 36 36 / 0.12);
+}
+
+.tag[data-tone="1"] {
+  background: #e3ebe0;
+}
+
+.tag[data-tone="2"] {
+  background: #e4e6ef;
 }
 
 .facts-row {
@@ -1465,8 +1523,14 @@ h2:focus {
   font-size: 16px;
 }
 
-.status {
-  text-transform: capitalize;
+.status[data-status="ab-test"]::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  background: #c6901f;
+  vertical-align: 2px;
 }
 
 .status[data-status="shipped"]::before {
@@ -1512,6 +1576,381 @@ h2:focus {
 
 .cs-body p {
   margin: 0;
+}
+
+/* Case study page */
+
+.project-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.project-title-row .org-logo {
+  flex: none;
+  width: 56px;
+}
+
+/* At a glance: the facts, then projections kept visibly apart. */
+.glance {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.projected {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5) var(--s-5);
+  border: var(--unit) dashed var(--edge-strong);
+  background: var(--paper);
+}
+
+.projected-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  margin: 0;
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.projected-tag {
+  padding: 1px 8px 2px;
+  font-family: var(--ff-text);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  background: var(--stone);
+}
+
+.projected-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--s-3) var(--s-5);
+  margin: 0;
+}
+
+.projected-figures div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+}
+
+.projected-figures dt {
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+/* Plain-text numerals, not display type: these are estimates. */
+.projected-figures dd {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.projected-note {
+  margin: 0;
+  max-width: 66ch;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* Story sections: full-width heading, reading column beneath. */
+.cs-story {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.cs-part {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.cs-flow {
+  display: grid;
+  gap: var(--s-4);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.cs-flow > p,
+.cs-flow > .bullets {
+  max-width: var(--measure);
+  margin: 0;
+}
+
+.cs-note,
+.cs-proposed {
+  max-width: var(--measure);
+  padding: var(--s-3) var(--s-4) var(--s-4);
+  background: var(--stone);
+  border-left: 4px solid var(--edge-strong);
+}
+
+.cs-proposed {
+  background: transparent;
+  border: var(--unit) dashed var(--edge-strong);
+}
+
+.cs-note p,
+.cs-proposed p {
+  margin: 0;
+}
+
+.cs-note-label {
+  margin-bottom: 4px !important;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text-2);
+}
+
+.cs-proposed .bullets {
+  margin-top: var(--s-2);
+}
+
+.cs-quote {
+  max-width: var(--measure);
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-left: 4px solid var(--accent);
+  background: var(--paper);
+}
+
+.cs-quote blockquote {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.cs-quote blockquote p {
+  margin: 0;
+}
+
+.cs-quote blockquote p::before {
+  content: "\201c";
+}
+
+.cs-quote blockquote p::after {
+  content: "\201d";
+}
+
+.cs-quote figcaption {
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--text-3);
+}
+
+/* Options compared side by side; the chosen one is marked in words and with
+   a heavier frame, not colour alone. */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-4);
+}
+
+.compare-option {
+  display: grid;
+  align-content: start;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 var(--unit) var(--edge);
+}
+
+.compare-option[data-chosen] {
+  box-shadow: inset 0 0 0 var(--unit) var(--text);
+}
+
+.compare-option h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.compare-chosen {
+  padding: 1px 8px 2px;
+  font-family: var(--ff-text);
+  font-size: 12.5px;
+  font-weight: 650;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: inset 0 0 0 1px var(--accent-edge);
+}
+
+.compare-option p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.compare-evidence {
+  padding-top: var(--s-2);
+  border-top: var(--unit) solid var(--rule);
+  color: var(--text-2);
+}
+
+/* Delivered / estimated / not yet known. */
+.cs-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-5);
+}
+
+.cs-columns h3 {
+  margin: 0 0 var(--s-2);
+  font-family: var(--ff-display);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.cs-columns .bullets {
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+/* Simplified flow: steps left to right with arrows, stacked on narrow
+   columns. Ownership is marked by frame style and a legend. */
+.flow {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: var(--s-4);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 var(--unit) var(--edge);
+}
+
+.flow-label {
+  font-family: var(--ff-display);
+  font-size: 16px;
+  color: var(--text-2);
+}
+
+.flow-lane {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.flow-lane-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text-2);
+}
+
+.flow-steps {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flow-step {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  margin-right: 28px;
+  padding: var(--s-2) var(--s-3);
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 var(--unit) var(--edge-strong);
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
+.flow-step:last-child {
+  margin-right: 0;
+}
+
+.flow-step:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  right: -22px;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--text-3);
+}
+
+.flow-step[data-owner="mine"] {
+  background: var(--tint);
+  box-shadow: inset 0 0 0 var(--unit) var(--text);
+}
+
+.flow-step[data-owner="existing"] {
+  background: transparent;
+  box-shadow: none;
+  outline: var(--unit) dashed var(--edge-strong);
+  outline-offset: -2px;
+}
+
+.flow-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+
+.flow-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.flow-legend li::before {
+  content: "";
+  width: 16px;
+  height: 12px;
+}
+
+.flow-legend [data-owner="mine"]::before {
+  background: var(--tint);
+  box-shadow: inset 0 0 0 var(--unit) var(--text);
+}
+
+.flow-legend [data-owner="existing"]::before {
+  outline: var(--unit) dashed var(--edge-strong);
+  outline-offset: -2px;
+}
+
+@container (max-width: 640px) {
+  .flow-steps {
+    flex-direction: column;
+  }
+
+  .flow-step {
+    margin: 0 0 26px;
+  }
+
+  .flow-step:last-child {
+    margin-bottom: 0;
+  }
+
+  .flow-step:not(:last-child)::after {
+    content: "\2193";
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -24px;
+    translate: -50% 0;
+  }
+
+  .project-title-row .org-logo {
+    width: 44px;
+  }
 }
 
 /* Résumé */

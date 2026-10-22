@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { MediaGrid } from "@/components/ui/MediaGrid";
-import { getProject, kindLabels, projects, sectionTitles, type Section } from "@/content/projects";
+import { OrgLogo } from "@/components/ui/OrgLogo";
+import { CaseStudySections, ProjectedImpact } from "@/components/work/CaseStudy";
+import { getProject, kindLabels, projects, sectionTitles, statusLabels, type Section } from "@/content/projects";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -33,6 +35,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/projects/
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
+  const study = p.caseStudy;
   const sections = order.filter((k) => p.sections[k]);
 
   return (
@@ -49,34 +52,57 @@ export default async function ProjectPage({ params }: PageProps<"/work/projects/
       )}
 
       <header className="page-head">
-        <h1 className="page-title">{p.title}</h1>
-        <p className="page-lede">{p.summary}</p>
+        {p.tags.length > 0 && (
+          <p className="tags">
+            {p.tags.map((t, i) => (
+              <span key={t} className="tag" data-tone={i % 3}>
+                {t}
+              </span>
+            ))}
+          </p>
+        )}
+        <div className="project-title-row">
+          {p.logo && <OrgLogo id={p.logo} />}
+          <h1 className="page-title">{p.title}</h1>
+        </div>
+        <p className="page-lede">{study?.intro ?? p.summary}</p>
       </header>
 
-      <dl className="facts-row">
-        <div>
-          <dt>Type</dt>
-          <dd>{kindLabels[p.kind]}</dd>
-        </div>
-        <div>
-          <dt>Status</dt>
-          <dd className="status" data-status={p.status}>
-            {p.status}
-          </dd>
-        </div>
-        {p.org && (
+      <section aria-label="At a glance" className="glance">
+        <dl className="facts-row">
+          {study?.role && (
+            <div>
+              <dt>Role</dt>
+              <dd>{study.role}</dd>
+            </div>
+          )}
+          {!study && (
+            <div>
+              <dt>Type</dt>
+              <dd>{kindLabels[p.kind]}</dd>
+            </div>
+          )}
+          {p.org && (
+            <div>
+              <dt>Organization</dt>
+              <dd>{p.org}</dd>
+            </div>
+          )}
+          {p.timeline && (
+            <div>
+              <dt>Timeline</dt>
+              <dd>{p.timeline}</dd>
+            </div>
+          )}
           <div>
-            <dt>Organization</dt>
-            <dd>{p.org}</dd>
+            <dt>Status</dt>
+            <dd className="status" data-status={p.status}>
+              {statusLabels[p.status]}
+            </dd>
           </div>
-        )}
-        {p.timeline && (
-          <div>
-            <dt>Timeline</dt>
-            <dd>{p.timeline}</dd>
-          </div>
-        )}
-      </dl>
+        </dl>
+        {study?.projected && <ProjectedImpact projected={study.projected} />}
+      </section>
 
       {p.links.length > 0 && (
         <p className="link-row">
@@ -91,18 +117,22 @@ export default async function ProjectPage({ params }: PageProps<"/work/projects/
 
       <MediaGrid ids={p.media} label="Project media" />
 
-      <div className="cs-sections">
-        {sections.map((k) => (
-          <section key={k} className="cs-section" aria-labelledby={`cs-${k}`}>
-            <h2 id={`cs-${k}`} className="cs-heading">
-              {sectionTitles[k]}
-            </h2>
-            <div className="cs-body">
-              <Body value={p.sections[k]!} />
-            </div>
-          </section>
-        ))}
-      </div>
+      {study ? (
+        <CaseStudySections study={study} />
+      ) : (
+        <div className="cs-sections">
+          {sections.map((k) => (
+            <section key={k} className="cs-section" aria-labelledby={`cs-${k}`}>
+              <h2 id={`cs-${k}`} className="cs-heading">
+                {sectionTitles[k]}
+              </h2>
+              <div className="cs-body">
+                <Body value={p.sections[k]!} />
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
