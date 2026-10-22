@@ -73,8 +73,9 @@ export type Flow = {
 export type CaseStudy = {
   intro: string;
   role: string;
-  // Projections, shown apart from facts with their assumptions beside them.
-  projected?: { title: string; figures: { value: string; label: string }[]; note: string };
+  // Projections, shown apart from facts with their assumptions beneath.
+  // `unit` is set smaller beside the value (e.g. "hrs").
+  projected?: { title: string; badge: string; figures: { value: string; unit?: string; label: string }[]; note: string };
   sections: { id: string; title: string; blocks: Block[] }[];
 };
 
@@ -112,7 +113,7 @@ const entries: Project[] = [
     kind: "case-study",
     title: "Connecting guests directly to properties through Agoda’s AI voice agent",
     summary:
-      "Restored a direct-to-property contact option during Agoda’s transition from IVR to conversational AI, reducing the need for an intermediary support handoff.",
+      "Restored a direct property contact option during Agoda’s transition from IVR to voice AI customer service channel, eliminating the need for intermediary support from human agents.",
     status: "ab-test",
     org: "Agoda (Booking Holdings)",
     logo: "agoda",
@@ -120,16 +121,17 @@ const entries: Project[] = [
     tags: ["Product Management", "AI Voice", "Production Experiment"],
     caseStudy: {
       intro:
-        "During my Agoda internship, I restored a direct-to-property contact option that was missing after the move from IVR to conversational AI. I reviewed service flows, sized demand, compared two approaches, and implemented the JavaScript flow logic for a production A/B test.",
-      role: "Technical Product Management Intern, Customer Experience AI Voice Automation team",
+        "During my Agoda internship, I restored a direct property contact customer experience option that was missing after the move from IVR to conversational voice AI. I reviewed standard operating procedure (SOP) flows, sized demand, compared two implementation approaches, prioritized one, and encoded the JavaScript flow logic before testing it in pre-production and a production A/B test.",
+      role: "Technical Product Management Intern",
       projected: {
         title: "Projected impact",
+        badge: "Demand-sizing estimates",
         figures: [
-          { value: "~72", label: "eligible cases/day" },
-          { value: "12–18", label: "potential agent-hours/day" },
-          { value: "~$154K", label: "annualized potential savings" },
+          { value: "~72", label: "Eligible cases per day" },
+          { value: "12–18", unit: "hrs", label: "Potential daily agent capacity saved" },
+          { value: "~$154K", label: "Potential annualized savings" },
         ],
-        note: "Estimates from demand sizing using internal handling-time and cost assumptions. Production impact is still being evaluated.",
+        note: "Projected from demand sizing using internal handling-time and cost assumptions. Actual impact is being evaluated in a production A/B test.",
       },
       sections: [
         {
@@ -138,7 +140,7 @@ const entries: Project[] = [
           blocks: [
             {
               type: "p",
-              text: "Some guests call Agoda about something only their property can help with. A guest might want an extra bed, for example, which can’t be added through the booking platform. Other calls are property-information questions that neither the AI voice agent nor Agoda’s human support agents can answer.",
+              text: "Some guests call Agoda about something only their property can help with. A guest might want an extra bed, for example, which can’t be added through the booking platform post-booking. Other calls are property-information questions that neither the AI voice agent nor Agoda’s human support agents can directly answer.",
             },
             {
               type: "p",
@@ -146,13 +148,13 @@ const entries: Project[] = [
             },
             {
               type: "p",
-              text: "So when the AI couldn’t resolve one of these requests, it escalated the call to an Agoda human agent. The agent would hear the request, then redirect the guest to the property or tell them to contact it. The opportunity was to remove that avoidable handoff by letting guests reach the property directly: a capability I’ll call connect-to-property (CTP).",
+              text: "So when the AI couldn’t resolve this type of request, it escalated the call to an Agoda human agent. The agent would spend 10–15 minutes referencing SOPs and attempting to handle the customer request, before eventually redirecting the guest to the property or telling them to contact it. The opportunity was to remove that costly human-agent step by letting guests reach the property directly: a feature called connect-to-property (CTP).",
             },
           ],
         },
         {
           id: "ownership",
-          title: "My ownership",
+          title: "My role & responsibilities",
           blocks: [
             {
               type: "bullets",
@@ -160,15 +162,15 @@ const entries: Project[] = [
                 "Reviewed and audited the customer-service SOPs.",
                 "Sized demand and eligible call volume with SQL.",
                 "Ideated solutions and compared two ways to offer the connection.",
-                "Implemented the conversational flow logic in JavaScript.",
+                "Encoded the conversational flow logic through an in-house JavaScript-based editor.",
                 "Ran simulations and evaluations, then pre-production testing.",
-                "Took CTP into a production A/B test.",
+                "Ran production A/B test with 10% of calls offered CTP to test its impact on key metrics (Average Handle Time, Customer DSAT Score, Case Automation Rate).",
               ],
             },
             {
               type: "note",
               label: "Where my work ends",
-              text: "The functionality that physically transfers a phone call to a property already existed; I didn’t build it. My work was the conversational flow logic that offers the connection and sends the guest to that existing transfer.",
+              text: "The functionality to physically transfer a phone call to a new line already existed; I handled the conversational flow logic and encoding that offers the connection and sends the guest to that existing transfer based on customer responses.",
             },
           ],
         },
@@ -178,7 +180,7 @@ const entries: Project[] = [
           blocks: [
             {
               type: "p",
-              text: "I compared two approaches. The choice came down to discoverability and potential usage.",
+              text: "I compared two approaches. The choice came down to discoverability, potential usage, and user experience consistency.",
             },
             {
               type: "compare",
@@ -186,20 +188,20 @@ const entries: Project[] = [
                 {
                   title: "A. Contextual offer",
                   when: "Offer the connection only after a guest asks for a special request or property information the AI can’t answer.",
-                  evidence: "Sizing indicated relatively low eligible volume for this trigger.",
+                  evidence: "Sizing indicated lower eligible volume for this trigger, due to supply mismatch (customers not knowing the option exists).",
                 },
                 {
                   title: "B. Upfront offer",
                   when: "Offer the connection proactively at the beginning of the call.",
                   evidence:
-                    "Historical IVR usage supported demand for a more discoverable option, and it restores a capability familiar from the old IVR.",
+                    "Historical IVR usage supported strong demand for a more discoverable option, and it keeps user experience consistent with the old IVR system.",
                   chosen: true,
                 },
               ],
             },
             {
               type: "p",
-              text: "The team proceeded with the upfront offer, with approval from the CX team. A design consideration with this approach is that every call’s opening carries one more option.",
+              text: "Aligned with the CX, Developer and Business Teams on proceeding with the upfront offer.",
             },
           ],
         },
@@ -209,16 +211,16 @@ const entries: Project[] = [
           blocks: [
             {
               type: "p",
-              text: "At the beginning of the call, the AI introduces the option to connect directly to the property alongside the help it can give itself. An illustrative paraphrase, not the production script:",
+              text: "At the beginning of the call, the voice AI introduces the option to connect directly to the property alongside the help it can give itself. An illustrative paraphrase, not the exact production script:",
             },
             {
               type: "quote",
-              text: "Hi, this is the Agoda digital assistant. I can connect you directly to your property, or help with booking information, cancellations, and property information.",
+              text: "Hi, this is the Agoda digital assistant. I can help with booking information, cancellations, and property information, or connect you directly to your property.",
               caption: "Illustrative paraphrase of the call opening",
             },
             {
               type: "p",
-              text: "If a guest asks to speak to the property about an extra-bed request, the flow routes them to the property using the existing transfer functionality. Connecting the call gives the guest a direct line to the property; it doesn’t by itself guarantee that the request is resolved.",
+              text: "If a guest asks to speak to the property about an extra-bed request, the flow identifies the intent to talk to property, updates end-stage and logs intent, then uses existing call transfer functionality to connect the guest with the property.",
             },
             {
               type: "flow",
@@ -226,7 +228,7 @@ const entries: Project[] = [
                 label: "Simplified flow",
                 lanes: [
                   {
-                    title: "Before",
+                    title: "A-side (without CTP)",
                     steps: [
                       { text: "Guest needs property assistance" },
                       { text: "AI cannot resolve the request" },
@@ -235,15 +237,15 @@ const entries: Project[] = [
                     ],
                   },
                   {
-                    title: "With CTP",
+                    title: "B-side (With CTP)",
                     steps: [
                       { text: "Call opening offers a property connection", owner: "mine" },
-                      { text: "Guest chooses the property", owner: "mine" },
-                      { text: "Existing transfer functionality connects the call", owner: "existing" },
+                      { text: "Guest declares CTP request", owner: "mine" },
+                      { text: "Guest call automatically re-routed to property", owner: "existing" },
                     ],
                   },
                 ],
-                legend: { mine: "Flow logic I implemented", existing: "Existing functionality, not built by me" },
+                legend: { mine: "Flow logic I implemented", existing: "API call to existing call-transfer" },
               },
             },
           ],
@@ -254,7 +256,7 @@ const entries: Project[] = [
           blocks: [
             {
               type: "p",
-              text: "CTP is running in a production A/B test that compares calls with the feature against calls without it. Results aren’t available to share yet.",
+              text: "CTP is running in a production A/B test that compares calls with the feature against calls without it.",
             },
             {
               type: "columns",
@@ -273,30 +275,25 @@ const entries: Project[] = [
                     "12–18 agent-hours a day of potential capacity and ~$154K a year in potential savings, using internal handling-time and cost assumptions.",
                     "Presented to the C-suite and adjacent-team PMs to support launch and phased-rollout discussions.",
                   ],
-                },
-                {
-                  title: "Not yet known",
-                  items: ["The A/B test’s results.", "CTP’s actual effect in production."],
-                },
+                }
               ],
             },
           ],
         },
         {
           id: "next",
-          title: "What remains to learn",
+          title: "Future Steps & Handoff",
           blocks: [
             {
               type: "p",
-              text: "The production A/B test is intended to establish CTP’s actual impact. Until it reports, the figures above remain projections.",
+              text: "The production A/B test results will inform CTP’s actual impact on handle time, customer DSAT, and case automation rate.",
             },
             {
               type: "proposed",
-              label: "Proposed follow-up measures (not confirmed experiment metrics)",
+              label: "Additional Future Steps",
               items: [
-                "How often offered connections complete the transfer to the property.",
-                "Whether human-agent escalations for property requests decrease.",
-                "Guest outcomes after reaching the property.",
+                "Monitor guest re-contact rate for cases that enter the CTP flow -> Informs us whether cases routed to CTP are accurately classified and resolved.",
+                "Closely Audit Customer DSAT & Feedback surveys for cases that enter the CTP flow.",
               ],
             },
           ],

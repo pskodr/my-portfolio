@@ -121,20 +121,26 @@ export function CaseStudySections({ study }: { study: CaseStudyContent }) {
   );
 }
 
-// Projections, kept visually apart from facts: a dashed frame, a "projected"
-// label, plain (not display) numerals, and the assumptions right beneath.
+// Projections: a labelled section of three equal cards (value, then what it
+// measures) with the assumptions in a footer beneath, so the figures read
+// clearly as estimates rather than measured results.
 export function ProjectedImpact({ projected }: { projected: NonNullable<CaseStudyContent["projected"]> }) {
   return (
     <section className="projected" aria-labelledby="projected-h">
-      <h2 id="projected-h" className="projected-title">
-        {projected.title}
-        <span className="projected-tag">Estimate</span>
-      </h2>
-      <dl className="projected-figures">
+      <header className="projected-head">
+        <h2 id="projected-h" className="projected-title">
+          {projected.title}
+        </h2>
+        <span className="projected-badge">{projected.badge}</span>
+      </header>
+      <dl className="projected-cards">
         {projected.figures.map((f) => (
-          <div key={f.label}>
+          <div key={f.label} className="projected-card">
             <dt>{f.label}</dt>
-            <dd>{f.value}</dd>
+            <dd>
+              {f.value}
+              {f.unit && <span className="projected-unit"> {f.unit}</span>}
+            </dd>
           </div>
         ))}
       </dl>
